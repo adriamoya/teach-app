@@ -6,7 +6,7 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
 			<!-- <li class="breadcrumb-item"><a href="#">Library</a></li> -->
-			<li class="breadcrumb-item active" aria-current="page">Login</li>
+			<li class="breadcrumb-item active" aria-current="page">Signup</li>
 		</ol>
 	</nav>
 
@@ -20,7 +20,7 @@
 
 	<div class="row justify-content-center">
 		<div class="col-xs-12 col-sm-8">
-			<form role="form" (submit)="login($event, username.value, password.value)">
+			<form role="form" (submit)="signup($event, username.value, password.value)">
 				<div class="form-group">
 					<label class="form-label" for="username">Username</label>
 					<input type="text" #username class="form-control" id="username" placeholder="Username">
@@ -30,7 +30,7 @@
 					<input type="password" #password class="form-control" id="password" placeholder="Password">
 				</div>
 				<button type="submit" class="btn btn-default">Submit</button>
-				<a [routerLink]="['/signup']">Click here to signup</a>
+				<a [routerLink]="['/login']">Click here to login</a>
 			</form>
 		</div>
 	</div>

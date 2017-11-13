@@ -29,10 +29,11 @@ import { AssignaturesCreateComponent } from './assignatures-create/assignatures-
 import { ProvesCreateComponent } from './proves-create/proves-create.component';
 import { ProvesUpdateComponent } from './proves-update/proves-update.component';
 import { ProvesUpdateDetailComponent } from './proves-update/proves-update-detail.component';
+import { LoginDetailComponent } from './login-detail/login-detail.component';
+import { SignupDetailComponent } from './signup-detail/signup-detail.component';
 
 import { Ng2TagsInputItem } from "./tags-input/ng2-tagsinput-item";
 import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
-import { LoginDetailComponent } from './login-detail/login-detail.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { LoginDetailComponent } from './login-detail/login-detail.component';
     Ng2TagsInputItem,
     Ng2TagsInput,
     LoginDetailComponent,
+    SignupDetailComponent,
   ],
   imports: [
     AppRoutingModule,

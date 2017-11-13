@@ -15,6 +15,7 @@ import { ProfileDetailComponent } from './profile-detail/profile-detail.componen
 import { ProvesCreateComponent } from './proves-create/proves-create.component';
 import { ProvesDetailComponent } from './proves-detail/proves-detail.component';
 import { ProvesUpdateComponent } from './proves-update/proves-update.component';
+import { SignupDetailComponent } from './signup-detail/signup-detail.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginDetailComponent
+  },
+  {
+    path: 'signup',
+    component: SignupDetailComponent
   },
   {
     path: 'assignatures',
