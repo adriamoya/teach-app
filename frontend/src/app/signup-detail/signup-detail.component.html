@@ -20,17 +20,51 @@
 
 	<div class="row justify-content-center">
 		<div class="col-xs-12 col-sm-8">
-			<form role="form" (submit)="signup($event, username.value, password.value)">
+			<form role="form" 
+			(submit)="signup($event, username.value, email.value, email2.value, password.value)">
+				<!-- Username -->
 				<div class="form-group">
 					<label class="form-label" for="username">Username</label>
-					<input type="text" #username class="form-control" id="username" placeholder="Username">
+					<input type="text" #username class="form-control" id="username">
+					<p style="color: #636c72; margin: auto;"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></p>
+					<div style="margin-top: 10px;" *ngIf="usernameError" class="alert alert-danger" role="alert">
+						<span *ngFor="let error of usernameError">
+							{{ error }}
+						</span>
+					</div>
 				</div>
+				<!-- Email -->
+				<div class="form-group">
+					<label class="form-label" for="email">Email Address</label>
+					<input type="text" #email class="form-control" id="email">
+					<div style="margin-top: 10px;" *ngIf="emailError" class="alert alert-danger" role="alert">	
+						<span *ngFor="let error of emailError">
+							{{ error }}
+						</span>
+					</div>
+				</div>
+				<!-- Confirm email -->
+				<div class="form-group">
+					<label class="form-label" for="email2">Confirm Email</label>
+					<input type="text" #email2 class="form-control" id="email2">
+					<div style="margin-top: 10px;" *ngIf="email2Error" class="alert alert-danger" role="alert">	
+						<span *ngFor="let error of email2Error">
+							{{ error }}
+						</span>
+					</div>
+				</div>
+				<!-- Password -->
 				<div class="form-group">
 					<label class="form-label" for="password">Password</label>
 					<input type="password" #password class="form-control" id="password" placeholder="Password">
+					<div style="margin-top: 10px;" *ngIf="passwordError" class="alert alert-danger" role="alert">	
+						<span *ngFor="let error of passwordError">
+							{{ error }}
+						</span>
+					</div>
 				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
-				<a [routerLink]="['/login']">Click here to login</a>
+				<button type="submit" class="btn btn-default float-left">Submit</button>
+				<a class="float-right" [routerLink]="['/login']">Click here to login</a>
 			</form>
 		</div>
 	</div>

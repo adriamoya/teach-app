@@ -23,14 +23,29 @@
 			<form role="form" (submit)="login($event, username.value, password.value)">
 				<div class="form-group">
 					<label class="form-label" for="username">Username</label>
-					<input type="text" #username class="form-control" id="username" placeholder="Username">
+					<input type="text" #username class="form-control" id="username">
+					<div style="margin-top: 10px;" *ngIf="usernameError" class="alert alert-danger" role="alert">	
+						<span *ngFor="let error of usernameError">
+							{{ error }}
+						</span>
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="form-label" for="password">Password</label>
-					<input type="password" #password class="form-control" id="password" placeholder="Password">
+					<input type="password" #password class="form-control" id="password">
+					<div style="margin-top: 10px;" *ngIf="passwordError" class="alert alert-danger" role="alert">	
+						<span *ngFor="let error of passwordError">
+							{{ error }}
+						</span>
+					</div>
 				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
-				<a [routerLink]="['/signup']">Click here to signup</a>
+				<div style="margin-top: 10px;" *ngIf="nonFieldError" class="alert alert-danger" role="alert">	
+					<span *ngFor="let error of nonFieldError">
+						{{ error }}
+					</span>
+				</div>
+				<button type="submit" class="btn btn-default float-left">Submit</button>
+				<a class="float-right" [routerLink]="['/signup']">Click here to signup</a>
 			</form>
 		</div>
 	</div>

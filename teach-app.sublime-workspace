@@ -95,6 +95,32 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "frontend/src/app/home/home.component.ts",
+			"settings":
+			{
+				"buffer_size": 926,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "frontend/src/app/services/assignatures.service.spec.ts",
+			"settings":
+			{
+				"buffer_size": 410,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "frontend/src/app/services/user-changes.service.spec.ts",
+			"settings":
+			{
+				"buffer_size": 0,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -133,10 +159,39 @@
 	},
 	"expanded_folders":
 	[
-		"/home/amoya/python/teach-app"
+		"/home/amoya/python/teach-app",
+		"/home/amoya/python/teach-app/frontend",
+		"/home/amoya/python/teach-app/frontend/src",
+		"/home/amoya/python/teach-app/frontend/src/app",
+		"/home/amoya/python/teach-app/frontend/src/app/assignatures-list",
+		"/home/amoya/python/teach-app/frontend/src/app/services"
 	],
 	"file_history":
 	[
+		"/home/amoya/python/teach-app/frontend/src/app/services/user.changes.service.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/navbar/navbar.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/login-detail/login-detail.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/navbar/navbar.component.html",
+		"/home/amoya/python/teach-app/frontend/src/app/home/home.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/home/home.component.html",
+		"/home/amoya/python/teach-app/frontend/src/app/login-detail/login-detail.component.html",
+		"/home/amoya/python/teach-app/frontend/src/app/services/headers.ts",
+		"/home/amoya/python/teach-app/backend/teach/settings.py",
+		"/home/amoya/python/teach-app/requirements.txt",
+		"/home/amoya/python/teach-app/backend/accounts/urls.py",
+		"/home/amoya/python/teach-app/backend/teach/urls.py",
+		"/home/amoya/python/teach-app/frontend/src/app/signup-detail/signup-detail.component.html",
+		"/home/amoya/python/teach-app/backend/accounts/serializers.py",
+		"/home/amoya/python/teach-app/backend/accounts/views.py",
+		"/home/amoya/python/teach-app/frontend/src/app/signup-detail/signup-detail.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/app.routing.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/app.module.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/services/auth.guard.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/services/assignatures.service.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/assignatures-list/assignatures-list.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/app.component.ts",
+		"/home/amoya/python/teach-app/frontend/.angular-cli.json",
+		"/home/amoya/python/teach-app/backend/assignatures/views.py",
 		"/home/amoya/python/angular-app/src/app/assignatures-detail/assignatures-detail.component.html",
 		"/home/amoya/python/angular-app/src/app/app.module.ts",
 		"/home/amoya/python/angular-app/src/styles.css",
@@ -242,6 +297,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"angular-app"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -259,8 +315,97 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "frontend/src/app/home/home.component.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 926,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								733,
+								733
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "frontend/src/app/services/assignatures.service.spec.ts",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 410,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "frontend/src/app/services/user-changes.service.spec.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],

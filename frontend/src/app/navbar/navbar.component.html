@@ -107,11 +107,21 @@
 
 			<!-- How to get the id of the user -->
 			<ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-				<li role="menuitem"><a class="dropdown-item" routerLink="/perfil/1" routerLinkActive="active">Perfil</a></li>
-				<li role="menuitem"><a class="dropdown-item" href="#">Configuració</a></li>
-				<li role="menuitem"><a class="dropdown-item" href="#">Ajuda</a></li>
-				<li class="divider dropdown-divider"></li>
-				<li role="menuitem"><a class="dropdown-item" href="#">Log out</a></li>
+				<div *ngIf="!username">
+					<li role="menuitem"><a class="dropdown-item" href="#">Configuració</a></li>
+					<li role="menuitem"><a class="dropdown-item" href="#">Ajuda</a></li>
+					<li class="divider dropdown-divider"></li>
+					<li *ngIf="!username" role="menuitem"><a class="dropdown-item" routerLink="/login/" routerLinkActive="active">Log in</a></li>
+				</div>
+				<div *ngIf="username">
+					<li role="menuitem"><span class="dropdown-item">Hola, <strong>{{ username }}</strong>!</span></li>
+					<li class="divider dropdown-divider"></li>
+					<li role="menuitem"><a class="dropdown-item" routerLink="/perfil/1" routerLinkActive="active">Perfil</a></li>
+					<li role="menuitem"><a class="dropdown-item" href="#">Configuració</a></li>
+					<li role="menuitem"><a class="dropdown-item" href="#">Ajuda</a></li>
+					<li class="divider dropdown-divider"></li>
+					<li *ngIf="username" role="menuitem"><a class="dropdown-item" (click)="logout()">Log out</a></li>
+				</div>
 			</ul>
 		</div>
 
