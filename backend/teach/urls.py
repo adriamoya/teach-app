@@ -7,6 +7,7 @@ from .views import api_root
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/$', api_root),
+    url(r'^api/users/', include("accounts.urls", namespace='users-api')),
     url(r'^api/alumnes/', include("alumnes.urls", namespace='alumnes-api')),
     url(r'^api/assignatures/', include("assignatures.urls", namespace='assignatures-api')),
     url(r'^api/professors/', include("professors.urls", namespace='professors-api')),
