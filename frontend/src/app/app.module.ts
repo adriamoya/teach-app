@@ -3,13 +3,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
-
 // third-party imports
 import { AccordionModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap';
 import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
+
+import { AuthGuard } from './services/auth.guard';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -30,6 +32,7 @@ import { ProvesUpdateDetailComponent } from './proves-update/proves-update-detai
 
 import { Ng2TagsInputItem } from "./tags-input/ng2-tagsinput-item";
 import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
+import { LoginDetailComponent } from './login-detail/login-detail.component';
 
 
 @NgModule({
@@ -52,6 +55,7 @@ import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
 
     Ng2TagsInputItem,
     Ng2TagsInput,
+    LoginDetailComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -71,7 +75,7 @@ import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
     Ng2TagsInputItem,
     Ng2TagsInput
   ],
-  providers: [],
+  providers: [AUTH_PROVIDERS, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

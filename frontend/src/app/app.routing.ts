@@ -1,6 +1,8 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './services/auth.guard';
+
 import { HomeComponent }   from './home/home.component';
 import { AlumnesListComponent } from './alumnes-list/alumnes-list.component';
 import { AlumnesDetailComponent } from './alumnes-detail/alumnes-detail.component';
@@ -8,6 +10,7 @@ import { AssignaturesCreateComponent } from './assignatures-create/assignatures-
 import { AssignaturesListComponent } from './assignatures-list/assignatures-list.component';
 import { AssignaturesDetailComponent } from './assignatures-detail/assignatures-detail.component';
 import { AssignaturesUpdateComponent } from './assignatures-update/assignatures-update.component';
+import { LoginDetailComponent } from './login-detail/login-detail.component';
 import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
 import { ProvesCreateComponent } from './proves-create/proves-create.component';
 import { ProvesDetailComponent } from './proves-detail/proves-detail.component';
@@ -21,7 +24,12 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginDetailComponent
   },
   {
     path: 'assignatures',
