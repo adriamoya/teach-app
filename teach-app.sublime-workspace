@@ -1,0 +1,353 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Assi",
+				"AssignaturaDetailSerializer"
+			],
+			[
+				"Assig",
+				"AssignaturaListSerializer"
+			],
+			[
+				"deta",
+				"detail_url"
+			],
+			[
+				"get_as",
+				"get_assignatura_detail_url"
+			],
+			[
+				"Is",
+				"IsAuthenticated"
+			],
+			[
+				"per",
+				"permission_classes"
+			],
+			[
+				"IsA",
+				"IsAuthenticatedOrReadOnly"
+			],
+			[
+				"emai",
+				"email_address"
+			],
+			[
+				"alum",
+				"alumne_assignatures"
+			],
+			[
+				"Seri",
+				"SerializerMethodField"
+			],
+			[
+				"Alu",
+				"AlumneListSerializer"
+			],
+			[
+				"Al",
+				"AlumneModelAdmin"
+			],
+			[
+				"Clas",
+				"ClasseModelAdmin"
+			],
+			[
+				"CLI",
+				"CLIENT_SECRET"
+			],
+			[
+				"C",
+				"CLIENT_ID"
+			],
+			[
+				"paddi",
+				"padding-top"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"chart",
+				"chart-row-spenders"
+			],
+			[
+				"max",
+				"maxDate"
+			],
+			[
+				"spen",
+				"spendPerSegmento"
+			],
+			[
+				"spendPer",
+				"spendPerName"
+			],
+			[
+				"Sald",
+				"SaldosRetrieve"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "packa",
+		"selected_items":
+		[
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/amoya/python/teach-app"
+	],
+	"file_history":
+	[
+		"/home/amoya/python/angular-app/src/app/assignatures-detail/assignatures-detail.component.html",
+		"/home/amoya/python/angular-app/src/app/app.module.ts",
+		"/home/amoya/python/angular-app/src/styles.css",
+		"/home/amoya/python/angular-app/src/app/alumnes-detail/alumnes-detail.component.ts",
+		"/home/amoya/python/angular-app/src/app/alumnes-detail/alumnes-detail.component.css",
+		"/home/amoya/python/angular-app/src/assets/json/alumnes-detail.json",
+		"/home/amoya/python/angular-app/src/app/app.routing.ts",
+		"/home/amoya/python/angular-app/src/app/alumnes-list/alumnes-list.component.html",
+		"/home/amoya/python/angular-app/.gitignore",
+		"/home/amoya/python/teach/backend/static/ang/index.html",
+		"/home/amoya/python/teach/backend/teach/urls.py",
+		"/home/amoya/python/teach/backend/teach/settings.py",
+		"/home/amoya/python/teach/backend/templates/ang_home.html",
+		"/home/amoya/python/teach/backend/README.md",
+		"/home/amoya/python/teach/frontend/README.md",
+		"/home/amoya/python/teach/teach.sublime-project",
+		"/home/amoya/python/teach/frontend/hello.txt",
+		"/home/amoya/python/teach/src/alumnes/serializers.py",
+		"/home/amoya/python/teach/src/alumnes/models.py",
+		"/home/amoya/python/teach/.gitignore",
+		"/home/amoya/python/teach/backend/alumnes/serializers.py",
+		"/home/amoya/python/teach/src/alumnes/views.py",
+		"/home/amoya/python/teach/src/assignatures/serializers.py",
+		"/home/amoya/python/teach/src/assignatures/views.py",
+		"/home/amoya/python/teach/src/assignatures/models.py",
+		"/home/amoya/python/teach/src/teach/settings.py",
+		"/home/amoya/python/teach/src/assignatures/urls.py",
+		"/home/amoya/python/teach/src/proves/models.py",
+		"/home/amoya/python/teach/src/professors/models.py",
+		"/home/amoya/python/teach/src/teach/permissions.py",
+		"/home/amoya/python/teach/src/professors/views.py",
+		"/home/amoya/python/teach/src/professors/serializers.py",
+		"/home/amoya/python/teach/src/proves/views.py",
+		"/home/amoya/python/teach/src/teach/views.py",
+		"/home/amoya/python/teach/src/teach/urls.py",
+		"/home/amoya/python/teach/src/proves/serializers.py",
+		"/home/amoya/python/teach/src/alumnes/urls.py",
+		"/home/amoya/python/teach/src/proves/urls.py",
+		"/home/amoya/python/teach/src/professors/admin.py",
+		"/home/amoya/python/teach/src/classes/serializers.py",
+		"/home/amoya/python/teach/src/classes/urls.py",
+		"/home/amoya/python/teach/src/classes/views.py",
+		"/home/amoya/python/teach/src/classes/admin.py",
+		"/home/amoya/python/teach/src/classes/models.py",
+		"/home/amoya/python/teach/src/professors/urls.py",
+		"/home/amoya/python/teach/src/assignatures/api/urls.py",
+		"/home/amoya/python/teach/src/assignatures/api/views.py",
+		"/home/amoya/python/teach/src/assignatures/api/serializers.py",
+		"/home/amoya/python/teach/src/proves/api/serializers.py",
+		"/home/amoya/python/teach/src/proves/api/urls.py",
+		"/home/amoya/python/teach/src/proves/api/views.py",
+		"/home/amoya/python/teach/src/classes/api/serializers.py",
+		"/home/amoya/python/teach/src/proves/api/__init__.py",
+		"/home/amoya/python/teach/src/alumnes/api/serializers.py",
+		"/home/amoya/python/teach/src/alumnes/api/views.py",
+		"/home/amoya/python/teach/src/alumnes/api/urls.py",
+		"/home/amoya/python/teach/src/assignatures/api/__init__.py",
+		"/Users/moyandreu/Documents/python/teach/src/teach/settings.py",
+		"/Users/moyandreu/Documents/python/teach/src/assignatures/__init__.py",
+		"/Users/moyandreu/Documents/python/teach/src/assignatures/admin.py",
+		"/Users/moyandreu/Documents/python/teach/src/assignatures/models.py",
+		"/Users/moyandreu/Documents/python/teach/src/assignatura/admin.py",
+		"/Users/moyandreu/Documents/python/teach/src/assignatura/models.py",
+		"/Users/moyandreu/Documents/python/teach/src/alumne/models.py",
+		"/Users/moyandreu/Documents/python/teach/src/alumne/admin.py",
+		"/Users/moyandreu/Documents/python/teach/src/classe/admin.py",
+		"/Users/moyandreu/Documents/python/teach/src/classe/models.py",
+		"/Users/moyandreu/Documents/python/ideas_landing/src/ideas/base.py",
+		"/Users/moyandreu/Documents/python/ideas_landing/src/ideas/settings/__init__.py",
+		"/Users/moyandreu/Documents/python/restaurants_bcn/data/foursquare/README.txt",
+		"/Users/moyandreu/Documents/python/restaurants_bcn/data/foursquare/FourSquareAuth.txt",
+		"/Users/moyandreu/Documents/python/visualization/financial_dashboard/input/saldos_BS4.csv",
+		"/Users/moyandreu/Documents/python/visualization/financial_dashboard/static/css/dc.css",
+		"/Users/moyandreu/Documents/python/visualization/financial_dashboard/input/saldos_BS3.csv",
+		"/Users/moyandreu/Documents/python/visualization/financial_dashboard/templates/index.html",
+		"/Users/moyandreu/Documents/python/visualization/financial_dashboard/static/lib/js/dc.min.js",
+		"/Users/moyandreu/Documents/python/visualization/financial_dashboard/templates/index_old.html",
+		"/Users/moyandreu/Desktop/d3_visualization/index.html",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/website/views.py",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/navbar.html",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/djangoviz/urls.py",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/saldos.html",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/djangoviz/views.py",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/base.html",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/index.html",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/website/models.py",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/website/urls.py",
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/home.html"
+	],
+	"find":
+	{
+		"height": 70.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 63.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "teach-app.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 306.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

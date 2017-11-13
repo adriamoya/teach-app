@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const endpoint = 'assets/json/'; // yourdomain.com/api/...
+const endpoint = 'http://127.0.0.1:8000/api/assignatures/'; // eventually run from '/api/assignatures/'
 
 @Injectable()
 export class AssignaturesService {
@@ -16,9 +16,11 @@ export class AssignaturesService {
 	list(){
 		/* We get the data from static JSONs within /assets/json.
 		   We will eventually direct the endpoint to our API. */
-		let fileName = 'assignatures-list.json';
-		return this._http.get(endpoint+fileName)
-						.map(response=>response.json())
+		return this._http.get(endpoint)
+						.map(response => response.json())
+							// console.log(response);
+							// return response.json()
+							// })
 						.catch(this.handleError);
 	};
 
@@ -27,8 +29,11 @@ export class AssignaturesService {
 	get(id){
 		/* We get the data from static JSONs within /assets/json.
 		   We will eventually direct the endpoint to our API. */
-		let fileName = 'assignatures-detail.json';
-		return this._http.get(endpoint+fileName)
+
+		// Authentication credentials were not provided.
+		// let headers = new Headers({'Content-Type': 'application/json'});
+		// let options = new RequestOptions({headers: headers});
+		return this._http.get(endpoint + id + "/")
 						.map(response=>{
 							let data = response.json().filter(item => {
 										if (item.id == id) {
