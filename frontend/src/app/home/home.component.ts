@@ -15,6 +15,7 @@ import { UserChangesService } from '../services/user-changes.service';
 
 export class HomeComponent implements OnInit {
 
+	public loading = false;
 	req_username: any;
 	req_token: any;
 	username: string;
@@ -25,11 +26,14 @@ export class HomeComponent implements OnInit {
 	constructor(public _userChanges: UserChangesService) {}
 
 	ngOnInit() {
+		this.loading = true;
 		this.req_username = this._userChanges.get_username().subscribe(data => {
+			this.loading = false;
 			this.username = data;
 		});
 
 		this.req_token = this._userChanges.get_token().subscribe(data => {
+			this.loading = false;
 			this.token = data;
 		});
 	}

@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { AccordionModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap';
+import { LoadingModule } from 'ngx-loading';
 import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
@@ -70,8 +71,9 @@ import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
 	  // ngx-bootstrap
     AccordionModule.forRoot(),
     NgbModule.forRoot(),
-	BsDropdownModule.forRoot(),
+	  BsDropdownModule.forRoot(),
     CollapseModule,
+    LoadingModule
   ],
   exports: [
     Ng2TagsInputItem,
