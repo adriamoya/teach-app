@@ -1,0 +1,163 @@
+[
+	{
+		"id": 1,
+		"nom": "Matemàtiques",
+		"bio": "La matemàtica és un art, però també una ciència d'estudi. Informalment, es pot afirmar que la matemàtica és l'estudi dels «nombres i símbols», és a dir, la investigació d'estructures abstractes definides axiomàticament utilitzant la lògica i la notació matemàtica. És també la ciència de les relacions espacials i quantitatives. Es tracta de relacions exactes que existeixen entre quantitats i magnituds, i dels mètodes pels quals, d'acord amb aquestes relacions, les quantitats buscades són deduïbles a partir d'altres quantitats conegudes o pressuposades. Altres punts de vista poden trobar-se en la filosofia de les matemàtiques.",
+		"curs": "2017/2018",
+		"color": "#a8dff5",
+		"alumne_count": 2,
+		"professor_assignatures": [
+			{
+				"nom": "Adela",
+				"primer_cognom": "Ortiz"
+			},
+			{
+				"nom": "Carmelo",
+				"primer_cognom": "Moya"
+			}
+		],
+		"proves": [
+			{
+				"id": 1,
+				"nom": "Test 1",
+				"data": "2017-09-22T10:00",
+				"puntuacio_total": 10,
+				"puntuacio_promig": 7.82,
+				"pes_nota": 0.15,
+				"continguts_avaluats": [
+					"Ecuacions"
+				]
+			},
+			{
+				"id": 2,
+				"nom": "Test 2",
+				"data": "2017-10-08T10:00",
+				"puntuacio_total": 10,
+				"puntuacio_promig": 7.06,
+				"pes_nota": 0.15,
+				"continguts_avaluats": [
+					"Ecuacions de segon grau"
+				]
+			},
+			{
+				"id": 3,
+				"nom": "Examen 1",
+				"data": "2017-09-22T10:00",
+				"puntuacio_total": 10,
+				"puntuacio_promig": 6.29,
+				"pes_nota": 0.30,
+				"continguts_avaluats": [
+					"Ecuacions",
+					"Ecuacions de segon grau",
+					"Funcions"
+				]
+			}
+		], 
+		"alumnes": [
+			{
+				"id": 1,
+				"color": "#e2b6e4", 
+				"nom": "Mònica",
+				"primer_cognom": "Andreu",
+				"segon_cognom": "Balañá"
+			},
+			{
+				"id": 2,
+				"color": "#8adcb2",
+				"nom": "Adrià",
+				"primer_cognom": "Moya",
+				"segon_cognom": "Ortiz"
+			}
+		]
+	},
+	{
+		"id": 2,
+		"nom": "Català",
+		"curs": "2017/2018",
+		"color": "#c76d6d",
+		"alumne_count": 6,
+		"professor_assignatures": [
+			{
+				"nom": "Adela",
+				"primer_cognom": "Ortiz"
+			}
+		],
+		"proves": [
+			{
+				"id": 4,
+				"nom": "Control 1",
+				"data": "2017-09-24T09:00",
+				"puntuacio_total": 10,
+				"puntuacio_promig": 7.45,
+				"pes_nota": 0.2,
+				"continguts_avaluats": [
+					"Ortografia",
+					"Gramàtica"
+				]
+			},
+			{
+				"id": 5,
+				"nom": "Dictat 1",
+				"data": "2017-10-02T12:00",
+				"puntuacio_total": 10,
+				"pes_nota": 0.05,
+				"continguts_avaluats": [
+					"Dictat"
+				]
+			}
+		],
+		"alumnes": [
+			{
+				"id": 1,
+				"nom": "Mònica",
+				"primer_cognom": "Andreu",
+				"segon_cognom": "Balañá"
+			},
+			{
+				"id": 2,
+				"nom": "Adrià",
+				"primer_cognom": "Moya",
+				"segon_cognom": "Ortiz"
+			}
+		]
+	},
+	{
+		"id": 3,
+		"nom": "Socials",
+		"curs": "2017/2018",
+		"color": "#e8c86d",
+		"alumne_count": 4,
+		"professor_assignatures": [
+			{
+				"nom": "Carmelo",
+				"primer_cognom": "Moya"
+			}
+		]
+	},
+	{
+		"id": 4,
+		"nom": "Anglès",
+		"curs": "2017/2018",
+		"color": "#8adcb2",
+		"alumne_count": 4,
+		"professor_assignatures": [
+			{
+				"nom": "Carmelo",
+				"primer_cognom": "Moya"
+			}
+		]
+	},
+	{
+		"id": 5,
+		"nom": "Informàtica",
+		"curs": "2017/2018",
+		"color": "#e2b6e4",
+		"alumne_count": 4,
+		"professor_assignatures": [
+			{
+				"nom": "Carmelo",
+				"primer_cognom": "Moya"
+			}
+		]
+	}
+]

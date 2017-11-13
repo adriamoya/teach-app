@@ -1,0 +1,47 @@
+
+<div class="container">
+
+	<div *ngIf="!perfil">
+		<p>Loading ...</p>
+	</div>
+
+	<div *ngIf="perfil">
+
+		<br>
+
+		<nav aria-label="breadcrumb" role="navigation">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Perfil</li>
+			</ol>
+		</nav>
+		<div class="row">
+			<div class="col-xs-3 col-sm-3 col-md-3">
+				<div class="mt-3">
+					<img src="/assets/img/AA924.png" class="img-fluid rounded" alt="Responsive image">
+					<p class="card-username" style="margin-top: 15px;">{{ perfil.nom }} {{ perfil.primer_cognom }} {{ perfil.segon_cognom }}</p>
+					<p class="card-username" style="font-size: 14px; line-height: 20px;">{{ perfil.bio }}</p>
+					<button type="button" class="btn btn-secondary btn-block">Edita perfil</button>
+					<hr>
+					<div class="col-12">
+						<div class="row">
+							<i class="material-icons" style="color:#666; font-size:20px;">location_on</i>
+							<span class="card-username" style="font-size: 14px; line-height: 20px; padding-left: 5px;">{{ perfil.lloc }}</span>
+						</div>
+						<div class="row" style="margin-top: 15px;">
+							<i class="material-icons" style="color:#666; font-size:20px;">email</i>
+							<span class="card-username" style="font-size: 14px; line-height: 20px; padding-left: 5px;">{{ perfil.email }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-9 col-sm-9 col-md-9">
+				<div class="mt-3">
+					<h1>{{ perfil.nom }}</h1>
+					<hr>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

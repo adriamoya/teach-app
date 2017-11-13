@@ -1,0 +1,165 @@
+<div class="col-sm-12 col-md-6">
+	<div style="display: block;">
+		<canvas *ngIf="ready_chart == true" 
+		baseChart
+		width="200px" 
+		height="150px"
+		[datasets]="lineChartData"
+		[labels]="lineChartLabels"
+		[options]="lineChartOptions"
+		[colors]="lineChartColors"
+		[legend]="lineChartLegend"
+		[chartType]="lineChartType"
+		(chartHover)="chartHovered($event)"
+		(chartClick)="chartClicked($event)">
+		</canvas>
+	</div>
+</div>
+
+----------------------------------------
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'; // Provider that allows us to work and get parameters from the route given
+import { Http } from '@angular/http';
+import { SlicePipe } from '@angular/common';
+
+@Component({
+  selector: 'app-assignatures-detail',
+  templateUrl: './assignatures-detail.component.html',
+  styleUrls: ['./assignatures-detail.component.css']
+})
+export class AssignaturesDetailComponent implements OnInit {
+
+	// CREATE A NEW COMPONENT FOR THE LINECHART
+
+	private routeSub: any;
+	// private req: any;
+	assignatura: any;
+	proves_assignatura: any;
+	id: string;
+	alumnes: any = [];
+	public ready_chart: boolean = false;
+
+	// lineChart
+	public lineChartData: Array<any> = [];
+	public lineChartLabels: Array<any> = [];
+	public lineChartOptions: any = {
+		responsive: true,
+		legend: { display: true, labels: { fontSize: 14 } },
+		scales: {
+			xAxes: [{
+				ticks: {
+					fontSize: 14
+				}
+			}],
+			yAxes: [{
+				ticks: {
+					fontSize: 14,
+					min: 0,
+					max: 10,
+				}
+			}]
+		}
+	};
+	public lineChartColors: Array<any> = [
+		{ // grey
+			fill: false,
+			backgroundColor: 'rgba(148,159,177,0.2)',
+			borderColor: 'rgba(148,159,177,1)',
+			pointBackgroundColor: 'rgba(148,159,177,1)',
+			pointBorderColor: '#fff',
+			pointHoverBackgroundColor: '#fff',
+			pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+		},
+		{ // dark grey
+			fill: false,
+			backgroundColor: 'rgba(77,83,96,0.2)',
+			borderColor: 'rgba(77,83,96,1)',
+			pointBackgroundColor: 'rgba(77,83,96,1)',
+			pointBorderColor: '#fff',
+			pointHoverBackgroundColor: '#fff',
+			pointHoverBorderColor: 'rgba(77,83,96,1)'
+		}
+	];
+	public lineChartLegend: boolean = true;
+	public lineChartType: string = 'bar';
+
+	// events
+	public chartClicked(e: any): void {
+		console.log(e);
+	}
+
+	public chartHovered(e: any): void {
+		console.log(e);
+	}
+
+	constructor(private route: ActivatedRoute, private _http: Http) { }
+
+	ngOnInit() {
+
+		this.proves_assignatura = [];
+
+		this.routeSub = this.route.params.subscribe(params => {
+			// console.log(params);
+			this.id = params['id'];
+
+			this._http.get('assets/json/assignatures-detail.json').subscribe(data => {
+				data.json().filter(item => {
+					// console.log(item);
+					if (item.id == this.id) {
+						// console.log(item);
+						this.assignatura = item;
+					}
+
+				});
+
+				for (var i in this.assignatura.alumnes) {
+					this.alumnes.push(this.assignatura.alumnes[i]);
+				}
+			});
+
+			this._http.get('assets/json/proves-detail.json').subscribe(data => {
+				data.json().filter(item => {
+					// console.log(item);
+					if (item.assignatura.id == this.id) {
+						this.proves_assignatura.push(item);
+					}
+
+				});
+
+				var alumnes_proves = [];
+				var proves_nom = [];
+
+				for (var k in this.alumnes) {
+					for (var i in this.proves_assignatura) {
+						for (var j in this.proves_assignatura[i].puntuacio_alumnes) {
+							if (this.alumnes[k].id == this.proves_assignatura[i].puntuacio_alumnes[j].id) {
+								alumnes_proves.push(this.proves_assignatura[i].puntuacio_alumnes[j].puntuacio);
+								proves_nom.push(this.proves_assignatura[i].nom);
+							}
+						}
+					}
+
+					var alumneLineData = {data: alumnes_proves, label: this.alumnes[k].nom + " " + this.alumnes[k].primer_cognom + " " + this.alumnes[k].segon_cognom }
+					this.lineChartData.push(alumneLineData);
+					alumnes_proves = [];
+				}
+
+				for (var i in this.proves_assignatura) {
+					this.lineChartLabels.push(this.proves_assignatura[i].nom);
+				}
+
+				this.ready_chart = true;
+
+			});
+
+		});
+	};
+
+
+	// important to unsubscribe (destroy) after using subscribe ...
+	ngOnDestroy() {
+		this.routeSub.unsubscribe();
+		// this.req.unsubscribe();
+	};
+}

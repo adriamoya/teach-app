@@ -1,0 +1,149 @@
+[
+	{
+		"id": 1,
+		"color": "#e2b6e4", 
+		"nom": "Mònica",
+		"primer_cognom": "Andreu",
+		"segon_cognom": "Balañá",
+		"email": "monicaandreu13@hotmail.com",
+		"assignatures": [
+			{
+				"id": 1,
+				"nom": "Matemàtiques",
+				"curs": "2017/2018",
+				"color": "#a8dff5",
+				"proves": [
+					{
+						"id": 1,
+						"nom": "Test 1",
+						"data": "2017-09-22T10:00",
+						"puntuacio_total": 10,
+						"pes_nota": 0.25,
+						"continguts_avaluats": [
+							"Ecuacions"
+						],
+						"puntuacio": 6.6
+					},
+					{
+						"id": 2,
+						"nom": "Test 2",
+						"data": "2017-10-08T10:00",
+						"puntuacio_total": 10,
+						"pes_nota": 0.25,
+						"continguts_avaluats": [
+							"Ecuacions de segon grau"
+						],
+						"puntuacio": 7.1
+					},
+					{
+						"id": 3,
+						"nom": "Examen 1",
+						"data": "2017-09-22T10:00",
+						"puntuacio_total": 10,
+						"pes_nota": 0.50,
+						"continguts_avaluats": [
+							"Ecuacions",
+							"Ecuacions de segon grau",
+							"Funcions"
+						],
+						"puntuacio": 5.1
+					}
+				]
+			},
+			{
+				"id": 2,
+				"nom": "Català",
+				"curs": "2017/2018",
+				"color": "#c76d6d",
+				"proves": [
+					{
+							"id": 4,
+							"nom": "Control 1",
+							"data": "2017-09-24T09:00",
+							"puntuacio_total": 10,
+							"pes_nota": 0.2,
+							"continguts_avaluats": [
+								"Ortografia",
+								"Gramàtica"
+							],
+							"puntuacio": 7.4
+					}
+				]
+			}
+
+		]
+	},
+	{
+		"id": 2,
+		"color": "#8adcb2",
+		"nom": "Adrià",
+		"primer_cognom": "Moya",
+		"segon_cognom": "Ortiz",
+		"email": "amoya@bluecap.com",
+		"assignatures": [
+			{
+				"id": 1,
+				"nom": "Matemàtiques",
+				"curs": "2017/2018",
+				"color": "#a8dff5",
+				"proves": [
+					{
+						"id": 1,
+						"nom": "Test 1",
+						"data": "2017-09-22T10:00",
+						"puntuacio_total": 10,
+						"pes_nota": 0.25,
+						"continguts_avaluats": [
+							"Ecuacions"
+						],
+						"puntuacio": 8.25
+					},
+					{
+						"id": 2,
+						"nom": "Test 2",
+						"data": "2017-10-08T10:00",
+						"puntuacio_total": 10,
+						"pes_nota": 0.25,
+						"continguts_avaluats": [
+							"Ecuacions de segon grau"
+						],
+						"puntuacio": 6.96
+					},
+					{
+						"id": 3,
+						"nom": "Examen 1",
+						"data": "2017-09-22T10:00",
+						"puntuacio_total": 10,
+						"pes_nota": 0.50,
+						"continguts_avaluats": [
+							"Ecuacions",
+							"Ecuacions de segon grau",
+							"Funcions"
+						],
+						"puntuacio": 7.15
+					}
+				]
+			},
+			{
+				"id": 2,
+				"nom": "Català",
+				"curs": "2017/2018",
+				"color": "#c76d6d",
+				"proves": [
+					{
+							"id": 4,
+							"nom": "Control 1",
+							"data": "2017-09-24T09:00",
+							"puntuacio_total": 10,
+							"pes_nota": 0.2,
+							"continguts_avaluats": [
+								"Ortografia",
+								"Gramàtica"
+							],
+							"puntuacio": 7.5
+					}
+				]
+			}
+		]
+	}
+]

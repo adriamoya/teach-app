@@ -1,0 +1,101 @@
+<!-- 1. General -->
+<div *ngIf="menuSelection == 'general'">
+	<!-- Title -->
+	<div class="mt-3">
+		<h2>General</h2>
+		<hr>
+	</div>
+
+	<dl class="form-group row">
+		<div class="col">
+			<dt>
+				<label class="form-label" for="nom-assignatura">Nom assignatura</label>
+			</dt>
+			<dd>
+				<input type="text" class="form-control" id="nom-assignatura" value="{{ assignatura.nom }}">
+			</dd>
+		</div>
+		<div class="col">
+			<dt>
+				<label class="form-label" for="curs-assignatura">Curs</label>
+			</dt>
+			<dd>
+				<select class="form-control" id="curs-assignatura">
+					<option>2017/2018</option>
+				</select>
+			</dd>
+		</div>
+	</dl>
+	<dl class="form-group">
+		<dt>
+			<label class="form-label" for="bio-assignatura">Bio</label>
+		</dt>
+		<dd>
+			<textarea class="form-control" id="bio-assignatura" rows="3">
+				{{ assignatura.bio }}
+			</textarea>
+		</dd>
+	</dl>
+	<br>
+
+	<div class="mt-3">
+		<h2>Eliminar assignatura</h2>
+		<hr>
+		<p class="text-normal">Un cop s'ha eliminat l'assignatura, no es pot tornar enrere. Si us plau estigui segur.</p>
+		<button 
+		type="button" 
+		class="btn btn-danger float-left"
+		routerLink="/assignatures/{{ id }}/edit" 
+		routerLinkActive="active">
+		Eliminar
+		</button>
+	</div>
+</div>
+
+<!-- 2. Proves -->
+<div *ngIf="menuSelection == 'proves'">
+	<!-- Title -->
+	<div class="mt-3">
+		<h2>Proves</h2>
+		<hr>
+	</div>
+
+	<div class="list-group">
+		<div *ngFor="let prova of assignatura.proves" 
+		class="list-group-item list-group-item-action clearfix">
+			<a routerLink="/assignatures/{{ assignatura.id }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a>
+			<!-- <div class="justify-content-between">Cras justo odio</div> -->
+			<span class="icon-right">
+				<i class="material-icons" style="cursor: pointer;">mode_edit</i>
+				<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- 3. Alumnes -->
+<div *ngIf="menuSelection == 'alumnes'">
+	<!-- Title -->
+	<div class="mt-3">
+		<h2>Alumnes</h2>
+		<hr>
+	</div>
+
+	<div class="list-group">
+		<div *ngFor="let alumne of assignatura.alumnes" 
+		class="list-group-item list-group-item-action clearfix">
+			<a routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</a>
+			<!-- <div class="justify-content-between">Cras justo odio</div> -->
+			<span class="icon-right">
+				<i class="material-icons" style="cursor: pointer;">mode_edit</i>
+				<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
+			</span>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+

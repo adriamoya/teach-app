@@ -1,0 +1,172 @@
+
+<!-- 
+	This is an asyncronous request so that means that basically it's going to wrap the data and it is going to change this.video in real time. So it is posible that while the template is loading, the get request has not finished to get the data from the backend. 
+-->
+
+<div class="container">
+
+	<div *ngIf="!assignatura">
+		<p>Loading ...</p>
+	</div>
+
+	<div *ngIf="assignatura">
+
+		<br>
+
+		<nav aria-label="breadcrumb" role="navigation">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
+				<li class="breadcrumb-item" ><a routerLink="/assignatures/" routerLinkActive="active">Assignatures</a></li>
+				<li class="breadcrumb-item active" aria-current="page">{{ assignatura.nom }}</li>
+			</ol>
+		</nav>
+
+		<!-- Edit button -->
+		<button 
+		type="button" 
+		class="btn btn-secondary float-right"
+		routerLink="/assignatures/{{ id }}/edit" 
+		routerLinkActive="active">
+		Editar
+		</button>
+		
+		<!-- Title -->
+		<div class="mt-3">
+			<h1>{{ assignatura.nom }}</h1>
+			<hr>
+		</div>
+
+		<!-- Info -->
+		<div class="mt-3">
+			<p>Curs {{ assignatura.curs }}</p>
+			<p><small>{{ assignatura.bio }}</small></p>
+			<hr>
+		</div>
+
+		<!-- Pills -->
+		<ul class="nav nav-pills" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="proves-tab" data-toggle="tab" href="#proves" role="tab" aria-controls="proves" aria-selected="true">Proves</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="alumnes-tab" data-toggle="tab" href="#alumnes" role="tab" aria-controls="alumnes" aria-selected="false">Alumnes</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="professors-tab" data-toggle="tab" href="#professors" role="tab" aria-controls="professors" aria-selected="false">Professors</a>
+			</li>
+		</ul>
+
+		<!-- <hr> -->
+
+		<div style="margin-top: 20px;" class="tab-content" id="myTabContent">
+
+			<!-- Proves - list -->
+			<div class="tab-pane fade show active" id="proves" role="tabpanel" aria-labelledby="proves-tab">
+				<div class="table-responsive">
+					<table class="table table-sm table-hover">
+						<thead>
+							<tr>
+								<th>Prova</th>
+								<th>Data</th>
+								<th>Puntació mitja</th>
+							</tr>
+						</thead>
+						<tbody>
+
+
+							<!-- WE SHOULD NO PASS THE ASSIGNATURA NOM IN THE QUERYPARAMS -->
+							<!-- queryParams="{{ assignatura.nom }}" -->
+
+							<tr *ngFor="let prova of assignatura.proves">
+								<td><a routerLink="/assignatures/{{ id }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
+								<td>{{ prova.data | date }}</td>
+								<td *ngIf="prova.puntuacio_promig">{{ prova.puntuacio_promig }} / {{ prova.puntuacio_total }}</td>
+								<td *ngIf="!prova.puntuacio_promig">
+									<span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div *ngIf="!assignatura.proves">
+					<div class="alert alert-warning" role="alert">
+						No hi ha cap prova ...
+					</div>
+				</div>
+			</div> <!-- Proves - list -->
+
+			<!-- Alumnes - list -->
+			<div class="tab-pane fade" id="alumnes" role="tabpanel" aria-labelledby="alumnes-tab">
+				<div class="table-responsive">
+					<table class="table table-sm table-hover">
+						<thead>
+							<tr>
+								<th>Alumne</th>
+								<th *ngFor="let prova of proves_assignatura">{{ prova.nom }} <span style="font-weight: 400;">(/{{ prova.puntuacio_total }})</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let alumne of assignatura.alumnes">
+								<td><a routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a></td>
+								<td *ngFor="let prova_assignatura of proves_assignatura">
+									<div *ngFor="let puntuacio of prova_assignatura.puntuacio_alumnes">
+										<div *ngIf="puntuacio.nom == alumne.nom; then thenBlock else elseBlock">...</div>
+										<ng-template #thenBlock>{{ puntuacio.puntuacio }}</ng-template>
+										<!-- <ng-template #elseBlock><span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span></ng-template> -->
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div *ngIf="!assignatura.proves">
+					<div class="alert alert-warning" role="alert">
+						No hi ha cap prova ...
+					</div>
+				</div>
+			</div> <!-- Alumnes - list -->
+
+			<!-- Professors -->
+
+			<div class="tab-pane fade" id="professors" role="tabpanel" aria-labelledby="professors-tab">
+
+				<section class="row text-center placeholder">
+					<div *ngFor="let professor of assignatura.professor_assignatures" class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+
+						<i 
+						class="material-icons"
+						style="font-size: 120px; cursor: pointer; color: #e9ecef;"
+						routerLink="/assignatures/{{ assignatura.id }}" 
+						routerLinkActive="active">
+							lens
+						</i>
+						<a routerLink="/assignatures/{{ assignatura.id }}" routerLinkActive="active">{{ professor.nom}} {{ professor.primer_cognom }}</a>
+
+					</div>
+				</section>
+			
+				<!-- <div class="col-sm-12 col-md-6">
+					<div style="display: block;">
+						<canvas *ngIf="ready_chart == true" 
+						baseChart
+						width="200px" 
+						height="150px"
+						[datasets]="lineChartData"
+						[labels]="lineChartLabels"
+						[options]="lineChartOptions"
+						[colors]="lineChartColors"
+						[legend]="lineChartLegend"
+						[chartType]="lineChartType"
+						(chartHover)="chartHovered($event)"
+						(chartClick)="chartClicked($event)">
+						</canvas>
+					</div>
+				</div> -->
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

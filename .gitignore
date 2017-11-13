@@ -1,0 +1,8 @@
+/env
+pip-selfcheck.json
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+*.pyc

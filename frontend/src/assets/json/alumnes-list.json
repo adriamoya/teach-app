@@ -1,0 +1,18 @@
+[
+	{
+		"id": 1,
+		"color": "#e2b6e4", 
+		"nom": "Mònica",
+		"primer_cognom": "Andreu",
+		"segon_cognom": "Balañá",
+		"email": "monicaandreu13@hotmail.com"
+	},
+	{
+		"id": 2,
+		"color": "#8adcb2",
+		"nom": "Adrià",
+		"primer_cognom": "Moya",
+		"segon_cognom": "Ortiz",
+		"email": "amoya@bluecap.com"
+	}
+]

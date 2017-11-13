@@ -1,0 +1,71 @@
+[
+	{
+		"id": 1,
+		"nom": "Matemàtiques",
+		"curs": "2017/2018",
+		"color": "#a8dff5",
+		"alumne_count": 2,
+		"professor_assignatures": [
+			{
+				"nom": "Adela",
+				"primer_cognom": "Ortiz"
+			},
+			{
+				"nom": "Carmelo",
+				"primer_cognom": "Moya"
+			}
+		]
+	},
+	{
+		"id": 2,
+		"nom": "Català",
+		"curs": "2017/2018",
+		"color": "#c76d6d",
+		"alumne_count": 6,
+		"professor_assignatures": [
+			{
+				"nom": "Adela",
+				"primer_cognom": "Ortiz"
+			}
+		]
+	},
+	{
+		"id": 3,
+		"nom": "Socials",
+		"curs": "2017/2018",
+		"color": "#e8c86d",
+		"alumne_count": 4,
+		"professor_assignatures": [
+			{
+				"nom": "Carmelo",
+				"primer_cognom": "Moya"
+			}
+		]
+	},
+	{
+		"id": 4,
+		"nom": "Anglès",
+		"curs": "2017/2018",
+		"color": "#8adcb2",
+		"alumne_count": 4,
+		"professor_assignatures": [
+			{
+				"nom": "Carmelo",
+				"primer_cognom": "Moya"
+			}
+		]
+	},
+	{
+		"id": 5,
+		"nom": "Informàtica",
+		"curs": "2017/2018",
+		"color": "#e2b6e4",
+		"alumne_count": 4,
+		"professor_assignatures": [
+			{
+				"nom": "Carmelo",
+				"primer_cognom": "Moya"
+			}
+		]
+	}
+]

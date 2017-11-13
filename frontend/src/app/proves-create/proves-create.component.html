@@ -1,0 +1,173 @@
+<div class="container">
+	<br>
+
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
+		</ol>
+	</nav>
+
+	<div class="row">
+		<div class="col-12">
+			<div class="mt-3">
+					
+				<!-- Nova assignatura -->
+				<div class="mt-3">
+					<h2>Nova prova</h2>
+					<hr>
+				</div>
+
+				<!-- <div class="mt-3">
+					<h4>Informació prova</h4>
+				</div> -->
+
+				<dl class="form-group row">
+					<div class="col">
+						<dt>
+							<label class="form-label" for="nom-prova">Nom</label>
+						</dt>
+						<dd>
+							<input type="text" class="form-control" id="nom-prova">
+						</dd>
+					</div>
+					<div class="col">
+						<dt>
+							<label class="form-label" for="curs-prova">Curs</label>
+						</dt>
+						<dd>
+							<select class="form-control" id="curs-prova">
+								<option>2017/2018</option>
+							</select>
+						</dd>
+					</div>
+				</dl>
+				<dl class="form-group">
+					<dt>
+						<label class="form-label" for="contingut-prova">Continguts avaluats</label>
+					</dt>
+					<dd>
+						<tag-input
+						placeholder="Afegir continguts ..."
+						[model]="continguts_avaluats"
+						></tag-input>
+					</dd>
+				</dl>
+					<!-- <div class="col">
+						<dt>
+							<label class="form-label" for="contingut-prova">Contingut</label>
+						</dt>
+						<dd>
+							<input type="text" class="form-control" id="contingut-prova">
+						</dd>
+					</div>
+				</dl> -->
+
+				<!-- Binding select -->
+				<!-- https://stackoverflow.com/questions/35945001/binding-select-element-to-object-in-angular-2 -->
+
+				<!-- We want the alumnes below to show depending on the assignatura selected -->
+				<dl class="form-group row">
+					<div class="col">
+						<dt>
+							<label class="form-label" for="puntuacio-max">Puntuació</label>
+						</dt>
+						<dd>
+							<input [(ngModel)]="puntuacioMax" type="number" class="form-control" id="puntuacio-max" placeholder="Puntuació màxima">
+						</dd>
+					</div>
+					<div class="col">
+						<dt>
+							<label class="form-label" for="pes-prova">Pes <span style="font-weight: 400;">(%)</span></label>
+						</dt>
+						<dd>
+							<input type="number" class="form-control" id="pes-prova" placeholder="Pes en %" value="10">
+						</dd>
+					</div>
+					<div class="col">
+						<dt>
+							<label class="form-label" for="curs-prova">Assignatura</label>
+						</dt>
+						<dd>
+							<select class="form-control" id="curs-prova" [(ngModel)]="assignaturaId" (ngModelChange)="toAssignatura()">
+								<option *ngFor="let assignatura of assignatures" [ngValue]="assignatura.id">{{ assignatura.nom }}</option>
+							</select>
+						</dd>
+					</div>
+				</dl>
+
+				<!-- <div class="mt-3">
+					<h4>Puntuacions</h4>
+				</div> -->
+
+				<hr>
+				
+				<dl class="form-group">
+					<dt>
+						<label class="form-label" for="puntuacions-prova">Puntuacions</label>
+					</dt>
+					<dd>
+						<div *ngIf="!assignaturaId">
+							<div class="alert alert-secondary" role="alert">
+								Seleccioneu una assignatura.
+							</div>
+						</div>
+						<div *ngIf="assignaturaId">
+							<div *ngIf="alumnesSelected">
+								<div class="row">
+									<div class="col">
+										<label class="form-label" style="color: #868e96;;">Alumne</label>
+									</div>
+									<div class="col">
+										<label class="form-label" style="color: #868e96;;">Nota</label>
+									</div>
+								</div>
+								<div *ngFor="let alumne of alumnesSelected" class="form-group row" style="margin-bottom: 5px;">
+									<span class="col" style="color: #0275d8; padding: auto">{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</span>
+									<div class="col">
+										<div class="input-group">
+											<input type="number" class="form-control form-control-sm" id="puntuacio">
+											<span class="input-group-addon" id="basic-addon2"><small>/{{puntuacioMax}}</small></span>
+										</div>
+									</div>
+								</div>
+								<!-- <div style="margin: 5px auto;" *ngFor="let alumne of alumnesSelected">
+									<div class="input-group">
+										<span class="input-group-addon">{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</span>
+										<input type="text" class="form-control" placeholder="Nota" aria-label="Nota">
+									</div>
+								</div> -->
+							</div>
+							<div *ngIf="!alumnesSelected">
+								<div class="alert alert-warning" role="alert">
+									Cap alumne assignat a {{assignaturaSelected.nom}}.
+								</div>
+							</div>
+						</div>
+					</dd>
+				</dl>
+				<hr>
+				<!-- <br> -->
+
+				<!-- Add button -->
+				<button 
+				type="button" 
+				class="btn btn-success float-left"
+				routerLink="/" 
+				routerLinkActive="active">
+				Afegir
+				</button>
+				
+				<!-- Cancelar -->
+				<button 
+				type="button" 
+				class="btn btn-secondary float-right"
+				routerLink="/assignatures/" 
+				routerLinkActive="active">
+				Cancel·lar
+				</button>
+
+
+			</div>
+		</div>
+	</div>
+</div>

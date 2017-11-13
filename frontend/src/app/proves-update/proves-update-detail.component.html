@@ -1,0 +1,119 @@
+
+<!-- 1. General -->
+<div *ngIf="menuSelection == 'general'">
+	<!-- Title -->
+	<div class="mt-3">
+		<h2>General</h2>
+		<hr>
+	</div>
+
+	<dl class="form-group row">
+		<div class="col">
+			<dt>
+				<label class="form-label" for="nom-prova">Nom prova</label>
+			</dt>
+			<dd>
+				<input type="text" class="form-control" id="nom-prova" value="{{ prova.nom }}">
+			</dd>
+		</div>
+		<div class="col">
+			<dt>
+				<label class="form-label" for="curs-prova">Curs</label>
+			</dt>
+			<dd>
+				<select class="form-control" id="curs-prova">
+					<option>2017/2018</option>
+				</select>
+			</dd>
+		</div>
+	</dl>
+
+	<dl class="form-group">
+		<dt>
+			<label class="form-label" for="contingut-prova">Continguts avaluats</label>
+		</dt>
+		<dd>
+			<tag-input
+			placeholder="Afegir continguts ..."
+			[model]="prova.continguts_avaluats"
+			></tag-input>
+		</dd>
+	</dl>
+
+	<dl *ngIf="assignaturesList" class="form-group">
+		<dt>
+			<label class="form-label" for="assignatures">Assignatura</label>
+		</dt>
+		<dd>
+			<select class="form-control" id="assignatures">
+				<option *ngFor="let assignatura of assignaturesList" [selected]="assignatura.id === prova.assignatura.id">{{assignatura.nom}}</option>
+			</select>
+		</dd>
+	</dl>
+
+	<dl class="form-group row">
+		<div class="col">
+			<dt>
+				<label class="form-label" for="pes-prova">Pes prova<span style="font-weight: 400;"> (%)</span></label>
+			</dt>
+			<dd>
+				<input type="number" class="form-control" id="pes-prova" value="{{ prova.pes_nota }}">
+			</dd>
+		</div>
+		<div class="col">
+			<dt>
+				<label class="form-label" for="puntacio-max">Puntuacio màxima</label>
+			</dt>
+			<dd>
+				<input type="number" class="form-control" id="puntacio-max" value="{{ prova.puntuacio_total }}">
+			</dd>
+		</div>
+	</dl>
+
+	<br>
+
+	<div class="mt-3">
+		<h2>Eliminar prova</h2>
+		<hr>
+		<p class="text-normal">Un cop s'ha eliminat la prova, no es pot tornar enrere. Si us plau estigui segur.</p>
+		<button 
+		type="button" 
+		class="btn btn-danger float-left"
+		routerLink="/assignatures/{{ id }}/edit" 
+		routerLinkActive="active">
+		Eliminar
+		</button>
+	</div>
+</div>
+
+<!-- 2. Proves -->
+<div *ngIf="menuSelection == 'puntuacions'">
+	<!-- Title -->
+	<div class="mt-3">
+		<h2>Puntuacions</h2>
+		<hr>
+	</div>
+
+	<div class="list-group">
+		<div *ngFor="let alumne of prova.puntuacio_alumnes" 
+		class="list-group-item list-group-item-action clearfix">
+				<a routerLink="/alumnes/{{alumne.id}}" routerLinkActivate="activate">{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</a>
+				<span class="icon-right">
+					<span style="margin-right: 40px;"><span style="font-weight: 600;">&emsp;{{alumne.puntuacio}}</span> /{{prova.puntuacio_total}}</span>
+					<i class="material-icons" style="cursor: pointer;">mode_edit</i>
+					<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
+			</span>
+		</div>
+		<div *ngIf="!prova.puntuacio_alumnes">
+			<div class="alert alert-warning" role="alert">
+				No hi ha cap puntuació ...
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+

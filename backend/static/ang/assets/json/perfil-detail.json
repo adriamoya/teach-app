@@ -1,0 +1,17 @@
+[
+	{
+		"id": 1,
+		"nom": "Adela",
+		"primer_cognom": "Ortiz",
+		"segon_cognom": "Rubio",
+		"email": "adelaortizrubio@gmail.com",
+		"data_naixement": "1962-06-12T00:00",
+		"bio": "Professora de primaria a la Salle Tarragona amb +25 anys d'experiència.",
+		"lloc": "Tarragona",
+		"classes": [
+			"3r B",
+			"3r C"
+		],
+		"curs": "2017/2018"
+	}
+]

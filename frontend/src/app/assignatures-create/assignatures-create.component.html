@@ -1,0 +1,74 @@
+<div class="container">
+	<br>
+
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
+			<li class="breadcrumb-item" ><a routerLink="/assignatures/" routerLinkActive="active">Assignatures</a></li>
+		</ol>
+	</nav>
+
+	<div class="row">
+		<div class="col-12">
+			<div class="mt-3">
+
+				<!-- Nova assignatura -->
+				<div class="mt-3">
+					<h2>Nova assignatura</h2>
+					<hr>
+				</div>
+
+				<dl class="form-group row">
+					<div class="col">
+						<dt>
+							<label class="form-label" for="nom-assignatura">Nom assignatura</label>
+						</dt>
+						<dd>
+							<input type="text" class="form-control" id="nom-assignatura">
+						</dd>
+					</div>
+					<div class="col">
+						<dt>
+							<label class="form-label" for="curs-assignatura">Curs</label>
+						</dt>
+						<dd>
+							<select class="form-control" id="curs-assignatura">
+								<option>2017/2018</option>
+							</select>
+						</dd>
+					</div>
+				</dl>
+				<dl class="form-group">
+					<dt>
+						<label class="form-label" for="bio-assignatura">Bio</label>
+					</dt>
+					<dd>
+						<textarea class="form-control" id="bio-assignatura" rows="3"></textarea>
+					</dd>
+				</dl>
+
+				<hr>
+				
+				<!-- Add button -->
+				<button 
+				type="button" 
+				class="btn btn-success float-left"
+				routerLink="/" 
+				routerLinkActive="active">
+				Afegir
+				</button>
+
+				<!-- Cancelar -->
+				<button 
+				type="button" 
+				class="btn btn-secondary float-right"
+				routerLink="/assignatures/" 
+				routerLinkActive="active">
+				Cancel·lar
+				</button>
+
+
+			</div>
+		</div>
+	</div>
+</div>

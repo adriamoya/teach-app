@@ -1,0 +1,92 @@
+<nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
+
+  <!-- Toggle button and collapse menu -->
+
+  <button 
+  class="navbar-toggler hidden-sm-up" 
+  type="button" 
+  (click)="isCollapsed = !isCollapsed">
+    &#9776;
+  </button>
+
+  <div class="navbar-toggleable-sm" [ngbCollapse]="isCollapsed">
+    <!-- <a class="navbar-brand" href="#">Responsive navbar</a> -->
+    <ul class="nav navbar-nav">
+      <!-- <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li> -->
+      <li class="nav-item"
+      routerLink="/assignatures/" 
+      routerLinkActive="active">
+        <a class="nav-link" 
+        routerLink="/assignatures/" 
+        routerLinkActive="active">Assignatures</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Alumnes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Analytics</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Perfil</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Fades out when reducing window -->
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault"> 
+
+    <!-- Navbar brand -->
+
+    <a 
+    style="height: 32px;" 
+    class="navbar-brand" 
+    routerLink="/" 
+    routerLinkActive="active">
+      <i style="cursor: pointer;" class="material-icons">school</i>
+    </a>
+
+    <!-- Navbar buttons -->
+
+    <ul class="navbar-nav mr-auto">
+
+      <!-- Assignatures -->
+      <li class="nav-item"
+      routerLink="/assignatures/" 
+      routerLinkActive="active">
+        <a class="nav-link" 
+        routerLink="/assignatures/" 
+        routerLinkActive="active">Assignatures</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Alumnes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Analytics</a>
+      </li>
+    </ul>
+
+    <!-- Dropdown -->
+
+    <div class="btn-group" dropdown>
+      <a dropdownToggle style="height: 24px;">
+        <i style="cursor: pointer;" class="material-icons">
+          account_circle
+        </i>
+      </a>
+
+      <!-- How to get the id of the user -->
+      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+        <li role="menuitem"><a class="dropdown-item" routerLink="/perfil/1" routerLinkActive="active">Perfil</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Configuració</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Ajuda</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Log out</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+</nav>

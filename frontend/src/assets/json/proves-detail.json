@@ -1,0 +1,153 @@
+[
+	{
+		"id": 1,
+		"nom": "Test 1",
+		"data": "2017-09-22T10:00",
+		"assignatura": {
+			"id": 1,
+			"nom": "Matemàtiques"
+		},
+		"puntuacio_total": 10,
+		"puntuacio_promig": 7.82,
+		"pes_nota": 0.25,
+		"continguts_avaluats": [
+			"Ecuacions",
+			"Funcions"
+		],
+		"puntuacio_alumnes": [
+			{
+				"id": 1,
+				"color": "#e2b6e4", 
+				"nom": "Mònica",
+				"primer_cognom": "Andreu",
+				"segon_cognom": "Balañá",
+				"puntuacio": 6.6
+			},
+			{
+				"id": 2,
+				"color": "#8adcb2",
+				"nom": "Adrià",
+				"primer_cognom": "Moya",
+				"segon_cognom": "Ortiz",
+				"puntuacio": 8.25
+			}
+		]
+	},
+	{
+		"id": 2,
+		"nom": "Test 2",
+		"data": "2017-10-08T10:00",
+		"assignatura": {
+			"id": 1,
+			"nom": "Matemàtiques"
+		},
+		"puntuacio_total": 10,
+		"puntuacio_promig": 7.06,
+		"pes_nota": 0.25,
+		"continguts_avaluats": [
+			"Ecuacions de segon grau"
+		],
+		"puntuacio_alumnes": [
+			{
+				"id": 1,
+				"color": "#e2b6e4", 
+				"nom": "Mònica",
+				"primer_cognom": "Andreu",
+				"segon_cognom": "Balañá",
+				"puntuacio": 7.1
+			},
+			{
+				"id": 2,
+				"color": "#8adcb2",
+				"nom": "Adrià",
+				"primer_cognom": "Moya",
+				"segon_cognom": "Ortiz",
+				"puntuacio": 6.96
+			}
+		]
+	},
+	{
+		"id": 3,
+		"nom": "Examen 1",
+		"data": "2017-09-22T10:00",
+		"assignatura": {
+			"id": 1,
+			"nom": "Matemàtiques"
+		},
+		"puntuacio_total": 10,
+		"puntuacio_promig": 6.29,
+		"pes_nota": 0.50,
+		"continguts_avaluats": [
+			"Ecuacions",
+			"Ecuacions de segon grau",
+			"Funcions"
+		],
+		"puntuacio_alumnes": [
+			{
+				"id": 1,
+				"color": "#e2b6e4", 
+				"nom": "Mònica",
+				"primer_cognom": "Andreu",
+				"segon_cognom": "Balañá",
+				"puntuacio": 5.3
+			},
+			{
+				"id": 2,
+				"color": "#8adcb2",
+				"nom": "Adrià",
+				"primer_cognom": "Moya",
+				"segon_cognom": "Ortiz",
+				"puntuacio": 7.15
+			}
+		]
+	},
+	{
+		"id": 4,
+		"nom": "Control 1",
+		"data": "2017-09-24T09:00",
+		"assignatura": {
+			"id": 2,
+			"nom": "Català"
+		},
+		"puntuacio_total": 10,
+		"puntuacio_promig": 7.45,
+		"pes_nota": 0.2,
+		"continguts_avaluats": [
+			"Ortografia",
+			"Gramàtica"
+		],
+		"puntuacio_alumnes": [
+			{
+				"id": 1,
+				"color": "#e2b6e4", 
+				"nom": "Mònica",
+				"primer_cognom": "Andreu",
+				"segon_cognom": "Balañá",
+				"puntuacio": 7.4
+			},
+			{
+				"id": 2,
+				"color": "#8adcb2",
+				"nom": "Adrià",
+				"primer_cognom": "Moya",
+				"segon_cognom": "Ortiz",
+				"puntuacio": 7.5
+			}
+		]
+	},
+	{
+		"id": 5,
+		"nom": "Dictat 1",
+		"data": "2017-10-02T12:00",
+		"assignatura": {
+			"id": 2,
+			"nom": "Català"
+		},
+		"puntuacio_total": 10,
+		"puntuacio_promig": 8.01,
+		"pes_nota": 0.05,
+		"continguts_avaluats": [
+			"Dictat"
+		]
+	}
+]

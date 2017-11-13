@@ -1,0 +1,40 @@
+<div class="container">
+
+	<br>
+
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
+			<!-- <li class="breadcrumb-item"><a href="#">Library</a></li> -->
+			<li class="breadcrumb-item active" aria-current="page">Alumnes</li>
+		</ol>
+	</nav>
+
+	<!-- Title -->
+	<div class="mt-3">
+		<h1>{{ title }}</h1>
+		<hr>
+	</div>
+
+	<!-- Assignatura items -->
+	<section class="row text-center placeholder">
+		<div 
+		style="margin-bottom: 25px;" 
+		class="col-xs-6 col-sm-3 col-md-3 col-lg-2 placeholder" 
+		*ngFor="let alumne of alumnesList">
+			<i 
+			class="material-icons"
+			style="font-size: 120px; cursor: pointer; color: #e9ecef" 
+			routerLink="/alumnes/{{ alumne.id }}" 
+			routerLinkActive="active">
+				person_pin
+			</i>
+			<br>
+			<a style="margin-top: -10px;"  routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a>
+		</div>
+	</section>
+
+</div>
+			
+
+<!-- [ngStyle]="{'color': alumne.color}" -->
