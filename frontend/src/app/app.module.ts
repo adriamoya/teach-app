@@ -12,7 +12,7 @@ import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 
-import { AuthGuard } from './services/auth.guard';
+import { AuthGuard } from './_services/auth.guard';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -32,6 +32,8 @@ import { ProvesUpdateComponent } from './proves-update/proves-update.component';
 import { ProvesUpdateDetailComponent } from './proves-update/proves-update-detail.component';
 import { LoginDetailComponent } from './login-detail/login-detail.component';
 import { SignupDetailComponent } from './signup-detail/signup-detail.component';
+
+import { AuthenticationService } from './_services/authentication.service';
 
 import { Ng2TagsInputItem } from "./tags-input/ng2-tagsinput-item";
 import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
@@ -79,7 +81,11 @@ import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
     Ng2TagsInputItem,
     Ng2TagsInput
   ],
-  providers: [AUTH_PROVIDERS, AuthGuard],
+  providers: [
+    AUTH_PROVIDERS, 
+    AuthGuard, 
+    AuthenticationService
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

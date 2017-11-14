@@ -1,41 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
+import { Subscription } from 'rxjs/Subscription';
 
-import { UserChangesService } from '../services/user-changes.service';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  providers: [UserChangesService]
 })
+
 export class NavbarComponent {
 	
 	public isCollapsed = true;
-	req_username: any;
+	subscription: Subscription;
 	username: string;
-	// response: string;
-	// api: string;
 
-	constructor(public _router: Router, public _userChanges: UserChangesService) { 
-		this.req_username = this._userChanges.get_username().subscribe(data => {
-			this.username = data;
+	constructor(
+		public _router: Router, 
+		private _authenticationService: AuthenticationService) { 
+		this.subscription = this._authenticationService.getLoginStatus().subscribe(currentUser => {
+			if (currentUser){
+				this.username = currentUser['username'];
+			}
 		});
-		// this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
 	}
 
-	ngOnInit(){ }
+	ngOnInit(){
+	}
 
 	ngOnDestroy() {
-		this.req_username.unsubscribe();
+		this.subscription.unsubscribe();
 	}
 
 	logout() {
-		localStorage.removeItem('token');
-		localStorage.removeItem('username');
-		window.location.reload();
+		this._authenticationService.logout();
 		this._router.navigate(['login']);
 	}
 

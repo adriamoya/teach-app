@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 
-import { UserChangesService } from '../services/user-changes.service';
+import { UserChangesService } from '../_services/user-changes.service';
 
 
 @Component({

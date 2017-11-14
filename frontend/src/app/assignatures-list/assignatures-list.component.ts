@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AssignaturesService } from '../services/assignatures.service';
+import { AssignaturesService } from '../_services/assignatures.service';
 
 @Component({
   selector: 'app-assignatures-list',

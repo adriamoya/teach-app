@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ProvesUpdateDetailComponent } from './proves-update-detail.component';
-import { ProvesService } from '../services/proves.service';
+import { ProvesService } from '../_services/proves.service';
 
 @Component({
   selector: 'app-proves-update',

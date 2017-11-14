@@ -6,3 +6,5 @@ pip-selfcheck.json
 .LSOverride
 
 *.pyc
+
+curl_tests

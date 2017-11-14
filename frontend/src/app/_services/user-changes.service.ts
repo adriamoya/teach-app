@@ -10,15 +10,13 @@ export class UserChangesService {
 	constructor() {}
 
 	get_username(): Observable<any> {
-		this.username = localStorage.getItem('username')
-		// console.log(this.username)
-		return Observable.of(this.username);
+		this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		return Observable.of(this.currentUser['username']);
 	}
 
 	get_token(): Observable<any> {
-		this.token = localStorage.getItem('token')
-		// console.log(this.token)
-		return Observable.of(this.token);
+		this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		return Observable.of(this.currentUser['token']);
 	}
 
 }

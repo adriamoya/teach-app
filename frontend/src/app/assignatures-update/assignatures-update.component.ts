@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router'; // Provider that allows us to 
 
 import { AssignaturesUpdateDetailComponent } from './assignatures-update-detail.component';
 
-import { AssignaturesService } from '../services/assignatures.service';
+import { AssignaturesService } from '../_services/assignatures.service';
 
 @Component({
 	selector: 'app-assignatures-update',

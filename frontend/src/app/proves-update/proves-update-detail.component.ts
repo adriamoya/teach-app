@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { AssignaturesService } from '../services/assignatures.service';
+import { AssignaturesService } from '../_services/assignatures.service';
 
 import { ProvesUpdateComponent } from './proves-update.component';
 

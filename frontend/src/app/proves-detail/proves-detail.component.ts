@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'; // Provider that allows us to work and get parameters from the route given
 import { Http } from '@angular/http';
 
-import { ProvesService } from '../services/proves.service';
+import { ProvesService } from '../_services/proves.service';
 
 @Component({
   selector: 'app-proves-detail',
