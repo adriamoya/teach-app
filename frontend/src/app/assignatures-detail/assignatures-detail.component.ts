@@ -23,6 +23,8 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 	assignatura: any;
 	id: string;
 
+	public proves: any;
+
 	constructor(
 		public _route: ActivatedRoute,
 		public _router: Router,
@@ -38,8 +40,45 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 					data => {
 						this.assignatura = data;
 
-						// Get distinct of alumnes
-						
+						// Nota mitja de cada prova (do this in backend)
+						// ----------------------------------------------
+						let alumnes = [];
+						let proves = [];
+
+						for (var i in data.proves_assignatura) {
+							
+							var puntuacions = [];
+							var prova = data.proves_assignatura[i];
+							for (var j in prova.notes_prova) {
+
+								var puntuacio = prova.notes_prova[j]
+								puntuacions.push(puntuacio.nota)
+								alumnes.push({
+									"nom": puntuacio.nom + " " + puntuacio.primer_cognom + " " + puntuacio.segon_cognom,
+									"url": puntuacio.url_detail
+								});
+							}
+							// Calcul nota promig
+							var avg: any;
+							if (puntuacions.length >0) {
+								var sum = 0;
+								for (var k = 0; k < puntuacions.length; k++) {
+									sum += puntuacions[k];
+								}
+								avg = sum/puntuacions.length;
+							} else {
+								avg = null;
+							}
+							proves.push({
+								"id": prova.id,
+								"nom": prova.nom,
+								"data": prova.data,
+								"puntuacio_promig": avg,
+								"puntuacio_total": prova.nota_total
+							})
+						}
+						this.proves = proves;
+						console.log(proves);
 					},
 					error => {
 						// this routing should be based off of the error-status
