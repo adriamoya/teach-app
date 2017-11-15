@@ -93,7 +93,7 @@
 
 			<!-- Alumnes - list -->
 			<div class="tab-pane fade" id="alumnes" role="tabpanel" aria-labelledby="alumnes-tab">
-				<div class="table-responsive">
+				<div *ngIf="alumnes" class="table-responsive">
 					<table class="table table-sm table-hover">
 						<thead>
 							<tr>
@@ -104,10 +104,10 @@
 						<tbody>
 							<tr *ngFor="let alumne of alumnes">
 								<td><a routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a></td>
-								<td *ngFor="let prova_assignatura of proves_assignatura">
-									<div *ngFor="let puntuacio of prova_assignatura.puntuacio_alumnes">
-										<div *ngIf="puntuacio.nom == alumne.nom; then thenBlock else elseBlock">...</div>
-										<ng-template #thenBlock>{{ puntuacio.puntuacio }}</ng-template>
+								<td *ngFor="let prova_assignatura of assignatura.proves_assignatura">
+									<div *ngFor="let puntuacio of prova_assignatura.notes_prova">
+										<div *ngIf="puntuacio.alumne.id == alumne.id; then thenBlock else elseBlock">...</div>
+										<ng-template #thenBlock>{{ puntuacio.nota }}</ng-template>
 										<!-- <ng-template #elseBlock><span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span></ng-template> -->
 									</div>
 								</td>
@@ -120,7 +120,7 @@
 						No hi ha cap alumne ...
 					</div>
 				</div>
-			</div> <!-- Alumnes - list -->
+			</div><!-- Alumnes - list -->
 
 			<!-- Professors -->
 
