@@ -27,7 +27,7 @@ class Nota(models.Model):
 	alumne 		= models.ForeignKey('alumnes.Alumne', related_name='nota_alumne', blank=True, null=True)
 
 	def __unicode__(self):
-		return "%s - %s - %s" % (self.nota, self.alumne, self.prova)
+		return "%s - %s %s - %s" % (self.prova, self.alumne.nom, self.alumne.primer_cognom, self.nota)
 
 	# def __unicode__(self):
 	# 	return "%d" % (self.nota)
