@@ -24,6 +24,7 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 	id: string;
 
 	public proves: any;
+	public alumnes: any;
 
 	constructor(
 		public _route: ActivatedRoute,
@@ -54,8 +55,10 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 								var puntuacio = prova.notes_prova[j]
 								puntuacions.push(puntuacio.nota)
 								alumnes.push({
-									"nom": puntuacio.nom + " " + puntuacio.primer_cognom + " " + puntuacio.segon_cognom,
-									"url": puntuacio.url_detail
+									"id": puntuacio.alumne.id,
+									"nom": puntuacio.alumne.nom + " " + puntuacio.alumne.primer_cognom + " " + puntuacio.alumne.segon_cognom,
+									"url": puntuacio.alumne.url_detail,
+									"puntuacio": puntuacio.nota
 								});
 							}
 							// Calcul nota promig
@@ -78,7 +81,22 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 							})
 						}
 						this.proves = proves;
-						console.log(proves);
+
+						// Select distinct de alumnes
+						// ----------------------------------------------
+						var select_distinct = function(array) {
+							var flags = [], output = [];
+							for (var i = 0; i < array.length; i++) {
+								if (flags[array[i].id]) continue;
+								flags[array[i].id] = true;
+								output.push(array[i]);
+							}
+							return output;
+						};
+
+						this.alumnes = select_distinct(alumnes);
+						//console.log(this.alumnes);
+
 					},
 					error => {
 						// this routing should be based off of the error-status

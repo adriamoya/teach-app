@@ -76,7 +76,7 @@
 							<tr *ngFor="let prova of proves">
 								<td><a routerLink="/assignatures/{{ id }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
 								<td>{{ prova.data | date }}</td>
-								<td *ngIf="prova.puntuacio_promig">{{ prova.puntuacio_promig }} / {{ prova.puntuacio_total }}</td>
+								<td *ngIf="prova.puntuacio_promig">{{ prova.puntuacio_promig | number:'1.0-2'}} / {{ prova.puntuacio_total }}</td>
 								<td *ngIf="!prova.puntuacio_promig">
 									<span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
 								</td>
@@ -98,11 +98,11 @@
 						<thead>
 							<tr>
 								<th>Alumne</th>
-								<th *ngFor="let prova of proves_assignatura">{{ prova.nom }} <span style="font-weight: 400;">(/{{ prova.puntuacio_total }})</span></th>
+								<th *ngFor="let prova of proves">{{ prova.nom }} <span style="font-weight: 400;">(/{{ prova.puntuacio_total }})</span></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngFor="let alumne of assignatura.alumnes">
+							<tr *ngFor="let alumne of alumnes">
 								<td><a routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a></td>
 								<td *ngFor="let prova_assignatura of proves_assignatura">
 									<div *ngFor="let puntuacio of prova_assignatura.puntuacio_alumnes">

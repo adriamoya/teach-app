@@ -22,6 +22,7 @@ class AlumneListSerializer(ModelSerializer):
 	class Meta:
 		model = Alumne
 		fields = [
+			'id',				# id of alumne
 			'nom', 				# name of alumne
 			'primer_cognom',	# first surname
 			'segon_cognom',		# second surname
