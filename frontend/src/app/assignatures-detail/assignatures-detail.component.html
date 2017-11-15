@@ -77,10 +77,10 @@
 							<!-- WE SHOULD NO PASS THE ASSIGNATURA NOM IN THE QUERYPARAMS -->
 							<!-- queryParams="{{ assignatura.nom }}" -->
 
-							<tr *ngFor="let prova of assignatura.proves">
+							<tr *ngFor="let prova of assignatura.proves_assignatura">
 								<td><a routerLink="/assignatures/{{ id }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
 								<td>{{ prova.data | date }}</td>
-								<td *ngIf="prova.puntuacio_promig">{{ prova.puntuacio_promig }} / {{ prova.puntuacio_total }}</td>
+								<td *ngIf="prova.puntuacio_promig">{{ prova.puntuacio_promig }} / {{ prova.nota_total }}</td>
 								<td *ngIf="!prova.puntuacio_promig">
 									<span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
 								</td>
@@ -88,7 +88,7 @@
 						</tbody>
 					</table>
 				</div>
-				<div *ngIf="!assignatura.proves">
+				<div *ngIf="!assignatura.proves_assignatura">
 					<div class="alert alert-warning" role="alert">
 						No hi ha cap prova ...
 					</div>
