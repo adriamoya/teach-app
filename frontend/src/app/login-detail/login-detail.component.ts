@@ -18,6 +18,7 @@ export class LoginDetailComponent implements OnInit {
 	usernameError: [any];
 	passwordError: [any];
 	nonFieldError: [any];
+	error: string;
 
 	constructor(
 		public _router: Router, 

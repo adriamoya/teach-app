@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
+import { tokenNotExpired} from 'angular2-jwt';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -15,14 +16,17 @@ export class AssignaturesService {
 	constructor(
 		public _http: Http,
 		public _router: Router) {
-
 		let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 		if (currentUser) {
-			this.token = currentUser['token'];
+			if (tokenNotExpired(undefined, currentUser['token'])) {
+				this.token = currentUser['token'];
+			} else {
+				this.token = null;
+			}
 		} else {
 			this.token = null;
 		}
-	}
+	};
 
 	// list method: lists out all assignatures
 	// ------------------------------------------------------

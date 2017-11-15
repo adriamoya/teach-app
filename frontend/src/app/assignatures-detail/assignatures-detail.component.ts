@@ -40,6 +40,7 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 	};
 
 	ngOnInit() {
+
 		this.proves_assignatura = [];
 
 		this.routeSub = this._route.params.subscribe(params => {

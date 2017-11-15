@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
+import { tokenNotExpired } from 'angular2-jwt';
+
 import 'rxjs/add/operator/map'
 
 import { contentHeaders } from '../_services/headers';
@@ -19,7 +21,8 @@ export class AuthenticationService {
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
     }
- 
+
+    // login 
     login(username: string, password: string): Observable<boolean> {
         let body = JSON.stringify({ username, password });
         return this._http.post(this.endpoint, body, { headers: contentHeaders})
@@ -39,7 +42,7 @@ export class AuthenticationService {
                     // set token property
                     this.token = token;
                     this.username = username;
- 
+
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', currentUser);
  
@@ -52,6 +55,7 @@ export class AuthenticationService {
             });
     }
  
+    // logout
     logout(): void {
         // updates observable (changes received by all subscribers to this observable)
         this.subject.next();
@@ -61,7 +65,21 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
     }
 
+    // get login status
     getLoginStatus(): Observable<any> {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser) {
+            if (tokenNotExpired(undefined, currentUser['token'])) {
+                this.subject.next({
+                        username: currentUser['username'],
+                        token: currentUser['token']
+                });
+            } else {
+                this.subject.next();    
+            };
+        } else {
+            this.subject.next(); 
+        };
         return this.subject.asObservable();
     }
 }
