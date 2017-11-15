@@ -24,7 +24,6 @@ export class AuthenticationService {
         let body = JSON.stringify({ username, password });
         return this._http.post(this.endpoint, body, { headers: contentHeaders})
             .map((response: Response) => {
-                console.log(response.json());
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
                 if (token) {

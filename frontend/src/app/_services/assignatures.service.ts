@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt';
-
-// import { contentHeaders } from '../services/headers';
+import { Router } from '@angular/router';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -12,7 +10,19 @@ const endpoint = 'http://127.0.0.1:8000/api/assignatures/'; // eventually run fr
 @Injectable()
 export class AssignaturesService {
 
-	constructor(public _http: Http, public _authHttp: AuthHttp) { }
+	private token: string;
+
+	constructor(
+		public _http: Http,
+		public _router: Router) {
+
+		let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		if (currentUser) {
+			this.token = currentUser['token'];
+		} else {
+			this.token = null;
+		}
+	}
 
 	// list method: lists out all assignatures
 	// ------------------------------------------------------
@@ -29,7 +39,7 @@ export class AssignaturesService {
 
 	// get method: gets specific assignatura with passed id
 	// ------------------------------------------------------
-	get(id, token){
+	get(id){
 		/* We get the data from static JSONs within /assets/json.
 		   We will eventually direct the endpoint to our API. */
 
@@ -43,29 +53,31 @@ export class AssignaturesService {
 		const headers = new Headers();
 		headers.append('Accept', 'application/json');
 		headers.append('Content-Type', 'application/json');
-		headers.append('Authorization', 'JWT ' + token)
-		headers.append('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
-		headers.append('Access-Control-Allow-Credentials', 'true');
+		headers.append('Authorization', 'JWT ' + this.token)
+		// headers.append('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
+		// headers.append('Access-Control-Allow-Credentials', 'true');
 		const options = new RequestOptions({headers: headers});
 
 		return this._http.get(endpoint + id + '/', options)
-						.map(response=>{
-							// console.log(response.json());
-							let data = response.json();
-							// if (data.length == 1){
-							// 	return.data
-							// } 
-							return data;
-						})
+						.map(
+							response=>{
+								let data = response.json();
+								// if (data.length == 1){
+								// 	return.data
+								// } 
+								return data;
+							}
+						)
 						.catch(this.handleError);
 	};
 
-	
-
 	// Handling errors
 	// ------------------------------------------------------
-	private handleError(error:any, caught:any): any{
-		console.log(error, caught)
+	public handleError(error:any, caught:any): any{
+		// console.log(error, caught)
+		if (error.status == 401) {
+			console.log(error.json()['detail']);
+		}
 	};
 
 }

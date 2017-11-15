@@ -12,7 +12,7 @@ import { AuthenticationService } from '../_services/authentication.service';
   styleUrls: ['./navbar.component.css'],
 })
 
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
 	
 	public isCollapsed = true;
 	subscription: Subscription;
@@ -24,11 +24,19 @@ export class NavbarComponent {
 		this.subscription = this._authenticationService.getLoginStatus().subscribe(currentUser => {
 			if (currentUser){
 				this.username = currentUser['username'];
+			} else {
+				this.username = null;
 			}
 		});
 	}
 
 	ngOnInit(){
+		let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		if (currentUser) {
+			this.username = currentUser['username'];
+		} else {
+			this.username = null;
+		}
 	}
 
 	ngOnDestroy() {

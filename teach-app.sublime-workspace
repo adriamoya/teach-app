@@ -96,27 +96,19 @@
 	"buffers":
 	[
 		{
-			"file": "frontend/src/app/home/home.component.ts",
+			"file": "frontend/src/app/navbar/navbar.component.ts",
 			"settings":
 			{
-				"buffer_size": 926,
+				"buffer_size": 990,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "frontend/src/app/services/assignatures.service.spec.ts",
+			"file": "frontend/src/app/assignatures-detail/assignatures-detail.component.ts",
 			"settings":
 			{
-				"buffer_size": 410,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "frontend/src/app/services/user-changes.service.spec.ts",
-			"settings":
-			{
-				"buffer_size": 0,
+				"buffer_size": 2188,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -163,33 +155,51 @@
 		"/home/amoya/python/teach-app/frontend",
 		"/home/amoya/python/teach-app/frontend/src",
 		"/home/amoya/python/teach-app/frontend/src/app",
-		"/home/amoya/python/teach-app/frontend/src/app/assignatures-list",
-		"/home/amoya/python/teach-app/frontend/src/app/services"
+		"/home/amoya/python/teach-app/frontend/src/app/_services",
+		"/home/amoya/python/teach-app/frontend/src/app/assignatures-detail",
+		"/home/amoya/python/teach-app/frontend/src/app/navbar"
 	],
 	"file_history":
 	[
-		"/home/amoya/python/teach-app/frontend/src/app/services/user.changes.service.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/navbar/navbar.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/_services/authentication.service.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/login-detail/login-detail.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/navbar/navbar.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/_services/user-changes.service.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/navbar/navbar.component.html",
+		"/home/amoya/python/teach-app/frontend/src/app/app.module.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/_services/auth.guard.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/assignatures-detail/assignatures-detail.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/app.routing.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/signup-detail/signup-detail.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/proves-update/proves-update.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/proves-update/proves-update-detail.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/proves-detail/proves-detail.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/proves-create/proves-create.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/assignatures-update/assignatures-update.component.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/home/home.component.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/home/home.component.html",
-		"/home/amoya/python/teach-app/frontend/src/app/login-detail/login-detail.component.html",
-		"/home/amoya/python/teach-app/frontend/src/app/services/headers.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/assignatures-list/assignatures-list.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/services/assignatures.service.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/services/authentication.service.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/services/auth.guard.ts",
+		"/home/amoya/python/teach-app/.gitignore",
+		"/home/amoya/python/teach-app/backend/teach/curl_tests",
 		"/home/amoya/python/teach-app/backend/teach/settings.py",
+		"/home/amoya/python/teach-app/frontend/src/app/services/user-changes.service.ts",
+		"/home/amoya/python/teach-app/frontend/node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/app.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/home/home.component.html",
+		"/home/amoya/python/teach-app/frontend/src/app/app.component.html",
+		"/home/amoya/python/teach-app/frontend/package.json",
+		"/home/amoya/python/teach-app/frontend/src/app/login-detail/login-detail.component.html",
+		"/home/amoya/python/teach-app/frontend/src/app/signup-detail/signup-detail.component.html",
+		"/home/amoya/python/teach-app/frontend/src/app/services/user-changes.service.spec.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/services/user.changes.service.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/services/headers.ts",
 		"/home/amoya/python/teach-app/requirements.txt",
 		"/home/amoya/python/teach-app/backend/accounts/urls.py",
 		"/home/amoya/python/teach-app/backend/teach/urls.py",
-		"/home/amoya/python/teach-app/frontend/src/app/signup-detail/signup-detail.component.html",
 		"/home/amoya/python/teach-app/backend/accounts/serializers.py",
 		"/home/amoya/python/teach-app/backend/accounts/views.py",
-		"/home/amoya/python/teach-app/frontend/src/app/signup-detail/signup-detail.component.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/app.routing.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/app.module.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/services/auth.guard.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/services/assignatures.service.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/assignatures-list/assignatures-list.component.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/app.component.ts",
 		"/home/amoya/python/teach-app/frontend/.angular-cli.json",
 		"/home/amoya/python/teach-app/backend/assignatures/views.py",
 		"/home/amoya/python/angular-app/src/app/assignatures-detail/assignatures-detail.component.html",
@@ -278,8 +288,7 @@
 		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/base.html",
 		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/index.html",
 		"/Users/moyandreu/Desktop/djangoviz_saldos/src/website/models.py",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/website/urls.py",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/home.html"
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/website/urls.py"
 	],
 	"find":
 	{
@@ -315,24 +324,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "frontend/src/app/home/home.component.ts",
+					"file": "frontend/src/app/navbar/navbar.component.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 926,
+						"buffer_size": 990,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								733,
-								733
+								183,
+								233
 							]
 						],
 						"settings":
@@ -345,58 +354,30 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "frontend/src/app/services/assignatures.service.spec.ts",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 410,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "frontend/src/app/services/user-changes.service.spec.ts",
+					"buffer": 1,
+					"file": "frontend/src/app/assignatures-detail/assignatures-detail.component.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 2188,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1365,
+								1365
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
@@ -490,7 +471,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 306.0,
+	"side_bar_width": 261.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

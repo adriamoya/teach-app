@@ -73,7 +73,7 @@ import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
 	  // ngx-bootstrap
     AccordionModule.forRoot(),
     NgbModule.forRoot(),
-	  BsDropdownModule.forRoot(),
+	BsDropdownModule.forRoot(),
     CollapseModule,
     LoadingModule
   ],
