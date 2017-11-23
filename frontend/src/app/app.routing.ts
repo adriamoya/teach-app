@@ -1,21 +1,21 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './_services/auth.guard';
+import { AuthGuard } from './services/auth.guard';
 
-import { HomeComponent }   from './home/home.component';
-import { AlumnesListComponent } from './alumnes-list/alumnes-list.component';
-import { AlumnesDetailComponent } from './alumnes-detail/alumnes-detail.component';
-import { AssignaturesCreateComponent } from './assignatures-create/assignatures-create.component';
-import { AssignaturesListComponent } from './assignatures-list/assignatures-list.component';
-import { AssignaturesDetailComponent } from './assignatures-detail/assignatures-detail.component';
-import { AssignaturesUpdateComponent } from './assignatures-update/assignatures-update.component';
-import { LoginDetailComponent } from './login-detail/login-detail.component';
-import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
-import { ProvesCreateComponent } from './proves-create/proves-create.component';
-import { ProvesDetailComponent } from './proves-detail/proves-detail.component';
-import { ProvesUpdateComponent } from './proves-update/proves-update.component';
-import { SignupDetailComponent } from './signup-detail/signup-detail.component';
+import { HomeComponent }   from './components/home/home.component';
+import { AlumnesListComponent } from './components/alumnes-list/alumnes-list.component';
+import { AlumnesDetailComponent } from './components/alumnes-detail/alumnes-detail.component';
+import { AssignaturesCreateComponent } from './components/assignatures-create/assignatures-create.component';
+import { AssignaturesListComponent } from './components/assignatures-list/assignatures-list.component';
+import { AssignaturesDetailComponent } from './components/assignatures-detail/assignatures-detail.component';
+import { AssignaturesUpdateComponent } from './components/assignatures-update/assignatures-update.component';
+import { LoginDetailComponent } from './components/login-detail/login-detail.component';
+import { ProfileDetailComponent } from './components/profile-detail/profile-detail.component';
+import { ProvesCreateComponent } from './components/proves-create/proves-create.component';
+import { ProvesDetailComponent } from './components/proves-detail/proves-detail.component';
+import { ProvesUpdateComponent } from './components/proves-update/proves-update.component';
+import { SignupDetailComponent } from './components/signup-detail/signup-detail.component';
 
 const routes: Routes = [
   {

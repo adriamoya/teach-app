@@ -12,31 +12,32 @@ import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 
-import { AuthGuard } from './_services/auth.guard';
-
+// Components
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { AssignaturesListComponent } from './assignatures-list/assignatures-list.component';
-import { AssignaturesDetailComponent } from './assignatures-detail/assignatures-detail.component';
-import { ProvesDetailComponent } from './proves-detail/proves-detail.component';
-import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
-import { AssignaturesUpdateComponent } from './assignatures-update/assignatures-update.component';
-import { AssignaturesUpdateDetailComponent } from './assignatures-update/assignatures-update-detail.component';
-import { AlumnesListComponent } from './alumnes-list/alumnes-list.component';
-import { AlumnesDetailComponent } from './alumnes-detail/alumnes-detail.component';
-import { AssignaturesCreateComponent } from './assignatures-create/assignatures-create.component';
-import { ProvesCreateComponent } from './proves-create/proves-create.component';
-import { ProvesUpdateComponent } from './proves-update/proves-update.component';
-import { ProvesUpdateDetailComponent } from './proves-update/proves-update-detail.component';
-import { LoginDetailComponent } from './login-detail/login-detail.component';
-import { SignupDetailComponent } from './signup-detail/signup-detail.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AssignaturesListComponent } from './components/assignatures-list/assignatures-list.component';
+import { AssignaturesDetailComponent } from './components/assignatures-detail/assignatures-detail.component';
+import { ProvesDetailComponent } from './components/proves-detail/proves-detail.component';
+import { ProfileDetailComponent } from './components/profile-detail/profile-detail.component';
+import { AssignaturesUpdateComponent } from './components/assignatures-update/assignatures-update.component';
+import { AssignaturesUpdateDetailComponent } from './components/assignatures-update/assignatures-update-detail.component';
+import { AlumnesListComponent } from './components/alumnes-list/alumnes-list.component';
+import { AlumnesDetailComponent } from './components/alumnes-detail/alumnes-detail.component';
+import { AssignaturesCreateComponent } from './components/assignatures-create/assignatures-create.component';
+import { ProvesCreateComponent } from './components/proves-create/proves-create.component';
+import { ProvesUpdateComponent } from './components/proves-update/proves-update.component';
+import { ProvesUpdateDetailComponent } from './components/proves-update/proves-update-detail.component';
+import { LoginDetailComponent } from './components/login-detail/login-detail.component';
+import { SignupDetailComponent } from './components/signup-detail/signup-detail.component';
+import { Ng2TagsInputItem } from "./components/tags-input/ng2-tagsinput-item";
+import { Ng2TagsInput } from "./components/tags-input/ng2-tagsinput";
 
-import { AuthenticationService } from './_services/authentication.service';
+// Services
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuard } from './services/auth.guard';
 
-import { Ng2TagsInputItem } from "./tags-input/ng2-tagsinput-item";
-import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
 
 
 @NgModule({
@@ -73,7 +74,7 @@ import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
 	  // ngx-bootstrap
     AccordionModule.forRoot(),
     NgbModule.forRoot(),
-	BsDropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     CollapseModule,
     LoadingModule
   ],
@@ -82,8 +83,8 @@ import { Ng2TagsInput } from "./tags-input/ng2-tagsinput";
     Ng2TagsInput
   ],
   providers: [
-    AUTH_PROVIDERS, 
-    AuthGuard, 
+    AUTH_PROVIDERS,
+    AuthGuard,
     AuthenticationService
     ],
   bootstrap: [AppComponent]

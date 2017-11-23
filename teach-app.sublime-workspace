@@ -96,19 +96,10 @@
 	"buffers":
 	[
 		{
-			"file": "frontend/src/app/navbar/navbar.component.ts",
+			"file": "backend/teach/settings.py",
 			"settings":
 			{
-				"buffer_size": 990,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "frontend/src/app/assignatures-detail/assignatures-detail.component.ts",
-			"settings":
-			{
-				"buffer_size": 2188,
+				"buffer_size": 4178,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -121,16 +112,20 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 354.0,
-		"last_filter": "packa",
+		"height": 170.0,
+		"last_filter": "Package Control: insta",
 		"selected_items":
 		[
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			],
 			[
 				"packa",
 				"Package Control: Install Package"
 			]
 		],
-		"width": 467.0
+		"width": 513.0
 	},
 	"console":
 	{
@@ -152,23 +147,29 @@
 	"expanded_folders":
 	[
 		"/home/amoya/python/teach-app",
-		"/home/amoya/python/teach-app/frontend",
-		"/home/amoya/python/teach-app/frontend/src",
-		"/home/amoya/python/teach-app/frontend/src/app",
-		"/home/amoya/python/teach-app/frontend/src/app/_services",
-		"/home/amoya/python/teach-app/frontend/src/app/assignatures-detail",
-		"/home/amoya/python/teach-app/frontend/src/app/navbar"
+		"/home/amoya/python/teach-app/backend",
+		"/home/amoya/python/teach-app/backend/teach"
 	],
 	"file_history":
 	[
+		"/home/amoya/python/teach-app/frontend/src/app/assignatures-detail/assignatures-detail.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/assignatures-detail/assignatures-detail.component.html",
+		"/home/amoya/python/teach-app/backend/teach/settings.py",
+		"/home/amoya/python/teach-app/backend/teach/urls.py",
+		"/home/amoya/python/teach-app/backend/alumnes/serializers.py",
+		"/home/amoya/python/teach-app/backend/proves/models.py",
+		"/home/amoya/python/teach-app/backend/proves/serializers.py",
+		"/home/amoya/python/teach-app/frontend/src/app/_services/assignatures.service.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/_services/proves.service.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/_services/_backup.proves.service.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/_services/authentication.service.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/_services/auth.guard.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/login-detail/login-detail.component.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/navbar/navbar.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/home/home.component.ts",
+		"/home/amoya/python/teach-app/frontend/src/app/app.module.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/_services/user-changes.service.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/navbar/navbar.component.html",
-		"/home/amoya/python/teach-app/frontend/src/app/app.module.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/_services/auth.guard.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/assignatures-detail/assignatures-detail.component.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/app.routing.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/signup-detail/signup-detail.component.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/proves-update/proves-update.component.ts",
@@ -176,14 +177,12 @@
 		"/home/amoya/python/teach-app/frontend/src/app/proves-detail/proves-detail.component.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/proves-create/proves-create.component.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/assignatures-update/assignatures-update.component.ts",
-		"/home/amoya/python/teach-app/frontend/src/app/home/home.component.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/assignatures-list/assignatures-list.component.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/services/assignatures.service.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/services/authentication.service.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/services/auth.guard.ts",
 		"/home/amoya/python/teach-app/.gitignore",
 		"/home/amoya/python/teach-app/backend/teach/curl_tests",
-		"/home/amoya/python/teach-app/backend/teach/settings.py",
 		"/home/amoya/python/teach-app/frontend/src/app/services/user-changes.service.ts",
 		"/home/amoya/python/teach-app/frontend/node_modules/typescript/lib/lib.es2015.iterable.d.ts",
 		"/home/amoya/python/teach-app/frontend/src/app/app.component.ts",
@@ -197,7 +196,6 @@
 		"/home/amoya/python/teach-app/frontend/src/app/services/headers.ts",
 		"/home/amoya/python/teach-app/requirements.txt",
 		"/home/amoya/python/teach-app/backend/accounts/urls.py",
-		"/home/amoya/python/teach-app/backend/teach/urls.py",
 		"/home/amoya/python/teach-app/backend/accounts/serializers.py",
 		"/home/amoya/python/teach-app/backend/accounts/views.py",
 		"/home/amoya/python/teach-app/frontend/.angular-cli.json",
@@ -281,18 +279,11 @@
 		"/Users/moyandreu/Documents/python/visualization/financial_dashboard/templates/index_old.html",
 		"/Users/moyandreu/Desktop/d3_visualization/index.html",
 		"/Users/moyandreu/Desktop/djangoviz_saldos/src/website/views.py",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/navbar.html",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/djangoviz/urls.py",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/saldos.html",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/djangoviz/views.py",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/base.html",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/index.html",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/website/models.py",
-		"/Users/moyandreu/Desktop/djangoviz_saldos/src/website/urls.py"
+		"/Users/moyandreu/Desktop/djangoviz_saldos/src/templates/navbar.html"
 	],
 	"find":
 	{
-		"height": 70.0
+		"height": 24.0
 	},
 	"find_in_files":
 	{
@@ -306,6 +297,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"getLoginStatus",
+			"changes",
 			"angular-app"
 		],
 		"highlight": true,
@@ -324,64 +317,32 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "frontend/src/app/navbar/navbar.component.ts",
+					"file": "backend/teach/settings.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 990,
+						"buffer_size": 4178,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								183,
-								233
+								3918,
+								3918
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"translate_tabs_to_spaces": false,
-							"use_tab_stops": false
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "frontend/src/app/assignatures-detail/assignatures-detail.component.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2188,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1365,
-								1365
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"translate_tabs_to_spaces": false,
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1652.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -467,11 +428,11 @@
 	"settings":
 	{
 	},
-	"show_minimap": true,
+	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 261.0,
+	"side_bar_width": 229.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
