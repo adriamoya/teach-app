@@ -5,7 +5,7 @@ import { AssignaturesService } from '../../services/assignatures.service';
   selector: 'app-assignatures-list',
   templateUrl: './assignatures-list.component.html',
   styleUrls: ['./assignatures-list.component.css'],
-  providers: [AssignaturesService]
+  providers: []
 })
 export class AssignaturesListComponent implements OnInit {
 

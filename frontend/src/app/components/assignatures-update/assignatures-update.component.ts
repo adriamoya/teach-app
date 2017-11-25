@@ -9,7 +9,7 @@ import { AssignaturesService } from '../../services/assignatures.service';
 	selector: 'app-assignatures-update',
 	templateUrl: './assignatures-update.component.html',
 	styleUrls: ['./assignatures-update.component.css'],
-	providers: [AssignaturesService]
+	providers: []
 })
 
 export class AssignaturesUpdateComponent implements OnInit {

@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
   selector: 'app-proves-detail',
   templateUrl: './proves-detail.component.html',
   styleUrls: ['./proves-detail.component.css'],
-  providers: [ProvesService, AssignaturesService]
+  providers: []
 })
 export class ProvesDetailComponent implements OnInit {
 
@@ -21,7 +21,6 @@ export class ProvesDetailComponent implements OnInit {
 	private prova: any;
 	private assignatura: any;
 	private id: string;
-	private assignaturaId: string;
 
 	constructor(
 		private _route: ActivatedRoute, 
@@ -38,7 +37,7 @@ export class ProvesDetailComponent implements OnInit {
 			this.reqProva = this._proves.get(this.id)
 				.subscribe(resp=> {
 					this.prova = resp;
-					console.log(this.prova);
+					//console.log(this.prova);
 
 					this.reqAssignatura = this._assignatures.get(this.prova.assignatura)
 						.subscribe(resp => {

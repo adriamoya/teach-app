@@ -11,7 +11,7 @@ import 'rxjs/add/operator/catch';
   selector: 'app-assignatures-detail',
   templateUrl: './assignatures-detail.component.html',
   styleUrls: ['./assignatures-detail.component.css'],
-  providers: [AssignaturesService]
+  providers: []
 })
 
 export class AssignaturesDetailComponent implements OnInit, OnDestroy {

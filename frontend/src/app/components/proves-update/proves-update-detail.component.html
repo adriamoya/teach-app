@@ -35,7 +35,7 @@
 		<dd>
 			<tag-input
 			placeholder="Afegir continguts ..."
-			[model]="prova.continguts_avaluats"
+			[model]="prova.continguts"
 			></tag-input>
 		</dd>
 	</dl>
@@ -46,7 +46,7 @@
 		</dt>
 		<dd>
 			<select class="form-control" id="assignatures">
-				<option *ngFor="let assignatura of assignaturesList" [selected]="assignatura.id === prova.assignatura.id">{{assignatura.nom}}</option>
+				<option *ngFor="let assign of assignaturesList" [selected]="assign.id === assignatura.id">{{assign.nom}}</option>
 			</select>
 		</dd>
 	</dl>
@@ -54,10 +54,10 @@
 	<dl class="form-group row">
 		<div class="col">
 			<dt>
-				<label class="form-label" for="pes-prova">Pes prova<span style="font-weight: 400;"> (%)</span></label>
+				<label class="form-label" for="pes-prova">Pes prova</label>
 			</dt>
 			<dd>
-				<input type="number" class="form-control" id="pes-prova" value="{{ prova.pes_nota }}">
+				<input type="text" class="form-control" id="pes-prova" [value]="prova.pes_total | percent: '1.0-1'">
 			</dd>
 		</div>
 		<div class="col">
@@ -65,7 +65,7 @@
 				<label class="form-label" for="puntacio-max">Puntuacio màxima</label>
 			</dt>
 			<dd>
-				<input type="number" class="form-control" id="puntacio-max" value="{{ prova.puntuacio_total }}">
+				<input type="number" class="form-control" id="puntacio-max" value="{{ prova.nota_total }}">
 			</dd>
 		</div>
 	</dl>
@@ -94,17 +94,17 @@
 		<hr>
 	</div>
 
-	<div class="list-group">
-		<div *ngFor="let alumne of prova.puntuacio_alumnes" 
+	<div class="list-group" *ngIf="prova">
+		<div *ngFor="let nota of prova.notes_prova" 
 		class="list-group-item list-group-item-action clearfix">
-				<a routerLink="/alumnes/{{alumne.id}}" routerLinkActivate="activate">{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</a>
+				<a routerLink="/alumnes/{{nota.alumne.id}}" routerLinkActivate="activate">{{nota.alumne.nom}} {{nota.alumne.primer_cognom}} {{nota.alumne.segon_cognom}}</a>
 				<span class="icon-right">
-					<span style="margin-right: 40px;"><span style="font-weight: 600;">&emsp;{{alumne.puntuacio}}</span> /{{prova.puntuacio_total}}</span>
+					<span style="margin-right: 40px;"><span style="font-weight: 600;">&emsp;{{nota.nota}}</span> /{{prova.nota_total}}</span>
 					<i class="material-icons" style="cursor: pointer;">mode_edit</i>
 					<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
 			</span>
 		</div>
-		<div *ngIf="!prova.puntuacio_alumnes">
+		<div *ngIf="!prova.notes_prova">
 			<div class="alert alert-warning" role="alert">
 				No hi ha cap puntuació ...
 			</div>

@@ -1,0 +1,1 @@
+{"version":3,"file":"ion-range-slider.module.js","sourceRoot":"","sources":["../src/ion-range-slider.module.ts"],"names":[],"mappings":";;;;;;;;AAAA,2EAAyE;AACzE,sCAAuC;AAMvC,IAAa,oBAAoB;IAAjC;IAAoC,CAAC;IAAD,2BAAC;AAAD,CAAC,AAArC,IAAqC;AAAxB,oBAAoB;IAJhC,eAAQ,CAAC;QACN,OAAO,EAAE,CAAC,oDAAuB,CAAC;QAClC,YAAY,EAAE,CAAC,oDAAuB,CAAC;KAC1C,CAAC;GACW,oBAAoB,CAAI;AAAxB,oDAAoB"}

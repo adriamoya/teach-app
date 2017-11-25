@@ -42,6 +42,10 @@ export class ProvesService {
 		return this._http.get(endpoint + provaId + '/', options)
 						.map(response=>{
 							let data = response.json()
+							if (data.continguts) {
+								let continguts = data.continguts.split(',');
+								data.continguts = continguts;
+							}
 							return data;
 							}
 						)

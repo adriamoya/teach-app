@@ -86,5 +86,7 @@ class ProvaDetailSerializer(ModelSerializer):
 			'nota_total',
 			'notes_count',
 			'notes_prova',
+			'pes_total',
 			'assignatura',
+			'continguts',
 		]

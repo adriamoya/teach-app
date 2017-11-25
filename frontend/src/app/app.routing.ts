@@ -38,43 +38,53 @@ const routes: Routes = [
   },
   {
     path: 'assignatures',
-    component: AssignaturesListComponent
+    component: AssignaturesListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'alumnes',
-    component: AlumnesListComponent
+    component: AlumnesListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'alumnes/:id',
-    component: AlumnesDetailComponent
+    component: AlumnesDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'assignatures/add',
-    component: AssignaturesCreateComponent
+    component: AssignaturesCreateComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'assignatures/:id',
-    component: AssignaturesDetailComponent
+    component: AssignaturesDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'assignatures/:id/edit',
-    component: AssignaturesUpdateComponent
+    component: AssignaturesUpdateComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'proves/add',
-    component: ProvesCreateComponent
+    component: ProvesCreateComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'assignatures/:id/:id',
-    component: ProvesDetailComponent
+    component: ProvesDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'assignatures/:id/:id/edit',
-    component: ProvesUpdateComponent
+    component: ProvesUpdateComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'perfil/:id',
-    component: ProfileDetailComponent
+    component: ProfileDetailComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

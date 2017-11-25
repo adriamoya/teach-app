@@ -31,12 +31,15 @@ import { ProvesUpdateComponent } from './components/proves-update/proves-update.
 import { ProvesUpdateDetailComponent } from './components/proves-update/proves-update-detail.component';
 import { LoginDetailComponent } from './components/login-detail/login-detail.component';
 import { SignupDetailComponent } from './components/signup-detail/signup-detail.component';
+
 import { Ng2TagsInputItem } from "./components/tags-input/ng2-tagsinput-item";
 import { Ng2TagsInput } from "./components/tags-input/ng2-tagsinput";
 
 // Services
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './services/auth.guard';
+import { ProvesService } from './services/proves.service';
+import { AssignaturesService } from './services/assignatures.service';
 
 
 
@@ -77,7 +80,7 @@ import { AuthGuard } from './services/auth.guard';
     BsDropdownModule.forRoot(),
     CollapseModule,
     LoadingModule
-  ],
+    ],
   exports: [
     Ng2TagsInputItem,
     Ng2TagsInput
@@ -85,7 +88,9 @@ import { AuthGuard } from './services/auth.guard';
   providers: [
     AUTH_PROVIDERS,
     AuthGuard,
-    AuthenticationService
+    AuthenticationService,
+    ProvesService,
+    AssignaturesService
     ],
   bootstrap: [AppComponent]
 })

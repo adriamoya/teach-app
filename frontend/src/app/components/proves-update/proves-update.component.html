@@ -1,10 +1,10 @@
 <div class="container">
 
-	<div *ngIf="!prova">
+	<div *ngIf="!assignatura">
 		<p>Loading ...</p>
 	</div>
 
-	<div *ngIf="prova">
+	<div *ngIf="assignatura">
 
 		<br>
 
@@ -12,8 +12,8 @@
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
 				<li class="breadcrumb-item"><a routerLink="/assignatures/" routerLinkActive="active">Assignatures</a></li>
-				<li class="breadcrumb-item"><a routerLink="/assignatures/{{prova.assignatura.id}}" routerLinkActive="active">{{ prova.assignatura.nom }}</a></li>
-				<li class="breadcrumb-item active"><a routerLink="/assignatures/{{prova.assignatura.id}}/{{prova.id}}" routerLinkActive="active">{{ prova.nom }}</a></li>
+				<li class="breadcrumb-item"><a routerLink="/assignatures/{{assignatura.id}}" routerLinkActive="active">{{ assignatura.nom }}</a></li>
+				<li class="breadcrumb-item active"><a routerLink="/assignatures/{{assignatura.id}}/{{prova.id}}" routerLinkActive="active">{{ prova.nom }}</a></li>
 			</ol>
 		</nav>
 
@@ -49,6 +49,7 @@
 					<!-- FORM -->
 					<app-proves-update-detail 
 					[prova] ='prova'
+					[assignatura] = 'assignatura'
 					[menuSelection] ='menuSelection'>Loading ...
 					</app-proves-update-detail>
 					

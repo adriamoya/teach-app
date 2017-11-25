@@ -8,13 +8,15 @@ import { ProvesUpdateComponent } from './proves-update.component';
 @Component({
 	selector: 'app-proves-update-detail',
 	templateUrl: './proves-update-detail.component.html',
-	providers: [AssignaturesService]
+	styleUrls: ['./proves-update.component.css'],
+	providers: []
 })
 
 export class ProvesUpdateDetailComponent implements OnInit {
 
 	// passed from parent ProvesUpdateComponent
 	@Input() prova: any;
+	@Input() assignatura: any;
 	@Input() menuSelection: string;
 	req: any;
 	assignaturesList: [any];
@@ -22,8 +24,6 @@ export class ProvesUpdateDetailComponent implements OnInit {
 	constructor(private _assignatures: AssignaturesService) { };
 
 	ngOnInit() {
-
-		this.prova.pes_nota = +this.prova.pes_nota*100;
 
 		this.req = this._assignatures.list().subscribe(data => {
 			this.assignaturesList = data;
