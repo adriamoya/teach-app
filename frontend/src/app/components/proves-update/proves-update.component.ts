@@ -13,21 +13,26 @@ import { ProvesService } from '../../services/proves.service';
 export class ProvesUpdateComponent implements OnInit {
 
 	private routeSub: any;
-	private req: any;
-	prova: any;
-	id: string;
+	private reqProva: any;
+	private prova: any;
+	private id: string;
 
 	menuSelection: string = "general";
 
 
-	constructor(private route: ActivatedRoute, private _proves: ProvesService) { }
+	constructor(
+		private _route: ActivatedRoute, 
+		private _proves: ProvesService) { }
 
 	ngOnInit() {
 
-		this.routeSub = this.route.params.subscribe(params => {
+		this.routeSub = this._route.params.subscribe(params => {
 			this.id = params['id'];
-			this.req = this._proves.get('*', this.id).subscribe(data => {
-				this.prova = data;
+
+			// query the prova JSON with provaId
+			this.reqProva = this._proves.get(this.id)
+				.subscribe(resp => {
+				this.prova = resp;
 			});
 		});
 	};
@@ -35,6 +40,6 @@ export class ProvesUpdateComponent implements OnInit {
 	// important to unsubscribe (destroy) after using subscribe ...
 	ngOnDestroy() {
 		this.routeSub.unsubscribe();
-		this.req.unsubscribe();
+		this.reqProva.unsubscribe();
 	};
 }

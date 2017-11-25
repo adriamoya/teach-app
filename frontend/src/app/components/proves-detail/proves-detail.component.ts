@@ -3,39 +3,56 @@ import { ActivatedRoute } from '@angular/router'; // Provider that allows us to 
 import { Http } from '@angular/http';
 
 import { ProvesService } from '../../services/proves.service';
+import { AssignaturesService } from '../../services/assignatures.service';
+
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-proves-detail',
   templateUrl: './proves-detail.component.html',
   styleUrls: ['./proves-detail.component.css'],
-  providers: [ProvesService]
+  providers: [ProvesService, AssignaturesService]
 })
 export class ProvesDetailComponent implements OnInit {
 
 	private routeSub: any;
-	private req: any;
-	prova: any;
-	id: string;
+	private reqProva: any;
+	private reqAssignatura: any;
+	private prova: any;
+	private assignatura: any;
+	private id: string;
+	private assignaturaId: string;
 
-	constructor(private route: ActivatedRoute, private _proves: ProvesService) { }
+	constructor(
+		private _route: ActivatedRoute, 
+		private _proves: ProvesService,
+		private _assignatures: AssignaturesService) { }
 
 	ngOnInit() {
 
 		// getting the prova id and requesting its data through service
-		this.routeSub = this.route.params.subscribe(params => {
+		this.routeSub = this._route.params.subscribe(params => {
 			this.id = params['id']; // provaId
-			this.req = this._proves.get('*', this.id).subscribe(data => {
-				this.prova = data;
+
+			// query the prova JSON with the provaId
+			this.reqProva = this._proves.get(this.id)
+				.subscribe(resp=> {
+					this.prova = resp;
+					console.log(this.prova);
+
+					this.reqAssignatura = this._assignatures.get(this.prova.assignatura)
+						.subscribe(resp => {
+							this.assignatura = resp;
+					});
 			});
 		});
 
 	};
 
 	ngOnDestroy() {
-
 		this.routeSub.unsubscribe();
-		this.req.unsubscribe();
-
+		this.reqProva.unsubscribe();
+		this.reqAssignatura.unsubscribe();
 	};
 
 }

@@ -80,6 +80,7 @@ class ProvaDetailSerializer(ModelSerializer):
 	class Meta:
 		model = Prova
 		fields = [
+			'id',
 			'nom',
 			'data',
 			'nota_total',

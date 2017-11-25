@@ -1,15 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
+import { Router } from '@angular/router';
+import { tokenNotExpired} from 'angular2-jwt';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const endpoint = 'assets/json/'; // yourdomain.com/api/...
+const endpoint = 'http://127.0.0.1:8000/api/assignatures/'; // eventually run from '/api/assignatures/'
 
 @Injectable()
 export class ProvesService {
 
-	constructor(private _http: Http) { }
+	private token: string;
+
+	constructor(
+		public _http: Http,
+		public _router: Router) {
+		let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		if (currentUser) {
+			if (tokenNotExpired(undefined, currentUser['token'])) {
+				this.token = currentUser['token'];
+			} else {
+				this.token = null;
+			}
+		} else {
+			this.token = null;
+		}
+	};
+
+
 
 	// get method
 	// ------------------------------------------------------
