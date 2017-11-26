@@ -12,10 +12,14 @@ const endpoint = 'http://127.0.0.1:8000/api/assignatures/'; // eventually run fr
 export class AssignaturesService {
 
 	private token: string;
+	private assignatura: any;
+	private proves: any;
+	private alumnes: any;
 
 	constructor(
 		public _http: Http,
 		public _router: Router) {
+
 		let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 		if (currentUser) {
 			if (tokenNotExpired(undefined, currentUser['token'])) {
@@ -31,8 +35,7 @@ export class AssignaturesService {
 	// list method: lists out all assignatures
 	// ------------------------------------------------------
 	list(){
-		/* We get the data from static JSONs within /assets/json.
-		   We will eventually direct the endpoint to our API. */
+
 		return this._http.get(endpoint)
 						.map(response => response.json())
 							// console.log(response);
@@ -44,15 +47,6 @@ export class AssignaturesService {
 	// get method: gets specific assignatura with passed id
 	// ------------------------------------------------------
 	get(id){
-		/* We get the data from static JSONs within /assets/json.
-		   We will eventually direct the endpoint to our API. */
-
-		// Built-in JWT
-		// return this._authHttp.get(endpoint + id + "/")
-		// 	.map(
-		// 		response => console.log(response.text()),
-		// 		error => console.log(error.text())
-		// 	);
 
 		const headers = new Headers();
 		headers.append('Accept', 'application/json');
@@ -66,14 +60,87 @@ export class AssignaturesService {
 						.map(
 							response=>{
 								let data = response.json();
-								// if (data.length == 1){
-								// 	return.data
-								// } 
-								return data;
+								this.assignatura = data;
+								return this.assignatura;
 							}
 						)
 						.catch(this.handleError);
 	};
+
+
+	// Nota mitja de cada prova
+	// ----------------------------------------------
+
+	get_proves_promedio() {
+
+		let proves = [];
+
+		for (var i in this.assignatura.proves_assignatura) {
+
+			var puntuacions = [];
+			var prova = this.assignatura.proves_assignatura[i];
+			for (var j in prova.notes_prova) {
+				var puntuacio = prova.notes_prova[j]
+				puntuacions.push(puntuacio.nota)
+			}
+			// Calcul nota promig
+			var avg: any;
+			if (puntuacions.length >0) {
+				var sum = 0;
+				for (var k = 0; k < puntuacions.length; k++) {
+					sum += puntuacions[k];
+				}
+				avg = sum/puntuacions.length;
+			} else {
+				avg = null;
+			}
+			proves.push({
+				"id": prova.id,
+				"nom": prova.nom,
+				"data": prova.data,
+				"puntuacio_promig": avg,
+				"puntuacio_total": prova.nota_total
+			})
+		}
+
+		this.proves = proves;
+		return this.proves;
+	};
+
+
+	// Select distinct de alumnes
+	// ----------------------------------------------
+	get_distinct_alumnes() {
+		
+		let alumnes = [];
+
+		for (var i in this.assignatura.proves_assignatura) {
+			var prova = this.assignatura.proves_assignatura[i];
+			for (var j in prova.notes_prova) {
+				var puntuacio = prova.notes_prova[j]
+				alumnes.push({
+					"id": puntuacio.alumne.id,
+					"nom": puntuacio.alumne.nom + " " + puntuacio.alumne.primer_cognom + " " + puntuacio.alumne.segon_cognom,
+					"url": puntuacio.alumne.url_detail,
+					"puntuacio": puntuacio.nota
+				});
+			}
+		};
+
+		var select_distinct = function(array) {
+		var flags = [], output = [];
+		for (var i = 0; i < array.length; i++) {
+			if (flags[array[i].id]) continue;
+			flags[array[i].id] = true;
+			output.push(array[i]);
+		}
+		return output;
+		};
+
+		this.alumnes = select_distinct(alumnes);
+		return this.alumnes;
+	};
+
 
 	// Handling errors
 	// ------------------------------------------------------
