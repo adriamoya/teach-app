@@ -1,3 +1,30 @@
+import { Component } from '@angular/core';
+import { AlumnesService } from '../../services/alumnes.service';
+
+@Component({
+  selector: 'app-alumnes-list',
+  templateUrl: './alumnes-list.component.html',
+  styleUrls: ['./alumnes-list.component.css']
+})
+export class AlumnesListComponent {
+
+	private req: any;
+	private title = "Alumnes";
+	private alumnesList: [any];
+
+	constructor(private _alumnes: AlumnesService) {
+		this.req = this._alumnes.list().subscribe(data => {
+			this.alumnesList = data;
+		})
+	}
+
+	ngOnDestroy() {
+		this.req.unsubscribe();
+	}
+}
+
+
+/*
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 
@@ -25,3 +52,5 @@ export class AlumnesListComponent implements OnInit {
 		this.req.unsubscribe();
 	}
 }
+*/
+

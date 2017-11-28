@@ -49,6 +49,8 @@ import { AuthGuard } from './services/auth.guard';
 import { ProvesService } from './services/proves.service';
 import { AssignaturesService } from './services/assignatures.service';
 import { AssignaturesDataService } from './services/assignatures-data.service';
+import { AlumnesService } from './services/alumnes.service';
+
 // import { ModalDataService } from './components/assignatures-update/assignatures-update-proves.component';
 
 // entryComponents
@@ -109,6 +111,7 @@ import { AssignaturesDataService } from './services/assignatures-data.service';
     ProvesService,
     AssignaturesService,
     AssignaturesDataService,
+    AlumnesService,
     // ModalDataService
     ],
   bootstrap: [AppComponent]
