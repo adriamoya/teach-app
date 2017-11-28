@@ -4,37 +4,59 @@
 	<h2>{{title}}</h2>
 	<hr>
 </div>
+<form (ngSubmit)="saveGeneral(formGeneral)" #formGeneral="ngForm">
+	<dl class="form-group row">
+		<div class="col">
+			<dt>
+				<label class="form-label" for="nom-assignatura">Nom assignatura</label>
+			</dt>
+			<dd>
+				<input 
+				type="text" 
+				class="form-control" 
+				id="nom-assignatura" 
+				name="nom-assignatura" 
+				[(ngModel)]="assignatura.nom"
+				required>
+			</dd>
+		</div>
+		<div class="col">
+			<dt>
+				<label class="form-label" for="curs-assignatura">Curs</label>
+			</dt>
+			<dd>
+				<select
+				class="form-control" 
+				id="curs-assignatura"
+				name="curs-assignatura"
+				[(ngModel)]="assignatura.curs"
+				required>
+					<option 
+					*ngFor="let curs of cursos"
+					[value]="curs">
+						{{ curs }}
+					</option>
+					<!-- <option>2017/2018</option> -->
+				</select>
+			</dd>
+		</div>
+	</dl>
+	<dl class="form-group">
+		<dt>
+			<label class="form-label" for="bio-assignatura">Bio</label>
+		</dt>
+		<dd>
+			<textarea 
+			class="form-control" 
+			id="bio-assignatura"
+			name="bio-assignatura" 
+			rows="3"
+			[(ngModel)]="assignatura.bio">
+			</textarea>
+		</dd>
+	</dl>
+</form>
 
-<dl class="form-group row">
-	<div class="col">
-		<dt>
-			<label class="form-label" for="nom-assignatura">Nom assignatura</label>
-		</dt>
-		<dd>
-			<input type="text" class="form-control" id="nom-assignatura" value="{{ assignatura.nom }}">
-		</dd>
-	</div>
-	<div class="col">
-		<dt>
-			<label class="form-label" for="curs-assignatura">Curs</label>
-		</dt>
-		<dd>
-			<select class="form-control" id="curs-assignatura">
-				<option>2017/2018</option>
-			</select>
-		</dd>
-	</div>
-</dl>
-<dl class="form-group">
-	<dt>
-		<label class="form-label" for="bio-assignatura">Bio</label>
-	</dt>
-	<dd>
-		<textarea class="form-control" id="bio-assignatura" rows="3">
-			{{ assignatura?.bio }}
-		</textarea>
-	</dd>
-</dl>
 <br>
 
 <div class="mt-3">

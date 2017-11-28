@@ -6,11 +6,23 @@
 <div class="list-group">
 	<div *ngFor="let alumne of alumnes" 
 	class="list-group-item list-group-item-action clearfix">
-		<a routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</a>
+		<a 
+		routerLink="/alumnes/{{ alumne.id }}" 
+		routerLinkActive="active">
+			{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}
+		</a>
 		<!-- <div class="justify-content-between">Cras justo odio</div> -->
 		<span class="icon-right">
-			<i class="material-icons" style="cursor: pointer;">mode_edit</i>
-			<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
+			<a 
+			routerLink="/alumnes/{{ alumne.id }}" 
+			routerLinkActive>
+				<i class="material-icons" style="cursor: pointer;">mode_edit</i>
+			</a>
+			<a 
+			routerLink="/assignatures/{{ assignatura.id }}/edit/proves"
+			routerLinkActive>
+				<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
+			</a>
 		</span>
 	</div>
 </div>

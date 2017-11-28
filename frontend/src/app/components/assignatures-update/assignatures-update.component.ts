@@ -34,6 +34,12 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 		});
 	};
 
+	saveChanges(){
+		let assignaturaSubmit = this._assignaturesData.getAssignatura();
+		console.log(assignaturaSubmit);
+
+	}
+
 	// important to unsubscribe (destroy) after using subscribe ...
 	ngOnDestroy() {
 		this.routeSub.unsubscribe();
