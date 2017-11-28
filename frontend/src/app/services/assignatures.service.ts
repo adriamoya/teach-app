@@ -147,7 +147,8 @@ export class AssignaturesService {
 	public handleError(error:any, caught:any): any{
 		// console.log(error, caught)
 		if (error.status == 401) {
-			console.log(error.json()['detail']);
+			console.log(error.json()['detail'])
+			this._router.navigate(['/login']);
 		}
 	};
 

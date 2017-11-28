@@ -4,31 +4,39 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
 // third-party imports
-import { AccordionModule } from 'ngx-bootstrap';
+import { AccordionModule,
+         CollapseModule,
+         ModalModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CollapseModule } from 'ngx-bootstrap';
 import { LoadingModule } from 'ngx-loading';
 import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 
 // Components
+// import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app.routing';
+import { APP_ROUTING } from './app.routing';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProfileDetailComponent } from './components/profile-detail/profile-detail.component';
+
+import { AssignaturesCreateComponent } from './components/assignatures-create/assignatures-create.component';
 import { AssignaturesListComponent } from './components/assignatures-list/assignatures-list.component';
 import { AssignaturesDetailComponent } from './components/assignatures-detail/assignatures-detail.component';
-import { ProvesDetailComponent } from './components/proves-detail/proves-detail.component';
-import { ProfileDetailComponent } from './components/profile-detail/profile-detail.component';
 import { AssignaturesUpdateComponent } from './components/assignatures-update/assignatures-update.component';
-import { AssignaturesUpdateDetailComponent } from './components/assignatures-update/assignatures-update-detail.component';
+import { AssignaturesUpdateGeneralComponent } from './components/assignatures-update/assignatures-update-general.component';
+import { AssignaturesUpdateProvesComponent } from './components/assignatures-update/assignatures-update-proves.component';
+import { AssignaturesUpdateAlumnesComponent } from './components/assignatures-update/assignatures-update-alumnes.component';
+
 import { AlumnesListComponent } from './components/alumnes-list/alumnes-list.component';
 import { AlumnesDetailComponent } from './components/alumnes-detail/alumnes-detail.component';
-import { AssignaturesCreateComponent } from './components/assignatures-create/assignatures-create.component';
+
 import { ProvesCreateComponent } from './components/proves-create/proves-create.component';
+import { ProvesDetailComponent } from './components/proves-detail/proves-detail.component';
 import { ProvesUpdateComponent } from './components/proves-update/proves-update.component';
 import { ProvesUpdateDetailComponent } from './components/proves-update/proves-update-detail.component';
+
 import { LoginDetailComponent } from './components/login-detail/login-detail.component';
 import { SignupDetailComponent } from './components/signup-detail/signup-detail.component';
 
@@ -40,8 +48,11 @@ import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './services/auth.guard';
 import { ProvesService } from './services/proves.service';
 import { AssignaturesService } from './services/assignatures.service';
+import { AssignaturesDataService } from './services/assignatures-data.service';
+// import { ModalDataService } from './components/assignatures-update/assignatures-update-proves.component';
 
-
+// entryComponents
+// import { ModalProvesUpdateDeleteComponent } from './components/assignatures-update/assignatures-update-proves.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +64,11 @@ import { AssignaturesService } from './services/assignatures.service';
     ProvesDetailComponent,
     ProfileDetailComponent,
     AssignaturesUpdateComponent,
-    AssignaturesUpdateDetailComponent,
+    AssignaturesUpdateGeneralComponent,
+    AssignaturesUpdateProvesComponent,
+    AssignaturesUpdateAlumnesComponent,
+    // ModalProvesUpdateDeleteComponent,
+
     AlumnesListComponent,
     AlumnesDetailComponent,
     AssignaturesCreateComponent,
@@ -67,19 +82,21 @@ import { AssignaturesService } from './services/assignatures.service';
     SignupDetailComponent,
   ],
   imports: [
-    AppRoutingModule,
+    // AppRoutingModule,
+    APP_ROUTING,
     BrowserModule,
-    ChartsModule,
+    // ChartsModule,
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
 
-	  // ngx-bootstrap
+      // ngx-bootstrap
     AccordionModule.forRoot(),
     NgbModule.forRoot(),
     BsDropdownModule.forRoot(),
     CollapseModule,
-    LoadingModule
+    LoadingModule,
+    ModalModule.forRoot(),
     ],
   exports: [
     Ng2TagsInputItem,
@@ -90,8 +107,11 @@ import { AssignaturesService } from './services/assignatures.service';
     AuthGuard,
     AuthenticationService,
     ProvesService,
-    AssignaturesService
+    AssignaturesService,
+    AssignaturesDataService,
+    // ModalDataService
     ],
   bootstrap: [AppComponent]
+  // entryComponents: [ModalProvesUpdateDeleteComponent]
 })
 export class AppModule { }

@@ -10,9 +10,22 @@
 
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
-				<li class="breadcrumb-item" ><a routerLink="/assignatures/" routerLinkActive="active">Assignatures</a></li>
-				<li class="breadcrumb-item active" aria-current="page">{{ assignatura.nom }}</li>
+				<li class="breadcrumb-item">
+					<a 
+					routerLink="/" 
+					routerLinkActive="active">Home</a>
+				</li>
+				<li class="breadcrumb-item" >
+					<a 
+					routerLink="/assignatures/" 
+					routerLinkActive="active">Assignatures</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a 
+					routerLink="/assignatures/{{assignatura.id}}" 
+					routerLinkActive="active">{{assignatura.nom}}</a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Editar</li>
 			</ol>
 		</nav>
 
@@ -22,19 +35,22 @@
 					<div class="list-group">
 						<a style="cursor: pointer;"
 						class="list-group-item list-group-item-action"
-						(click)="menuSelection = 'general'">
+						(click)="menuSelection = 'general'"
+						[routerLink]="['general']" routerLinkActive="active">
 							General
 						</a>
 
 						<a style="cursor: pointer;"
 						class="list-group-item list-group-item-action"
-						(click)="menuSelection = 'proves'">
+						(click)="menuSelection = 'proves'"
+						[routerLink]="['proves']" routerLinkActive="active">
 							Proves
 						</a>
 
 						<a style="cursor: pointer;"
 						class="list-group-item list-group-item-action"
-						(click)="menuSelection = 'alumnes'">
+						(click)="menuSelection = 'alumnes'"
+						[routerLink]="['alumnes']" routerLinkActive="active">
 							Alumnes
 						</a>
 
@@ -53,11 +69,11 @@
 					</button>
 
 					<!-- FORM -->
-					<app-assignatures-update-detail 
+					<!-- <app-assignatures-update-detail 
 					[assignatura] ='assignatura'
 					[menuSelection] ='menuSelection'>Loading ...
-					</app-assignatures-update-detail>
-
+					</app-assignatures-update-detail> -->
+					<router-outlet></router-outlet>
 				</div>
 			</div>
 		</div>

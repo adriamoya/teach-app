@@ -11,13 +11,13 @@ export class AssignaturesListComponent implements OnInit {
 
 	private req: any;
 	title = "Assignatures";
-	assignaturesList: [any];
+	assignaturesList: any[] = [];
 
 	constructor(private _assignatures:AssignaturesService) { }
 
 	ngOnInit() {
 		this.req = this._assignatures.list().subscribe(data=>{
-			this.assignaturesList = data as [any];
+			this.assignaturesList = data;
 		});
 	}
 

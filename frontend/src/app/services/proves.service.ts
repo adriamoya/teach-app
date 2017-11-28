@@ -52,7 +52,17 @@ export class ProvesService {
 						.catch(this.handleError);
 	};
 
-	
+
+	delete(provaId) {
+
+		const headers = new Headers();
+		headers.append('Authorization', 'JWT ' + this.token);
+		headers.append('Content-Type', 'application/json');
+		const options = new RequestOptions({headers: headers});
+
+		return this._http.delete(endpoint + provaId + '/', options); //.toPromise();
+	};
+
 
 	// Handling errors
 	// ------------------------------------------------------

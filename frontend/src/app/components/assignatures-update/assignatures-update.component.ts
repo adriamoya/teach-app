@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'; // Provider that allows us to work and get parameters from the route given
 
-import { AssignaturesUpdateDetailComponent } from './assignatures-update-detail.component';
-
 import { AssignaturesService } from '../../services/assignatures.service';
+import { AssignaturesDataService } from '../../services/assignatures-data.service';
+
 
 @Component({
 	selector: 'app-assignatures-update',
 	templateUrl: './assignatures-update.component.html',
-	styleUrls: ['./assignatures-update.component.css'],
 	providers: []
 })
 
-export class AssignaturesUpdateComponent implements OnInit {
+export class AssignaturesUpdateComponent implements OnDestroy {
 
 	private routeSub: any;
 	private req: any;
@@ -21,18 +20,19 @@ export class AssignaturesUpdateComponent implements OnInit {
 
 	menuSelection: string = "general";
 
-	constructor(private route: ActivatedRoute, private _assignatures: AssignaturesService) { }
-
-	ngOnInit() {
-
+	constructor(
+		private route: ActivatedRoute, 
+		private _assignatures: AssignaturesService,
+		private _assignaturesData: AssignaturesDataService) {
 		this.routeSub = this.route.params.subscribe(params => {
 			this.id = params['id'];
 			this.req = this._assignatures.get(this.id).subscribe(item => {
 				this.assignatura = item;
+				// console.log(item);
+				this._assignaturesData.passAssignatura(item);
 			});
 		});
 	};
-
 
 	// important to unsubscribe (destroy) after using subscribe ...
 	ngOnDestroy() {
