@@ -62,6 +62,7 @@ class ProvaListSerializer(ModelSerializer):
 			'notes_count',
 			'notes_prova',
 			'assignatura',
+			'pes_total'
 		]
 
 

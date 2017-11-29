@@ -59,6 +59,7 @@ class AlumneDetailSerializer(ModelSerializer):
 	class Meta:
 		model = Alumne
 		fields = [
+			'id',
 			'nom',
 			'primer_cognom',
 			'segon_cognom',
@@ -68,7 +69,7 @@ class AlumneDetailSerializer(ModelSerializer):
 			'data_naixement',
 			'assignatures_url',
 			'assignatures',
-			'nota_alumne',
+			'nota_alumne'
 			# 'alumne_assignatures'
 		]
 

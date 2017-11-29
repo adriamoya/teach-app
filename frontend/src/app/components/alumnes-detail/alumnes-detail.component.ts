@@ -2,27 +2,78 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 
+// services
+import { AlumnesService } from '../../services/alumnes.service';
+import { AssignaturesService } from '../../services/assignatures.service';
+
 @Component({
   selector: 'app-alumnes-detail',
-  templateUrl: './alumnes-detail.component.html',
-  styleUrls: ['./alumnes-detail.component.css']
+  templateUrl: './alumnes-detail.component.html'
 })
 export class AlumnesDetailComponent implements OnInit {
 
 	private routeSub: any;
 	private req: any;
-	public alumne: any;
-	id: string;
-	ready: boolean = false;
+	private alumne: any;
+	private id: string;
+	private ready: boolean = false;
 
-	constructor(private route: ActivatedRoute, private _http: Http) { }
+	constructor(
+		private _alumnes: AlumnesService,
+		private _assignatures: AssignaturesService,
+		private _route: ActivatedRoute, 
+		private _http: Http) { }
+
+	
 
 	ngOnInit() {
-		
-		this.routeSub = this.route.params.subscribe(params => {
-			// console.log(params);
+		this.routeSub = this._route.params.subscribe(params => {
 			this.id = params['id'];
+		});
 
+		if (this.id) {
+			this._alumnes.get(this.id).subscribe(alumne => {
+				console.log(alumne);
+				this.alumne = alumne;
+
+				for (let assignatura of alumne.assignatures) {
+					console.log(assignatura);
+					let assign = this.getAssignatures(assignatura);
+					console.log(assign);
+				}
+
+				// let assignatures = this.getAssignatures(alumne);
+			})
+		};	
+	};
+
+	getAssignatures(assignaturaId: string) {
+		let pes_total: number = 0;
+		let nota_total: number = 0;
+		this._assignatures.get(assignaturaId).subscribe(assignatura => {
+			console.log(assignatura);
+
+			for (let prova of assignatura.proves_assignatura) {
+				pes_total += prova.pes_total;
+				for (let nota of prova.notes_prova) {
+					if (nota.alumne.id == this.alumne.id) {
+						nota_total += prova.pes_total*nota.nota/prova.nota_total;
+					} else {
+						prova.notes_prova.pop(nota);
+					}
+				}
+			}
+
+			nota_total = nota_total/pes_total*10;
+			assignatura.nota_total = nota_total;
+			assignatura.pes_total = pes_total;
+			console.log(assignatura);
+
+			return assignatura;
+		});
+	};
+
+		/*
 			this._http.get('assets/json/alumnes-detail.json').subscribe(data => {
 				data.json().filter(item => {
 					// console.log(item);
@@ -64,7 +115,7 @@ export class AlumnesDetailComponent implements OnInit {
 				})
 			})
 		})
-	};
+		*/
 
 	ngOnDestroy() {
 		this.routeSub.unsubscribe();
