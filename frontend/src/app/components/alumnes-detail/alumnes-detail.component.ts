@@ -15,6 +15,7 @@ export class AlumnesDetailComponent implements OnInit {
 	private routeSub: any;
 	private req: any;
 	private alumne: any;
+	private assignatures: any[] = [];
 	private id: string;
 	private ready: boolean = false;
 
@@ -22,11 +23,7 @@ export class AlumnesDetailComponent implements OnInit {
 		private _alumnes: AlumnesService,
 		private _assignatures: AssignaturesService,
 		private _route: ActivatedRoute, 
-		private _http: Http) { }
-
-	
-
-	ngOnInit() {
+		private _http: Http) {
 		this.routeSub = this._route.params.subscribe(params => {
 			this.id = params['id'];
 		});
@@ -37,30 +34,37 @@ export class AlumnesDetailComponent implements OnInit {
 				this.alumne = alumne;
 
 				for (let assignatura of alumne.assignatures) {
-					console.log(assignatura);
-					let assign = this.getAssignatures(assignatura);
-					console.log(assign);
+					let assignaturaItem = this.getAssignatures(assignatura);
+					this.assignatures.push(assignaturaItem);
 				}
+
+				this.alumne.assignatures = this.assignatures;
+
+				this.ready = true;
 
 				// let assignatures = this.getAssignatures(alumne);
 			})
 		};	
+		
+	}
+
+	
+
+	ngOnInit() {
 	};
 
 	getAssignatures(assignaturaId: string) {
 		let pes_total: number = 0;
 		let nota_total: number = 0;
 		this._assignatures.get(assignaturaId).subscribe(assignatura => {
-			console.log(assignatura);
 
 			for (let prova of assignatura.proves_assignatura) {
 				pes_total += prova.pes_total;
 				for (let nota of prova.notes_prova) {
 					if (nota.alumne.id == this.alumne.id) {
+						prova.nota_alumne = nota;
 						nota_total += prova.pes_total*nota.nota/prova.nota_total;
-					} else {
-						prova.notes_prova.pop(nota);
-					}
+					} 
 				}
 			}
 
@@ -68,7 +72,6 @@ export class AlumnesDetailComponent implements OnInit {
 			assignatura.nota_total = nota_total;
 			assignatura.pes_total = pes_total;
 			console.log(assignatura);
-
 			return assignatura;
 		});
 	};
