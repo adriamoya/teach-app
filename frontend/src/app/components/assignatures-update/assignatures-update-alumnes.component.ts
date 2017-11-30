@@ -62,7 +62,7 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 		let index = assignatures.indexOf(this.assignatura.id);
 		this.alumne.assignatures.splice(index, 1)
 
-		let index = this.alumnes.indexOf(this.alumne);
+		index = this.alumnes.indexOf(this.alumne);
 		this.alumnes.splice(index, 1);
 
 		this._alumnes.update(this.alumne)

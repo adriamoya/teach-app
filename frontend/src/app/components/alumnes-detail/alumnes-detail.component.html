@@ -66,7 +66,9 @@
 							<accordion-group *ngFor="let assignatura of assignatures">
 								<div accordion-heading>
 									<span><a routerLink="/assignatures/{{ assignatura?.id }}" routerLinkActive="active">{{ assignatura?.nom }}</a></span>
-									<span class="badge badge-secondary float-right pull-right" style="padding: 5px; height: 22px; font-size: 14px;">{{ assignatura?.proves_assignatura.length }}</span>
+									<span class="badge badge-secondary float-right pull-right" style="padding: 5px; height: 22px; font-size: 14px; width: 20px;">{{ assignatura?.proves_assignatura.length }}</span>
+									<span *ngIf="assignatura?.nota_total" class="float-right pull-right" style="margin-right: 10px;"><strong>{{ assignatura?.nota_total | number : '1.1-2' }}</strong> / 10</span>
+									<span *ngIf="!assignatura?.nota_total" class="float-right pull-right" style="margin-right: 10px;">- / 10</span>
 								</div>
 								<div *ngIf="ready == true" class="table-responsive">
 									<table class="table table-sm table-hover">
@@ -74,8 +76,16 @@
 											<tr>
 												<th>Prova</th>
 												<th>Data</th>
-												<th>Pes</th>
-												<th>Puntació</th>
+												<th>
+													<span class="float-right">
+														Pes
+													</span>
+												</th>
+												<th>
+													<span class="float-right">
+														Puntació
+													</span>
+												</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -84,10 +94,18 @@
 											<tr *ngFor="let prova of assignatura?.proves_assignatura">
 												<td><a routerLink="/assignatures/{{ assignatura?.id }}/{{ prova?.id }}" routerLinkActive="active">{{ prova?.nom }}</a></td>
 												<td>{{ prova?.data | date }}</td>
-												<td>{{ prova?.pes_total | percent: '1.0-1' }}</td>
-												<td *ngIf="prova?.nota_alumne?.nota">{{ prova?.nota_alumne.nota | number: '1.1-2' }} / {{ prova?.nota_total }}</td>
+												<td>
+													<span class="float-right">
+														{{ prova?.pes_total | percent: '1.0-0' }}
+													</span>
+												</td>
+												<td *ngIf="prova?.nota_alumne?.nota">
+													<span class="float-right">
+														{{ prova?.nota_alumne.nota | number: '1.1-2' }} / {{ prova?.nota_total }}
+													</span>
+												</td>
 												<td *ngIf="!prova?.nota_alumne?.nota">
-													<span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
+													<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
 												</td>
 											</tr>
 
@@ -95,10 +113,18 @@
 											<tr>
 												<td style="border-top: 2px solid #eceeef"><strong>Total</strong></td>
 												<td style="border-top: 2px solid #eceeef"></td>
-												<td style="border-top: 2px solid #eceeef"><strong>{{ assignatura?.pes_total | percent: '1.0-1' }}</strong></td>
-												<td style="border-top: 2px solid #eceeef" *ngIf="assignatura?.nota_total"><strong>{{ assignatura?.nota_total | number : '1.1-2' }} / 10</strong></td>
+												<td style="border-top: 2px solid #eceeef">
+													<span class="float-right">
+														<strong>{{ assignatura?.pes_total | percent: '1.0-0' }}</strong>
+													</span>
+												</td>
+												<td style="border-top: 2px solid #eceeef" *ngIf="assignatura?.nota_total">
+													<span class="float-right">
+														<strong>{{ assignatura?.nota_total | number : '1.1-2' }}</strong> / 10
+													</span>
+												</td>
 												<td style="border-top: 2px solid #eceeef" *ngIf="!assignatura?.nota_total">
-													<span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
+													<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
 												</td>
 											</tr>
 										</tbody>
