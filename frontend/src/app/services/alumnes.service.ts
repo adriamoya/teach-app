@@ -48,7 +48,7 @@ export class AlumnesService {
 
 	// get method: gets specific alumne with passed id
 	// ------------------------------------------------------
-	get(id){
+	get(alumneId){
 
 		const headers = new Headers();
 		headers.append('Accept', 'application/json');
@@ -56,7 +56,7 @@ export class AlumnesService {
 		headers.append('Authorization', 'JWT ' + this.token)
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.get(endpoint + id + '/', options)
+		return this._http.get(endpoint + alumneId + '/', options)
 						.map(
 							response=>{
 								let data = response.json();
@@ -66,6 +66,18 @@ export class AlumnesService {
 						)
 						.catch(this.handleError);
 	};
+
+
+	delete(alumneId) {
+
+		const headers = new Headers();
+		headers.append('Authorization', 'JWT ' + this.token);
+		headers.append('Content-Type', 'application/json');
+		const options = new RequestOptions({headers: headers});
+
+		return this._http.delete(endpoint + alumneId + '/', options); //.toPromise();
+	};
+
 
 	// Handling errors
 	// ------------------------------------------------------
