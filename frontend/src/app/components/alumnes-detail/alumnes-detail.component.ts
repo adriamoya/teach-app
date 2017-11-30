@@ -38,7 +38,7 @@ export class AlumnesDetailComponent implements OnInit {
 					// this.assignatures.push(assignaturaItem);
 				}
 
-				this.alumne.assignatures = this.assignatures;
+				// this.alumne.assignatures = this.assignatures;
 
 				this.ready = true;
 
