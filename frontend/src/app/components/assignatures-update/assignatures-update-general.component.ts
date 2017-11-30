@@ -24,11 +24,17 @@ export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 	};
 
 	saveGeneral(formGeneral: NgForm){
-		console.log(formGeneral.value);
-		console.log(this.assignatura);
+		// post the new info to the server
+		// console.log(formGeneral.value);
+		let changedAssignatura = this.assignatura;
+		changedAssignatura.nom = formGeneral.value['nom-assignatura'];
+		changedAssignatura.curs = formGeneral.value['curs-assignatura'];
+		changedAssignatura.bio = formGeneral.value['bio-assignatura'];
+		this._assignaturesData.passAssignatura(changedAssignatura);
 	}
 
 	ngOnDestroy() {
+		// post the new info to the server
 		this._assignaturesData.passAssignatura(this.assignatura);
 	};
 

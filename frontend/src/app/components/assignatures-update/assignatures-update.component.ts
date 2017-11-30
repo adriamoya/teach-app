@@ -15,8 +15,8 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 
 	private routeSub: any;
 	private req: any;
-	assignatura: any;
-	id: string;
+	private assignatura: any;
+	private id: string;
 
 	menuSelection: string = "general";
 

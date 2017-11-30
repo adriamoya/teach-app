@@ -41,13 +41,21 @@
 				<thead>
 					<tr>
 						<th>Alumne</th>
-						<th>Putuació</th>
+						<th>
+							<span class="float-right">
+								Putuació
+							</span>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr *ngFor="let nota of prova.notes_prova">
 						<td><a routerLink="/alumnes/{{ nota.alumne.id }}" routerLinkActive="active">{{ nota.alumne.nom }} {{ nota.alumne.primer_cognom }} {{ nota.alumne.segon_cognom }}</a></td>
-						<td>{{ nota.nota }}</td>
+						<td>
+							<span class="float-right">
+								{{ nota.nota }}
+							</span>
+						</td>
 					</tr>
 				</tbody>
 			</table>

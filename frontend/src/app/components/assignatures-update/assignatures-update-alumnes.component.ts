@@ -29,7 +29,6 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 		private _assignatures: AssignaturesService,
 		private _assignaturesData: AssignaturesDataService) {
 			this.assignatura = this._assignaturesData.getAssignatura();
-			// this.alumnes = this._assignaturesData.get_distinct_alumnes();
 
 			this.sub = this._alumnes.list().subscribe(alumnes => {
 				for (let alumne of alumnes) {

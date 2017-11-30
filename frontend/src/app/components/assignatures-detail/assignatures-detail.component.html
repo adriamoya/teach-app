@@ -68,7 +68,11 @@
 							<tr>
 								<th>Prova</th>
 								<th>Data</th>
-								<th>Puntació mitja</th>
+								<th>
+									<span class="float-right">
+										Puntació mitja
+									</span>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -76,9 +80,13 @@
 							<tr *ngFor="let prova of proves">
 								<td><a routerLink="/assignatures/{{ id }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
 								<td>{{ prova.data | date }}</td>
-								<td *ngIf="prova.puntuacio_promig">{{ prova.puntuacio_promig | number:'1.0-2'}} / {{ prova.puntuacio_total }}</td>
+								<td *ngIf="prova.puntuacio_promig">
+									<span class="float-right">
+										{{ prova.puntuacio_promig | number:'1.0-2'}} / {{ prova.puntuacio_total }}
+									</span>
+								</td>
 								<td *ngIf="!prova.puntuacio_promig">
-									<span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
+									<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
 								</td>
 							</tr>
 						</tbody>
@@ -98,7 +106,11 @@
 						<thead>
 							<tr>
 								<th>Alumne</th>
-								<th *ngFor="let prova of proves">{{ prova.nom }} <span style="font-weight: 400;">(/{{ prova.puntuacio_total }})</span></th>
+								<th *ngFor="let prova of proves">
+									<span class="float-right">
+										{{ prova.nom }} <span style="font-weight: 400;">(/{{ prova.puntuacio_total }})</span>
+									</span>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -107,7 +119,11 @@
 								<td *ngFor="let prova_assignatura of assignatura.proves_assignatura">
 									<div *ngFor="let puntuacio of prova_assignatura.notes_prova">
 										<div *ngIf="puntuacio.alumne.id == alumne.id; then thenBlock else elseBlock">...</div>
-										<ng-template #thenBlock>{{ puntuacio.nota }}</ng-template>
+										<ng-template #thenBlock>
+											<span class="float-right">
+												{{ puntuacio.nota }}
+											</span>
+										</ng-template>
 										<!-- <ng-template #elseBlock><span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span></ng-template> -->
 									</div>
 								</td>
@@ -115,7 +131,7 @@
 						</tbody>
 					</table>
 				</div>
-				<div *ngIf="!assignatura.proves_assignatura">
+				<div *ngIf="assignatura.proves_assignatura.length == 0">
 					<div class="alert alert-warning" role="alert">
 						No hi ha cap alumne ...
 					</div>

@@ -37,7 +37,7 @@ export class ProvesDetailComponent implements OnInit {
 			this.reqProva = this._proves.get(this.id)
 				.subscribe(resp=> {
 					this.prova = resp;
-					//console.log(this.prova);
+					console.log(this.prova);
 
 					this.reqAssignatura = this._assignatures.get(this.prova.assignatura)
 						.subscribe(resp => {
