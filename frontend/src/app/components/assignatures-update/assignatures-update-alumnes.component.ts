@@ -23,7 +23,6 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 	private title: string = "Alumnes";
 	private bsModalRef: BsModalRef;
 
-
 	constructor(
 		private _modalService: BsModalService,
 		private _alumnes: AlumnesService,
@@ -35,10 +34,11 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 			this.sub = this._alumnes.list().subscribe(alumnes => {
 				for (let alumne of alumnes) {
 					this._alumnes.get(alumne.id).subscribe(alumneData => {
+						console.log(alumneData);
 						for (let assignatura of alumneData.assignatures) {
 							if (assignatura == this.assignatura.id) {
 								this.alumnes.push(alumneData);
-								console.log(this.alumnes);
+								// console.log(this.alumnes);
 							}
 						}
 					})
@@ -50,16 +50,36 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 	openModal(event, template: TemplateRef<any>) {
 		let id = event.target.parentElement.attributes.id.nodeValue;
 		this.alumne = this.alumnes.filter( (alumne) => alumne.id == id)[0];
+		console.log(this.alumne);
 		this.bsModalRef = this._modalService.show(template);
 	};
 
-	deleteAlumne(alumneId) { // deleteAlumneFromAssignatura
+	deleteAlumneFromAssignatura() { // deleteAlumneFromAssignatura
+
+		let alumne = this.alumne;
+		let assignatures = this.alumne.assignatures;
+
+		let index = assignatures.indexOf(this.assignatura.id);
+		this.alumne.assignatures.splice(index, 1)
+
+		let index = this.alumnes.indexOf(this.alumne);
+		this.alumnes.splice(index, 1);
+
+		this._alumnes.update(this.alumne)
+			.subscribe(
+				response => {
+					console.log('updated');
+					console.log(response);
+				}
+			);
+
 		this.bsModalRef.hide();
 		// post new data to api
 	}
 
 	/*
-	deleteAlumne(alumneId) {
+	deleteAlum
+	ne(alumneId) {
 		this._alumnes.delete(alumneId)
 			.subscribe(
 				response => {

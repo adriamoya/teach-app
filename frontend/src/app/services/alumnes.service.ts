@@ -6,7 +6,9 @@ import { tokenNotExpired} from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const endpoint = 'http://127.0.0.1:8000/api/alumnes/'; // eventually run from '/api/assignatures/'
+import { Alumne } from '../interfaces/alumne.interface';
+
+const ENDPOINT = 'http://127.0.0.1:8000/api/alumnes/'; // eventually run from '/api/assignatures/'
 
 @Injectable()
 export class AlumnesService {
@@ -41,14 +43,14 @@ export class AlumnesService {
 		headers.append('Authorization', 'JWT ' + this.token)
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.get(endpoint, options)
+		return this._http.get(ENDPOINT, options)
 						.map(response => response.json())
 						.catch(this.handleError);
 	};
 
 	// get method: gets specific alumne with passed id
 	// ------------------------------------------------------
-	get(alumneId){
+	get(alumneId: string) {
 
 		const headers = new Headers();
 		headers.append('Accept', 'application/json');
@@ -56,9 +58,9 @@ export class AlumnesService {
 		headers.append('Authorization', 'JWT ' + this.token)
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.get(endpoint + alumneId + '/', options)
+		return this._http.get(ENDPOINT + alumneId + '/', options)
 						.map(
-							response=>{
+							response => {
 								let data = response.json();
 								this.alumne = data;
 								return this.alumne;
@@ -68,14 +70,34 @@ export class AlumnesService {
 	};
 
 
-	delete(alumneId) {
+	update(alumne: Alumne) {
+
+		let body = JSON.stringify(alumne);
+
+		const headers = new Headers();
+		headers.append('Accept', 'application/json');
+		headers.append('Content-Type', 'application/json');
+		headers.append('Authorization', 'JWT ' + this.token)
+		const options = new RequestOptions({headers: headers});
+
+		return this._http.put(ENDPOINT + alumne.id + '/', body, options)
+						.map(
+							response => {
+								console.log(response.json());
+							}
+						)
+						.catch(this.handleError);
+	}
+
+
+	delete(alumneId: string) {
 
 		const headers = new Headers();
 		headers.append('Authorization', 'JWT ' + this.token);
 		headers.append('Content-Type', 'application/json');
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.delete(endpoint + alumneId + '/', options); //.toPromise();
+		return this._http.delete(ENDPOINT + alumneId + '/', options); //.toPromise();
 	};
 
 
