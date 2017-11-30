@@ -35,7 +35,7 @@ export class AlumnesDetailComponent implements OnInit {
 
 				for (let assignatura of alumne.assignatures) {
 					let assignaturaItem = this.getAssignatures(assignatura);
-					this.assignatures.push(assignaturaItem);
+					// this.assignatures.push(assignaturaItem);
 				}
 
 				this.alumne.assignatures = this.assignatures;
@@ -72,6 +72,7 @@ export class AlumnesDetailComponent implements OnInit {
 			assignatura.nota_total = nota_total;
 			assignatura.pes_total = pes_total;
 			console.log(assignatura);
+			this.assignatures.push(assignatura);
 			return assignatura;
 		});
 	};
