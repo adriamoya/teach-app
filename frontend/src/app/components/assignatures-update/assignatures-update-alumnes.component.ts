@@ -1,7 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, TemplateRef, OnDestroy } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { AssignaturesUpdateComponent } from './assignatures-update.component';
 
+// Services
+import { AssignaturesService } from '../../services/assignatures.service';
 import { AssignaturesDataService } from '../../services/assignatures-data.service';
 import { AlumnesService } from '../../services/alumnes.service';
 
@@ -14,11 +18,16 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 
 	private sub: any;
 	private assignatura: any;
+	private alumne: any;
 	private alumnes: any[] = [];
 	private title: string = "Alumnes";
+	private bsModalRef: BsModalRef;
+
 
 	constructor(
+		private _modalService: BsModalService,
 		private _alumnes: AlumnesService,
+		private _assignatures: AssignaturesService,
 		private _assignaturesData: AssignaturesDataService) {
 			this.assignatura = this._assignaturesData.getAssignatura();
 			// this.alumnes = this._assignaturesData.get_distinct_alumnes();
@@ -37,9 +46,34 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 			})
 	};
 
-	getAlumnes(assignaturaId: string) {
 
+	openModal(event, template: TemplateRef<any>) {
+		let id = event.target.parentElement.attributes.id.nodeValue;
+		this.alumne = this.alumnes.filter( (alumne) => alumne.id == id)[0];
+		this.bsModalRef = this._modalService.show(template);
 	};
+
+	deleteAlumne(alumneId) { // deleteAlumneFromAssignatura
+		this.bsModalRef.hide();
+		// post new data to api
+	}
+
+	/*
+	deleteAlumne(alumneId) {
+		this._alumnes.delete(alumneId)
+			.subscribe(
+				response => {
+					console.log('deleted');
+					let assignaturaId = this.assignatura.id;
+					this.reqDelete = this._assignatures.get(assignaturaId).subscribe(item => {
+						this._assignaturesData.passAssignatura(item);
+						this.assignatura = item
+					});
+					this.bsModalRef.hide()
+				}
+			);
+	};
+	*/
 
 	ngOnDestroy() {
 		this._assignaturesData.passAssignatura(this.assignatura);

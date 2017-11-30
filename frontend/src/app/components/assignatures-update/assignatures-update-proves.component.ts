@@ -31,6 +31,7 @@ export class AssignaturesUpdateProvesComponent implements OnDestroy {
 		this.assignatura = this._assignaturesData.getAssignatura();
 	};
 
+
 	openModal(event, template: TemplateRef<any>) {
 		let id = event.target.parentElement.attributes.id.nodeValue;
 		let proves = this.assignatura.proves_assignatura
@@ -42,6 +43,7 @@ export class AssignaturesUpdateProvesComponent implements OnDestroy {
 		}
 		this.bsModalRef = this._modalService.show(template);
 	};
+
 
 	deleteProva(provaId) {
 		this._proves.delete(provaId)

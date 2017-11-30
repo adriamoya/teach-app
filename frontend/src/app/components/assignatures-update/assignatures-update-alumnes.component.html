@@ -18,11 +18,35 @@
 			routerLinkActive>
 				<i class="material-icons" style="cursor: pointer;">mode_edit</i>
 			</a>
-			<a 
-			routerLink="/assignatures/{{ assignatura.id }}/edit/proves"
-			routerLinkActive>
+			<a
+			routerLink="/assignatures/{{ assignatura.id }}/edit/alumnes"
+			routerLinkActive
+			[id]="alumne.id"
+			(click)="openModal($event, template)">
 				<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
 			</a>
 		</span>
 	</div>
 </div>
+<div *ngIf="alumnes.length==0">
+	<div class="alert alert-warning" role="alert">
+		No hi ha cap alumne ...
+	</div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Eliminar {{ alumne.nom }} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  	<div class="row">
+  		<div class="col-12">
+		    Segur que voleu eliminar aquest alumne?
+			<button type="button" class="btn btn-danger float-right" (click)="deleteAlumne(alumne.id)">Eliminar</button>
+  		</div>
+  	</div>
+  </div>
+</ng-template> 
