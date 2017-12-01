@@ -18,6 +18,16 @@ from proves.serializers import ProvaListSerializer
 # Assignatura
 # ------------------------------------------------------------------------
 
+class AssignaturaCreateUpdateSerializer(ModelSerializer):
+	class Meta:
+		model = Assignatura
+		fields = [
+			'nom',
+			'curs',
+			'bio'
+		]
+		
+
 class AssignaturaListSerializer(HyperlinkedModelSerializer):
 	"""
 	List of all assignatures available.

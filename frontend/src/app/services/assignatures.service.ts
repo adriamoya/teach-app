@@ -3,10 +3,13 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { tokenNotExpired} from 'angular2-jwt';
 
+// Interfaces
+import { Assignatura } from '../interfaces/assignatura.interface';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const endpoint = 'http://127.0.0.1:8000/api/assignatures/'; // eventually run from '/api/assignatures/'
+const ENDPOINT = 'http://127.0.0.1:8000/api/assignatures/'; // eventually run from '/api/assignatures/'
 
 @Injectable()
 export class AssignaturesService {
@@ -32,31 +35,44 @@ export class AssignaturesService {
 		}
 	};
 
-	// list method: lists out all assignatures
-	// ------------------------------------------------------
-	list(){
 
-		return this._http.get(endpoint)
-						.map(response => response.json())
-							// console.log(response);
-							// return response.json()
-							// })
+	add(assignatura: Assignatura){
+
+		const body = JSON.stringify(assignatura);
+
+		const headers = new Headers();
+		headers.append('Accept', 'application/json');
+		headers.append('Content-Type', 'application/json');
+		headers.append('Authorization', 'JWT ' + this.token)
+		const options = new RequestOptions({headers: headers});
+
+		return this._http.post(ENDPOINT + 'add/', body, options)
+						.map(
+							response=>{
+								return response.json()
+							}
+						)
 						.catch(this.handleError);
 	};
 
-	// get method: gets specific assignatura with passed id
-	// ------------------------------------------------------
+
+	list(){
+
+		return this._http.get(ENDPOINT)
+						.map(response => response.json())
+						.catch(this.handleError);
+	};
+
+
 	get(id){
 
 		const headers = new Headers();
 		headers.append('Accept', 'application/json');
 		headers.append('Content-Type', 'application/json');
 		headers.append('Authorization', 'JWT ' + this.token)
-		// headers.append('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
-		// headers.append('Access-Control-Allow-Credentials', 'true');
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.get(endpoint + id + '/', options)
+		return this._http.get(ENDPOINT + id + '/', options)
 						.map(
 							response=>{
 								let data = response.json();
@@ -153,3 +169,7 @@ export class AssignaturesService {
 	};
 
 }
+
+
+// headers.append('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
+// headers.append('Access-Control-Allow-Credentials', 'true');

@@ -18,55 +18,74 @@
 					<hr>
 				</div>
 
-				<dl class="form-group row">
-					<div class="col">
+				<form 
+				class="animated fadeIn"
+				(ngSubmit)="newAssignatura()"
+				#newAssignaturaForm="ngForm">
+					<dl class="form-group row">
+						<div class="col">
+							<dt>
+								<label class="form-label" for="nom-assignatura">Nom assignatura</label>
+							</dt>
+							<dd>
+								<input
+								[(ngModel)]="assignatura.nom"
+								type="text" 
+								class="form-control" 
+								id="nom-assignatura"
+								name="nom"
+								required>
+							</dd>
+						</div>
+						<div class="col">
+							<dt>
+								<label class="form-label" for="curs-assignatura">Curs</label>
+							</dt>
+							<dd>
+								<select
+								[(ngModel)]="assignatura.curs"
+								class="form-control" 
+								id="curs-assignatura"
+								name="curs">
+									<option *ngFor="let curs of cursos">{{ curs }}</option>
+								</select>
+							</dd>
+						</div>
+					</dl>
+					<dl class="form-group">
 						<dt>
-							<label class="form-label" for="nom-assignatura">Nom assignatura</label>
+							<label class="form-label" for="bio-assignatura">Bio</label>
 						</dt>
 						<dd>
-							<input type="text" class="form-control" id="nom-assignatura">
+							<textarea
+							[(ngModel)]="assignatura.bio"
+							class="form-control" 
+							id="bio-assignatura" 
+							rows="3"
+							name="bio"></textarea>
 						</dd>
-					</div>
-					<div class="col">
-						<dt>
-							<label class="form-label" for="curs-assignatura">Curs</label>
-						</dt>
-						<dd>
-							<select class="form-control" id="curs-assignatura">
-								<option>2017/2018</option>
-							</select>
-						</dd>
-					</div>
-				</dl>
-				<dl class="form-group">
-					<dt>
-						<label class="form-label" for="bio-assignatura">Bio</label>
-					</dt>
-					<dd>
-						<textarea class="form-control" id="bio-assignatura" rows="3"></textarea>
-					</dd>
-				</dl>
+					</dl>
 
-				<hr>
-				
-				<!-- Add button -->
-				<button 
-				type="button" 
-				class="btn btn-success float-left"
-				routerLink="/" 
-				routerLinkActive="active">
-				Afegir
-				</button>
+					<hr>
 
-				<!-- Cancelar -->
-				<button 
-				type="button" 
-				class="btn btn-secondary float-right"
-				routerLink="/assignatures/" 
-				routerLinkActive="active">
-				Cancel·lar
-				</button>
+					<!-- Add button -->
+					<button 
+					type="submit" 
+					class="btn btn-success float-left"
+					[disabled]="!newAssignaturaForm.valid">
+					Afegir
+					</button>
 
+					<!-- Cancelar -->
+					<button 
+					type="button" 
+					class="btn btn-secondary float-right"
+					routerLink="/assignatures/" 
+					routerLinkActive="active">
+					Cancel·lar
+					</button>
+
+				</form>
 
 			</div>
 		</div>

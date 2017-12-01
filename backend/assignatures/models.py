@@ -14,7 +14,8 @@ class AssignaturaManager(models.Manager):
 class Assignatura(models.Model):
 
 	nom 		= models.CharField(max_length=120)
-	curs 		= models.PositiveIntegerField()
+	curs 		= models.PositiveIntegerField(blank=True, null=True)
+	bio 		= models.TextField(blank=True, null=True)
 	objects		= AssignaturaManager()
 
 	def get_absolute_url(self):
