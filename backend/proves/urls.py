@@ -3,13 +3,15 @@ from django.contrib import admin
 
 from .views import (
 	NotaDetailView, 
-	NotaListView, 
+	NotaListView,
+	ProvaCreateView,
 	ProvaDetailView, 
 	ProvaListView
 	)
 
 
 urlpatterns = [
+	url(r'^add/$', ProvaCreateView.as_view(), name='prova-add'),
 	url(r'^$', ProvaListView.as_view(), name='prova-list'),
 	url(r'^(?P<pk>[0-9]+)/$', ProvaDetailView.as_view(), name='prova-detail'),
 	url(r'^notes/$', NotaListView.as_view(), name='nota-list'),

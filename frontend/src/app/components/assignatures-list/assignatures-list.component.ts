@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AssignaturesService } from '../../services/assignatures.service';
 
 @Component({
@@ -7,15 +7,13 @@ import { AssignaturesService } from '../../services/assignatures.service';
   styleUrls: ['./assignatures-list.component.css'],
   providers: []
 })
-export class AssignaturesListComponent implements OnInit {
+export class AssignaturesListComponent implements OnDestroy {
 
 	private req: any;
-	title = "Assignatures";
-	assignaturesList: any[] = [];
+	private title = "Assignatures";
+	private assignaturesList: any[] = [];
 
-	constructor(private _assignatures:AssignaturesService) { }
-
-	ngOnInit() {
+	constructor(private _assignatures:AssignaturesService) {
 		this.req = this._assignatures.list().subscribe(data=>{
 			this.assignaturesList = data;
 		});

@@ -16,6 +16,7 @@ import { AssignaturesDataService } from '../../services/assignatures-data.servic
 
 export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 
+	private sub: any;
 	private assignatura: any;
 	private title: string = "General";
 	private bsModalRef: BsModalRef;
@@ -45,13 +46,14 @@ export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 	};
 
 	deleteAssignatura() {
-		this._assignatures.delete(this.assignatura.id)
+		this.sub = this._assignatures.delete(this.assignatura.id)
 			.subscribe(
 				response => {
 					console.log('deleted');
 					console.log(response);
 				}
-			)
+			);
+		this.sub.unsubscribe();
 		this.bsModalRef.hide();
 		this._router.navigate(['/assignatures']);
 	};

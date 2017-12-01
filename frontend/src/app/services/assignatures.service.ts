@@ -64,7 +64,7 @@ export class AssignaturesService {
 	};
 
 
-	get(id){
+	get(assignaturaId){
 
 		const headers = new Headers();
 		headers.append('Accept', 'application/json');
@@ -72,7 +72,7 @@ export class AssignaturesService {
 		headers.append('Authorization', 'JWT ' + this.token)
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.get(ENDPOINT + id + '/', options)
+		return this._http.get(ENDPOINT + assignaturaId + '/', options)
 						.map(
 							response=>{
 								let data = response.json();
@@ -82,7 +82,7 @@ export class AssignaturesService {
 						)
 						.catch(this.handleError);
 	};
-
+	
 
 	delete(assignaturaId: string) {
 

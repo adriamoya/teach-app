@@ -14,6 +14,9 @@ from alumnes.serializers import AlumneListSerializer
 from .models import Nota, Prova
 
 
+# Nota
+# ------------------------------------------------------------------------
+
 class NotaListSerializer(ModelSerializer):
 
 	url_detail =  HyperlinkedIdentityField(view_name='proves-api:nota-detail', lookup_field='pk')
@@ -37,6 +40,22 @@ class NotaDetailSerializer(ModelSerializer):
 		fields = [
 			'nota',
 			'alumne',
+		]
+
+
+# Prova
+# ------------------------------------------------------------------------
+
+class ProvaCreateUpdateSerializer(ModelSerializer):
+	class Meta:
+		model = Prova
+		fields = [
+			'nom',
+			'data',
+			'contiguts',
+			'nota_total',
+			'pes_total',
+			'assignatura'
 		]
 
 

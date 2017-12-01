@@ -74,6 +74,7 @@ class AssignaturaDetailSerializer(ModelSerializer):
 			'id',						# id of assignatura
 			'nom',						# name of assignatura
 			'curs',						# curs of assignatura
+			'bio',
 			'alumne_count',				# count of alumnes in assignatura
 			'professor_assignatures',	# professor info in assignatura
 			'proves_assignatura',		# link to prova detail view

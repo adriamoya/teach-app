@@ -3,10 +3,13 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { tokenNotExpired} from 'angular2-jwt';
 
+// Interfaces
+import { Prova } from '../interfaces/prova.interface';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const endpoint = 'http://127.0.0.1:8000/api/proves/'; // eventually run from '/api/assignatures/'
+const ENDPOINT = 'http://127.0.0.1:8000/api/proves/'; // eventually run from '/api/assignatures/'
 
 @Injectable()
 export class ProvesService {
@@ -29,8 +32,26 @@ export class ProvesService {
 	};
 
 
-	// get method
-	// ------------------------------------------------------
+	add(prova: Prova){
+
+		const body = JSON.stringify(prova);
+
+		const headers = new Headers();
+		headers.append('Accept', 'application/json');
+		headers.append('Content-Type', 'application/json');
+		headers.append('Authorization', 'JWT ' + this.token)
+		const options = new RequestOptions({headers: headers});
+
+		return this._http.post(ENDPOINT + 'add/', body, options)
+						.map(
+							response=>{
+								return response.json()
+							}
+						)
+						.catch(this.handleError);
+	};
+
+
 	get(provaId){
 
 		const headers = new Headers();
@@ -39,7 +60,7 @@ export class ProvesService {
 		headers.append('Authorization', 'JWT ' + this.token)
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.get(endpoint + provaId + '/', options)
+		return this._http.get(ENDPOINT + provaId + '/', options)
 						.map(response=>{
 							let data = response.json()
 							if (data.continguts) {
@@ -60,7 +81,7 @@ export class ProvesService {
 		headers.append('Content-Type', 'application/json');
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.delete(endpoint + provaId + '/', options); //.toPromise();
+		return this._http.delete(ENDPOINT + provaId + '/', options); //.toPromise();
 	};
 
 

@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+// Services
+import { ProvesService } from '../../services/proves.service';
 import { AssignaturesService } from '../../services/assignatures.service';
+
+// Interfaces
+import { Prova } from '../../interfaces/prova.interface';
 
 @Component({
   selector: 'app-proves-create',
@@ -7,26 +14,33 @@ import { AssignaturesService } from '../../services/assignatures.service';
   styleUrls: ['./proves-create.component.css'],
   providers: [AssignaturesService]
 })
-export class ProvesCreateComponent implements OnInit {
+export class ProvesCreateComponent implements OnDestroy {
 
-	prova: any;
-	req: any;
-	req_alumnes: any;
-	assignatures: [any];
-	assignaturaId: number;
-	assignaturaSelected: any;
-	alumnesSelected: [any];
-	puntuacioMax: number = 10;
-	continguts_avaluats: string;
+	private prova: Prova = {
+		nom: '',
+		continguts: [''],
+		data: '',
+		nota_total: null,
+		pes_total: null,
+		assignatura: ''
+	};
+	private req: any;
+	private req_alumnes: any;
+	private assignatures: [any];
+	private assignaturaId: number;
+	private assignaturaSelected: any;
+	private alumnesSelected: [any];
+	private puntuacioMax: number = 10;
+	private continguts_avaluats: string;
+	private cursos: string[] = ['2017', '2018', '2019', '2020', '2021'];
 
-	constructor(private _assignatures: AssignaturesService) { }
-
-	ngOnInit() {
-
+	constructor(
+		private _proves: ProvesService,
+		private _assignatures: AssignaturesService) {
 		this.req = this._assignatures.list().subscribe(data => {
 			this.assignatures = data;
 		});
-	};
+	}
 
 	// toAssignatura
 	// -----------------------------------------------------
@@ -53,6 +67,16 @@ export class ProvesCreateComponent implements OnInit {
 			// console.log(this.alumnesSelected);
 		});
 	};
+
+	newProva(){
+		console.log(this.prova);
+		// this._proves.add(this.prova)
+		// 	.subscribe(
+		// 		response => {
+		// 			console.log(response);
+		// 		}
+		// 	)
+	}
 
 	ngOnDestroy() {
 		this.req.unsubscribe()
