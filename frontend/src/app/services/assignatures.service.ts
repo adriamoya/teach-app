@@ -84,6 +84,18 @@ export class AssignaturesService {
 	};
 
 
+	delete(assignaturaId: string) {
+
+		const headers = new Headers();
+		headers.append('Authorization', 'JWT ' + this.token);
+		headers.append('Content-Type', 'application/json');
+		const options = new RequestOptions({headers: headers});
+
+		return this._http.delete(ENDPOINT + assignaturaId + '/', options); //.toPromise();
+	};
+
+
+
 	// Nota mitja de cada prova
 	// ----------------------------------------------
 

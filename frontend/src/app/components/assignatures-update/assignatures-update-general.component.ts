@@ -1,7 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, TemplateRef, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AssignaturesUpdateComponent } from './assignatures-update.component';
+import { Router } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
+// Services
+import { AssignaturesService } from '../../services/assignatures.service';
 import { AssignaturesDataService } from '../../services/assignatures-data.service';
 
 
@@ -12,15 +16,22 @@ import { AssignaturesDataService } from '../../services/assignatures-data.servic
 
 export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 
-	assignatura: any;
-	title: string = "General";
-
-	cursos: string[] = ['2016', '2017', '2018', '2019', '2020', '2021']
+	private assignatura: any;
+	private title: string = "General";
+	private bsModalRef: BsModalRef;
+	private cursos: string[] = ['2016', '2017', '2018', '2019', '2020', '2021']
 
 	constructor(
+		private _router: Router,
+		private _modalService: BsModalService,
+		private _assignatures: AssignaturesService,
 		private _assignaturesData: AssignaturesDataService) {
 			this.assignatura = this._assignaturesData.getAssignatura();
 			// console.log(this.assignatura);
+	};
+
+	openModal(event, template: TemplateRef<any>) {
+		this.bsModalRef = this._modalService.show(template);
 	};
 
 	saveGeneral(formGeneral: NgForm){
@@ -31,7 +42,19 @@ export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 		changedAssignatura.curs = formGeneral.value['curs-assignatura'];
 		changedAssignatura.bio = formGeneral.value['bio-assignatura'];
 		this._assignaturesData.passAssignatura(changedAssignatura);
-	}
+	};
+
+	deleteAssignatura() {
+		this._assignatures.delete(this.assignatura.id)
+			.subscribe(
+				response => {
+					console.log('deleted');
+					console.log(response);
+				}
+			)
+		this.bsModalRef.hide();
+		this._router.navigate(['/assignatures']);
+	};
 
 	ngOnDestroy() {
 		// post the new info to the server
@@ -39,4 +62,4 @@ export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 	};
 
 };
-
+ 
