@@ -20,7 +20,7 @@ from .models import Nota, Prova
 class NotaListSerializer(ModelSerializer):
 
 	url_detail =  HyperlinkedIdentityField(view_name='proves-api:nota-detail', lookup_field='pk')
-	alumne = AlumneListSerializer(many=False)
+	# alumne = AlumneListSerializer(many=False)
 
 	class Meta:
 		model = Nota
@@ -33,6 +33,7 @@ class NotaListSerializer(ModelSerializer):
 
 class NotaDetailSerializer(ModelSerializer):
 
+	url_detail =  HyperlinkedIdentityField(view_name='proves-api:nota-detail', lookup_field='pk')
 	alumne = AlumneListSerializer(many=False)
 
 	class Meta:
@@ -40,6 +41,7 @@ class NotaDetailSerializer(ModelSerializer):
 		fields = [
 			'nota',
 			'alumne',
+			'url_detail',
 		]
 
 

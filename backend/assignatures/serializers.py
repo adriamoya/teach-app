@@ -10,6 +10,7 @@ from rest_framework.serializers import (
 
 from .models import Assignatura
 
+from alumnes.serializers import AlumneListSerializer
 from professors.serializers import ProfessorListSerializer
 from proves.serializers import ProvaListSerializer
 
@@ -66,6 +67,7 @@ class AssignaturaDetailSerializer(ModelSerializer):
 	)
 	proves_assignatura = ProvaListSerializer(many=True)
 	professor_assignatures = ProfessorListSerializer(many=True)
+	alumne_assignatures = AlumneListSerializer(many=True)
 	# proves_assignatura = HyperlinkedRelatedField(many=True, view_name='proves-api:prova-detail', read_only=True)
 
 	class Meta:
@@ -78,5 +80,6 @@ class AssignaturaDetailSerializer(ModelSerializer):
 			'alumne_count',				# count of alumnes in assignatura
 			'professor_assignatures',	# professor info in assignatura
 			'proves_assignatura',		# link to prova detail view
+			'alumne_assignatures'
 		]
 
