@@ -18,9 +18,9 @@ export class ProvesCreateComponent implements OnDestroy {
 
 	private prova: Prova = {
 		nom: '',
-		continguts: [''],
+		continguts: ['Prova'],
 		data: '',
-		nota_total: null,
+		nota_total: 10,
 		pes_total: null,
 		assignatura: ''
 	};
@@ -30,7 +30,6 @@ export class ProvesCreateComponent implements OnDestroy {
 	private assignaturaId: number;
 	private assignaturaSelected: any;
 	private alumnesSelected: [any];
-	private puntuacioMax: number = 10;
 	private continguts_avaluats: string;
 	private cursos: string[] = ['2017', '2018', '2019', '2020', '2021'];
 
@@ -55,7 +54,6 @@ export class ProvesCreateComponent implements OnDestroy {
 		// filter down corresponding assignatura
 		this.assignatures.filter(item => {
 			if (item.id == this.assignaturaId) {
-				// console.log(item);
 				this.assignaturaSelected = item;
 			};
 		});
@@ -63,7 +61,8 @@ export class ProvesCreateComponent implements OnDestroy {
 		// use AssignaturesServer to retrieve the alumnes list corresponding to the assignatura
 		// we need to use the get method since points to /assignatures-detail (where the alumnes list is located)
 		this.req_alumnes = this._assignatures.get(this.assignaturaId).subscribe(data => {
-			this.alumnesSelected = data.alumnes;
+			console.log(data);
+			this.alumnesSelected = data.alumne_assignatures;
 			// console.log(this.alumnesSelected);
 		});
 	};

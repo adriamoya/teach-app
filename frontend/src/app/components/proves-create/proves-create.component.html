@@ -27,7 +27,7 @@
 				#newProvaForm="ngForm">
 
 					<dl class="form-group row">
-						<div class="col">
+						<div class="col-4">
 							<dt>
 								<label class="form-label" for="nom-prova">Nom</label>
 							</dt>
@@ -41,42 +41,21 @@
 								required>
 							</dd>
 						</div>
-						<div class="col">
+						<div class="col-8">
 							<dt>
-								<label class="form-label" for="curs-prova">Curs</label>
+								<label class="form-label" for="contingut-prova">Continguts avaluats</label>
 							</dt>
 							<dd>
-								<select [(ngModel)]="prova.curs"
-								class="form-control" 
-								id="curs-prova"
-								name="curs">
-									<option>2017/2018</option>
-								</select>
+								<tag-input
+								[(model)]="prova.continguts"
+								id="continguts-prova"
+								name="continguts"
+								placeholder="Afegir continguts ..."
+								></tag-input>
 							</dd>
 						</div>
 					</dl>
-					<dl class="form-group">
-						<dt>
-							<label class="form-label" for="contingut-prova">Continguts avaluats</label>
-						</dt>
-						<dd>
-							<tag-input
-							[(model)]="prova.continguts"
-							id="continguts-prova"
-							name="continguts"
-							placeholder="Afegir continguts ..."
-							></tag-input>
-						</dd>
-					</dl>
-						<!-- <div class="col">
-							<dt>
-								<label class="form-label" for="contingut-prova">Contingut</label>
-							</dt>
-							<dd>
-								<input type="text" class="form-control" id="contingut-prova">
-							</dd>
-						</div>
-					</dl> -->
+
 
 					<!-- Binding select -->
 					<!-- https://stackoverflow.com/questions/35945001/binding-select-element-to-object-in-angular-2 -->
@@ -85,16 +64,17 @@
 					<dl class="form-group row">
 						<div class="col">
 							<dt>
-								<label class="form-label" for="puntuacio-max">Puntuació</label>
+								<label class="form-label" for="curs-prova">Assignatura</label>
 							</dt>
 							<dd>
-								<input 
-								[(ngModel)]="prova.nota_total"
-								name="nota_total"
-								type="number" 
+								<select 
 								class="form-control" 
-								id="puntuacio-max" 
-								placeholder="Puntuació màxima">
+								id="assignatura-prova"
+								name="prova.assignatura"
+								[(ngModel)]="assignaturaId" 
+								(ngModelChange)="toAssignatura()">
+									<option *ngFor="let assignatura of assignatures" [ngValue]="assignatura.id">{{ assignatura.nom }}</option>
+								</select>
 							</dd>
 						</div>
 						<div class="col">
@@ -114,17 +94,16 @@
 						</div>
 						<div class="col">
 							<dt>
-								<label class="form-label" for="curs-prova">Assignatura</label>
+								<label class="form-label" for="puntuacio-max">Puntuació</label>
 							</dt>
 							<dd>
-								<select 
+								<input 
+								[(ngModel)]="prova.nota_total"
+								name="nota_total"
+								type="number" 
 								class="form-control" 
-								id="assignatura-prova"
-								name="prova.assignatura"
-								[(ngModel)]="assignaturaId" 
-								(ngModelChange)="toAssignatura()">
-									<option *ngFor="let assignatura of assignatures" [ngValue]="assignatura.id">{{ assignatura.nom }}</option>
-								</select>
+								id="puntuacio-max" 
+								placeholder="Puntuació màxima">
 							</dd>
 						</div>
 					</dl>
@@ -160,7 +139,7 @@
 										<div class="col">
 											<div class="input-group">
 												<input type="number" class="form-control form-control-sm" id="puntuacio">
-												<span class="input-group-addon" id="basic-addon2"><small>/{{puntuacioMax}}</small></span>
+												<span class="input-group-addon" id="basic-addon2"><small>/{{ prova.nota_total}}</small></span>
 											</div>
 										</div>
 									</div>
