@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 
 // third-party imports
 import { AccordionModule,
+         BsDatepickerModule,
          CollapseModule,
          ModalModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -94,6 +95,7 @@ import { AlumnesService } from './services/alumnes.service';
 
       // ngx-bootstrap
     AccordionModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     NgbModule.forRoot(),
     BsDropdownModule.forRoot(),
     CollapseModule,

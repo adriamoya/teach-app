@@ -1,6 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+// Datepicker
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { listLocales } from 'ngx-bootstrap/bs-moment';
+
 // Services
 import { ProvesService } from '../../services/proves.service';
 import { AssignaturesService } from '../../services/assignatures.service';
@@ -31,13 +35,24 @@ export class ProvesCreateComponent implements OnDestroy {
 	private alumnesSelected: [any];
 	private continguts_avaluats: any[]=[];
 
+	// Datepicker
+	minDate = new Date(2017, 5, 10);
+	maxDate = new Date(2018, 9, 15);
+	bsValue: Date = new Date();
+	bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+	bsConfig: Partial<BsDatepickerConfig>;
+
+	
+
 	constructor(
 		private _proves: ProvesService,
 		private _assignatures: AssignaturesService) {
+		this.bsConfig = Object.assign({}, { locale: 'es'});
 		this.req = this._assignatures.list().subscribe(data => {
 			this.assignatures = data;
 		});
 	}
+
 
 	// toAssignatura
 	// -----------------------------------------------------

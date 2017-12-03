@@ -27,7 +27,7 @@
 				#newProvaForm="ngForm">
 
 					<dl class="form-group row">
-						<div class="col-4">
+						<div class="col">
 							<dt>
 								<label class="form-label" for="nom-prova">Nom de la prova</label>
 							</dt>
@@ -41,7 +41,7 @@
 								required>
 							</dd>
 						</div>
-						<div class="col-8">
+						<div class="col">
 							<dt>
 								<label class="form-label" for="contingut-prova">Continguts avaluats</label>
 							</dt>
@@ -52,6 +52,20 @@
 								name="continguts"
 								placeholder="Afegir continguts ..."
 								></tag-input>
+							</dd>
+						</div>
+						<div class="col">
+							<dt>
+								<label class="form-label" for="contingut-prova">Continguts avaluats</label>
+							</dt>
+							<dd>
+								<input 
+								placeholder="Datepicker" 
+								type="text" 
+								class="form-control" 
+								bsDatepicker 
+								#dp="bsDatepicker" 
+								[bsConfig]="bsConfig">
 							</dd>
 						</div>
 					</dl>
