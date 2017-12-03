@@ -24,6 +24,7 @@ export class ProvesCreateComponent implements OnDestroy {
 		pes_total: null,
 		assignatura: ''
 	};
+	private puntuacio: any;
 	private req: any;
 	private req_alumnes: any;
 	private assignatures: [any];
@@ -68,6 +69,7 @@ export class ProvesCreateComponent implements OnDestroy {
 	};
 
 	newProva(){
+		console.log(this.puntuacio);
 		console.log(this.prova);
 		// this._proves.add(this.prova)
 		// 	.subscribe(
