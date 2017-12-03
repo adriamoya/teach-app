@@ -1,6 +1,7 @@
 export interface Prova {
 	assignatura: string;
-	continguts: any[];
+	// continguts: any[];
+	continguts: string;
 	data: string;
 	id?: string;
 	nom: string;

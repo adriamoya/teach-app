@@ -11,28 +11,25 @@ import { Prova } from '../../interfaces/prova.interface';
 @Component({
   selector: 'app-proves-create',
   templateUrl: './proves-create.component.html',
-  styleUrls: ['./proves-create.component.css'],
-  providers: [AssignaturesService]
+  styleUrls: ['./proves-create.component.css']
 })
 export class ProvesCreateComponent implements OnDestroy {
 
 	private prova: Prova = {
 		nom: '',
-		continguts: ['Prova'],
+		continguts: '',
 		data: '',
 		nota_total: 10,
 		pes_total: null,
 		assignatura: ''
 	};
-	private puntuacio: any;
 	private req: any;
 	private req_alumnes: any;
 	private assignatures: [any];
 	private assignaturaId: number;
 	private assignaturaSelected: any;
 	private alumnesSelected: [any];
-	private continguts_avaluats: string;
-	private cursos: string[] = ['2017', '2018', '2019', '2020', '2021'];
+	private continguts_avaluats: any[]=[];
 
 	constructor(
 		private _proves: ProvesService,
@@ -62,21 +59,24 @@ export class ProvesCreateComponent implements OnDestroy {
 		// use AssignaturesServer to retrieve the alumnes list corresponding to the assignatura
 		// we need to use the get method since points to /assignatures-detail (where the alumnes list is located)
 		this.req_alumnes = this._assignatures.get(this.assignaturaId).subscribe(data => {
-			console.log(data);
+			// console.log(data);
 			this.alumnesSelected = data.alumne_assignatures;
 			// console.log(this.alumnesSelected);
 		});
 	};
 
 	newProva(){
-		console.log(this.puntuacio);
-		console.log(this.prova);
-		// this._proves.add(this.prova)
-		// 	.subscribe(
-		// 		response => {
-		// 			console.log(response);
-		// 		}
-		// 	)
+		let prova = this.prova;
+		let continguts = this.continguts_avaluats.join();
+		prova.assignatura = this.assignaturaId.toString();
+		prova.continguts = continguts;
+
+		this._proves.add(prova)
+			.subscribe(
+				response => {
+					console.log(response);
+				}
+			)
 	}
 
 	ngOnDestroy() {

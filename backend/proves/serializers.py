@@ -66,7 +66,7 @@ class ProvaCreateUpdateSerializer(ModelSerializer):
 		fields = [
 			'nom',
 			'data',
-			'contiguts',
+			'continguts',
 			'nota_total',
 			'pes_total',
 			'assignatura'

@@ -47,7 +47,7 @@
 							</dt>
 							<dd>
 								<tag-input
-								[(model)]="prova.continguts"
+								[(model)]="continguts_avaluats"
 								id="continguts-prova"
 								name="continguts"
 								placeholder="Afegir continguts ..."
@@ -79,7 +79,7 @@
 						</div>
 						<div class="col">
 							<dt>
-								<label class="form-label" for="pes-prova">Pes <span style="font-weight: 400;">(%)</span></label>
+								<label class="form-label" for="pes-prova">Pes de la prova <span style="font-weight: 400;">(%)</span></label>
 							</dt>
 							<dd>
 								<input
@@ -94,7 +94,7 @@
 						</div>
 						<div class="col">
 							<dt>
-								<label class="form-label" for="puntuacio-max">Puntuació</label>
+								<label class="form-label" for="puntuacio-max">Puntuació màxima</label>
 							</dt>
 							<dd>
 								<input 
@@ -134,13 +134,14 @@
 											<label class="form-label" style="color: #868e96;;">Nota</label>
 										</div>
 									</div>
-									<div *ngFor="let alumne of alumnesSelected" class="form-group row" style="margin-bottom: 5px;">
+									<div *ngFor="let alumne of alumnesSelected; let in=index" class="form-group row" style="margin-bottom: 5px;">
 										<span class="col" style="color: #0275d8; padding: auto">{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</span>
 										<div class="col">
 											<div 
 											class="input-group">
 												<input 
-												name="puntuacio-{{alumne.id}}"
+												[(ngModel)]="alumne.nota"
+												name="notes-{{alumne.id}}"
 												type="number" 
 												class="form-control form-control-sm" 
 												id="puntuacio">
