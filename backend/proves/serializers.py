@@ -17,6 +17,16 @@ from .models import Nota, Prova
 # Nota
 # ------------------------------------------------------------------------
 
+class NotaCreateUpdateSerializer(ModelSerializer):
+	class Meta:
+		model = Nota
+		fields = [
+			'nota',
+			'alumne',
+			'prova'
+		]
+
+
 class NotaListSerializer(ModelSerializer):
 
 	url_detail =  HyperlinkedIdentityField(view_name='proves-api:nota-detail', lookup_field='pk')
@@ -28,6 +38,7 @@ class NotaListSerializer(ModelSerializer):
 			'nota',
 			'alumne',
 			'url_detail',
+			'prova'
 		]
 
 
@@ -42,6 +53,7 @@ class NotaDetailSerializer(ModelSerializer):
 			'nota',
 			'alumne',
 			'url_detail',
+			'prova'
 		]
 
 
@@ -69,7 +81,7 @@ class ProvaListSerializer(ModelSerializer):
 	)
 
 	# notes_prova = HyperlinkedRelatedField(many=True, view_name='proves-api:nota-detail', read_only=True) # Hyperlinked Identity Field
-
+	url_detail =  HyperlinkedIdentityField(view_name='proves-api:prova-detail', lookup_field='pk')
 	notes_prova = NotaListSerializer(many=True)
 	assignatura = PrimaryKeyRelatedField(read_only=True)
 
@@ -83,7 +95,8 @@ class ProvaListSerializer(ModelSerializer):
 			'notes_count',
 			'notes_prova',
 			'assignatura',
-			'pes_total'
+			'pes_total',
+			'url_detail'
 		]
 
 

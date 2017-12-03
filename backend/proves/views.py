@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 
 from .models import Nota, Prova
 from .serializers import (
+	NotaCreateUpdateSerializer,
 	NotaDetailSerializer, 
 	NotaListSerializer,
 	ProvaCreateUpdateSerializer,
@@ -13,6 +14,14 @@ from .serializers import (
 	ProvaListSerializer
 	)
 
+
+class NotaCreateView(CreateAPIView):
+	permission_classes = [IsAuthenticated]
+	queryset = Nota.objects.all()
+	serializer_class = NotaCreateUpdateSerializer
+
+	def perform_create(self, serializer):
+		serializer.save()
 
 class NotaListView(ListAPIView):
 	permission_classes = [IsAuthenticated]
