@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // Datepicker
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -47,6 +48,7 @@ export class ProvesCreateComponent implements OnDestroy {
 	
 
 	constructor(
+		private _router: Router,
 		private _notes: NotesService,
 		private _proves: ProvesService,
 		private _assignatures: AssignaturesService) {
@@ -109,14 +111,15 @@ export class ProvesCreateComponent implements OnDestroy {
 		let data_final = yyyy+'-'+mm+'-'+dd;
 		prova.data = data_final;
 
-		console.log(prova);
+		//console.log(prova);
 
 		this._proves.add(prova)
 			.subscribe(
 				response => {
-					console.log(response);
+					//console.log(response);
 					this.prova.id = response.json().id;
 					this.newNotes();
+					this._router.navigate(['/assignatures', this.assignaturaId, this.prova.id]);
 				}
 			);
 	};
@@ -124,18 +127,18 @@ export class ProvesCreateComponent implements OnDestroy {
 
 	newNotes() {
 		if (this.alumnesSelected) {
-			console.log(this.alumnesSelected)
+			//console.log(this.alumnesSelected)
 			for (let alumne of this.alumnesSelected) {
 				let nota: Nota = {
 					alumne: alumne.id,
 					prova: this.prova.id,
 					nota: alumne.nota
 				};
-				console.log(nota);
+				//console.log(nota);
 				this._notes.add(nota)
 					.subscribe(
 						response => {
-							console.log(response);
+							//console.log(response);
 						}
 					)
 			}

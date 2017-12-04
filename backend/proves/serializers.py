@@ -110,7 +110,7 @@ class ProvaDetailSerializer(ModelSerializer):
 
 	# notes_prova = HyperlinkedRelatedField(many=True, view_name='proves-api:nota-detail', read_only=True) # Hyperlinked Identity Field
 
-	notes_prova = NotaListSerializer(many=True)
+	notes_prova = NotaDetailSerializer(many=True)
 	assignatura = PrimaryKeyRelatedField(read_only=True)
 
 	class Meta:
