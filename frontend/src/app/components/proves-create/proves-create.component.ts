@@ -44,7 +44,7 @@ export class ProvesCreateComponent implements OnDestroy {
 	bsValue: Date = new Date();
 	// bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 	bsConfig: Partial<BsDatepickerConfig>;
-
+	colorTheme = 'theme-default';
 	
 
 	constructor(
@@ -52,6 +52,7 @@ export class ProvesCreateComponent implements OnDestroy {
 		private _notes: NotesService,
 		private _proves: ProvesService,
 		private _assignatures: AssignaturesService) {
+		this.bsConfig = Object.assign({}, { containerClass: this.colorTheme });
 		// this.bsConfig = Object.assign({}, { locale: 'es'});
 		this.req = this._assignatures.list().subscribe(data => {
 			this.assignatures = data;
@@ -87,6 +88,9 @@ export class ProvesCreateComponent implements OnDestroy {
 
 	newProva(){
 		let prova = this.prova;
+
+		// processing pes_total
+		prova.pes_total = prova.pes_total/100;
 
 		// processing continguts
 		if (this.continguts_avaluats) {

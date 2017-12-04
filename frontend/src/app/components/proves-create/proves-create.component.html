@@ -43,9 +43,32 @@
 						</div>
 						<div class="col">
 							<dt>
-								<label class="form-label" for="contingut-prova">Continguts avaluats</label>
+								<label class="form-label" for="contingut-prova">Data de la prova</label>
 							</dt>
 							<dd>
+								<div class="form-group">
+									<div class="input-group">
+										<input
+										[(ngModel)]="prova.data"
+										name="data"
+										type="text" 
+										class="form-control" 
+										bsDatepicker
+										required
+										#dp="bsDatepicker" 
+										[bsConfig]="bsConfig">
+										<div class="input-group-btn">
+											<button
+											type="button"
+											class="btn btn-outline-success" 
+											(click)="dp.show()">
+												Data
+											</button>
+										</div>
+									</div>
+								</div>
+							</dd>
+							<!-- <dd>
 								<input
 								[(ngModel)]="prova.data"
 								name="data"
@@ -56,7 +79,7 @@
 								required
 								#dp="bsDatepicker" 
 								[bsConfig]="bsConfig">
-							</dd>
+							</dd> -->
 						</div>
 					</dl>
 					<dl class="form-group row">
