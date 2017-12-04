@@ -46,28 +46,31 @@
 								<label class="form-label" for="contingut-prova">Continguts avaluats</label>
 							</dt>
 							<dd>
-								<tag-input
-								[(model)]="continguts_avaluats"
-								id="continguts-prova"
-								name="continguts"
-								placeholder="Afegir continguts ..."
-								></tag-input>
-							</dd>
-						</div>
-						<div class="col">
-							<dt>
-								<label class="form-label" for="contingut-prova">Continguts avaluats</label>
-							</dt>
-							<dd>
 								<input
 								[(ngModel)]="prova.data"
 								name="data"
 								placeholder="Datepicker" 
 								type="text" 
 								class="form-control" 
-								bsDatepicker 
+								bsDatepicker
+								required
 								#dp="bsDatepicker" 
 								[bsConfig]="bsConfig">
+							</dd>
+						</div>
+					</dl>
+					<dl class="form-group row">
+						<div class="col">
+							<dt>
+								<label class="form-label" for="contingut-prova">Continguts avaluats</label>
+							</dt>
+							<dd>
+								<tag-input
+								[(model)]="continguts_avaluats"
+								id="continguts-prova"
+								name="continguts"
+								placeholder="Afegir continguts ..."
+								></tag-input>
 							</dd>
 						</div>
 					</dl>
@@ -88,7 +91,8 @@
 								id="assignatura-prova"
 								name="prova.assignatura"
 								[(ngModel)]="assignaturaId" 
-								(ngModelChange)="toAssignatura()">
+								(ngModelChange)="toAssignatura()"
+								required>
 									<option *ngFor="let assignatura of assignatures" [ngValue]="assignatura.id">{{ assignatura.nom }}</option>
 								</select>
 							</dd>
@@ -105,7 +109,8 @@
 								class="form-control" 
 								id="pes-prova" 
 								placeholder="Pes en %" 
-								value="10">
+								value="10"
+								required>
 							</dd>
 						</div>
 						<div class="col">
@@ -119,7 +124,8 @@
 								type="number" 
 								class="form-control" 
 								id="puntuacio-max" 
-								placeholder="Puntuació màxima">
+								placeholder="Puntuació màxima"
+								required>
 							</dd>
 						</div>
 					</dl>
@@ -178,9 +184,9 @@
 										</div>
 									</div> -->
 								</div>
-								<div *ngIf="!alumnesSelected">
+								<div *ngIf="alumnesSelected?.length == 0">
 									<div class="alert alert-warning" role="alert">
-										Cap alumne assignat a {{assignaturaSelected.nom}}.
+										Cap alumne assignat a {{assignaturaSelected.nom}}. Feu click aquí per afegir alumnes a aquesta assignatura.
 									</div>
 								</div>
 							</div>

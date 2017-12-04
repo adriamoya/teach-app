@@ -6,10 +6,12 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/bs-moment';
 
 // Services
+import { NotesService } from '../../services/notes.service';
 import { ProvesService } from '../../services/proves.service';
 import { AssignaturesService } from '../../services/assignatures.service';
 
 // Interfaces
+import { Nota } from '../../interfaces/nota.interface';
 import { Prova } from '../../interfaces/prova.interface';
 
 @Component({
@@ -45,13 +47,14 @@ export class ProvesCreateComponent implements OnDestroy {
 	
 
 	constructor(
+		private _notes: NotesService,
 		private _proves: ProvesService,
 		private _assignatures: AssignaturesService) {
 		// this.bsConfig = Object.assign({}, { locale: 'es'});
 		this.req = this._assignatures.list().subscribe(data => {
 			this.assignatures = data;
 		});
-	}
+	};
 
 
 	// toAssignatura
@@ -84,9 +87,13 @@ export class ProvesCreateComponent implements OnDestroy {
 		let prova = this.prova;
 
 		// processing continguts
-		let continguts = this.continguts_avaluats.join();
-		prova.assignatura = this.assignaturaId.toString();
-		prova.continguts = continguts;
+		if (this.continguts_avaluats) {
+			let continguts = this.continguts_avaluats.join();
+			prova.assignatura = this.assignaturaId.toString();
+			prova.continguts = continguts;
+		} else {
+			prova.continguts = '';
+		}
 
 		// processing data
 		let data = this.prova.data;
@@ -108,9 +115,35 @@ export class ProvesCreateComponent implements OnDestroy {
 			.subscribe(
 				response => {
 					console.log(response);
+					this.prova.id = response.json().id;
+					this.newNotes();
 				}
-			)
-	}
+			);
+	};
+
+
+	newNotes() {
+		if (this.alumnesSelected) {
+			console.log(this.alumnesSelected)
+			for (let alumne of this.alumnesSelected) {
+				let nota: Nota = {
+					alumne: alumne.id,
+					prova: this.prova.id,
+					nota: alumne.nota
+				};
+				console.log(nota);
+				this._notes.add(nota)
+					.subscribe(
+						response => {
+							console.log(response);
+						}
+					)
+			}
+		}
+	};
+
+
+		// this._notes.add()
 
 	ngOnDestroy() {
 		this.req.unsubscribe()

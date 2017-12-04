@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 
 // Components
+
 // import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { APP_ROUTING } from './app.routing';
@@ -47,6 +48,7 @@ import { Ng2TagsInput } from "./components/tags-input/ng2-tagsinput";
 // Services
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './services/auth.guard';
+import { NotesService } from './services/notes.service';
 import { ProvesService } from './services/proves.service';
 import { AssignaturesService } from './services/assignatures.service';
 import { AssignaturesDataService } from './services/assignatures-data.service';
@@ -110,6 +112,7 @@ import { AlumnesService } from './services/alumnes.service';
     AUTH_PROVIDERS,
     AuthGuard,
     AuthenticationService,
+    NotesService,
     ProvesService,
     AssignaturesService,
     AssignaturesDataService,

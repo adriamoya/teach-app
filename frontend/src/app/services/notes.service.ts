@@ -4,15 +4,15 @@ import { Router } from '@angular/router';
 import { tokenNotExpired} from 'angular2-jwt';
 
 // Interfaces
-import { Prova } from '../interfaces/prova.interface';
+import { Nota } from '../interfaces/nota.interface';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const ENDPOINT = 'http://127.0.0.1:8000/api/proves/'; // eventually run from '/api/assignatures/'
+const ENDPOINT = 'http://127.0.0.1:8000/api/proves/notes/'; // eventually run from '/api/assignatures/'
 
 @Injectable()
-export class ProvesService {
+export class NotesService {
 
 	private token: string;
 
@@ -32,9 +32,9 @@ export class ProvesService {
 	};
 
 
-	add(prova: Prova){
+	add(nota: Nota){
 
-		const body = JSON.stringify(prova);
+		const body = JSON.stringify(nota);
 
 		const headers = new Headers();
 		headers.append('Accept', 'application/json');
@@ -45,14 +45,14 @@ export class ProvesService {
 		return this._http.post(ENDPOINT + 'add/', body, options)
 						.map(
 							response=>{
-								return response
+								return response.json()
 							}
 						)
 						.catch(this.handleError);
 	};
 
 
-	get(provaId){
+	get(notaId){
 
 		const headers = new Headers();
 		headers.append('Accept', 'application/json');
@@ -60,13 +60,9 @@ export class ProvesService {
 		headers.append('Authorization', 'JWT ' + this.token)
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.get(ENDPOINT + provaId + '/', options)
+		return this._http.get(ENDPOINT + notaId + '/', options)
 						.map(response=>{
 							let data = response.json()
-							if (data.continguts) {
-								let continguts = data.continguts.split(',');
-								data.continguts = continguts;
-							}
 							return data;
 							}
 						)
@@ -74,14 +70,14 @@ export class ProvesService {
 	};
 
 
-	delete(provaId) {
+	delete(notaId) {
 
 		const headers = new Headers();
 		headers.append('Authorization', 'JWT ' + this.token);
 		headers.append('Content-Type', 'application/json');
 		const options = new RequestOptions({headers: headers});
 
-		return this._http.delete(ENDPOINT + provaId + '/', options); //.toPromise();
+		return this._http.delete(ENDPOINT + notaId + '/', options); //.toPromise();
 	};
 
 

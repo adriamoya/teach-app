@@ -64,6 +64,7 @@ class ProvaCreateUpdateSerializer(ModelSerializer):
 	class Meta:
 		model = Prova
 		fields = [
+			'id',
 			'nom',
 			'data',
 			'continguts',
