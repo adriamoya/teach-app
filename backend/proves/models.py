@@ -7,7 +7,7 @@ from django.utils.timezone import now
 class Prova(models.Model):
 
 	nom 		= models.CharField(max_length=120)
-	curs 		= models.PositiveIntegerField()
+	# curs 		= models.PositiveIntegerField()
 	nota_total 	= models.FloatField()
 	pes_total 	= models.FloatField()
 	assignatura = models.ForeignKey('assignatures.Assignatura', related_name='proves_assignatura',blank=True, null=True)

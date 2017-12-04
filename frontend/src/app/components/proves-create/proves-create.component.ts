@@ -36,10 +36,10 @@ export class ProvesCreateComponent implements OnDestroy {
 	private continguts_avaluats: any[]=[];
 
 	// Datepicker
-	minDate = new Date(2017, 5, 10);
-	maxDate = new Date(2018, 9, 15);
+	// minDate = new Date(2017, 5, 10);
+	// maxDate = new Date(2018, 9, 15);
 	bsValue: Date = new Date();
-	bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+	// bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 	bsConfig: Partial<BsDatepickerConfig>;
 
 	
@@ -47,7 +47,7 @@ export class ProvesCreateComponent implements OnDestroy {
 	constructor(
 		private _proves: ProvesService,
 		private _assignatures: AssignaturesService) {
-		this.bsConfig = Object.assign({}, { locale: 'es'});
+		// this.bsConfig = Object.assign({}, { locale: 'es'});
 		this.req = this._assignatures.list().subscribe(data => {
 			this.assignatures = data;
 		});
@@ -82,9 +82,27 @@ export class ProvesCreateComponent implements OnDestroy {
 
 	newProva(){
 		let prova = this.prova;
+
+		// processing continguts
 		let continguts = this.continguts_avaluats.join();
 		prova.assignatura = this.assignaturaId.toString();
 		prova.continguts = continguts;
+
+		// processing data
+		let data = this.prova.data;
+		let dd = data.getDate();
+		let mm = data.getMonth()+1; //January is 0!
+		let yyyy = data.getFullYear();
+		if(dd<10){
+			dd='0'+dd;
+		} 
+		if(mm<10){
+			mm='0'+mm;
+		} 
+		let data_final = yyyy+'-'+mm+'-'+dd;
+		prova.data = data_final;
+
+		console.log(prova);
 
 		this._proves.add(prova)
 			.subscribe(
