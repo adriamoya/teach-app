@@ -18,13 +18,12 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 
 	// CREATE A NEW COMPONENT FOR THE LINECHART
 
-	public routeSub: any;
-	public reqAssignatures: any;
-	assignatura: any;
-	id: string;
-
-	public proves: any;
-	public alumnes: any;
+	private routeSub: any;
+	private reqAssignatures: any;
+	private assignatura: any;
+	private assignaturaId: string;
+	private proves: any;
+	private alumnes: any;
 
 	constructor(
 		public _route: ActivatedRoute,
@@ -35,15 +34,19 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 
 		this.routeSub = this._route.params.subscribe(params => {
-			this.id = params['id'];
-			this.reqAssignatures = this._assignatures.get(this.id)
+			this.assignaturaId = params['id'];
+			this.reqAssignatures = this._assignatures.get(this.assignaturaId)
 				.subscribe(
 					data => {
 						this.assignatura = data;
 						this.proves = this._assignatures.get_proves_promedio();
-						this.alumnes = this._assignatures.get_distinct_alumnes();
+						this.alumnes = data.alumne_assignatures;
+						// console.log(this.assignatura);
+						// console.log(this.proves);
+						// console.log(this.alumnes);
 					},
 					error => {
+						console.error('error')
 						// this routing should be based off of the error-status
 						// possibly incorporated within the _service
 						this._router.navigate(['login'])

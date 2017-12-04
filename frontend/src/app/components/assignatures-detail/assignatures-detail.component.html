@@ -25,7 +25,7 @@
 		<button 
 		type="button" 
 		class="btn btn-secondary float-right"
-		routerLink="/assignatures/{{ id }}/edit" 
+		routerLink="/assignatures/{{ assignaturaId }}/edit" 
 		routerLinkActive="active">
 		Editar
 		</button>
@@ -68,6 +68,7 @@
 							<tr>
 								<th>Prova</th>
 								<th>Data</th>
+								<th>Pes prova</th>
 								<th>
 									<span class="float-right">
 										Puntació mitja
@@ -78,8 +79,9 @@
 						<tbody>
 
 							<tr *ngFor="let prova of proves">
-								<td><a routerLink="/assignatures/{{ id }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
+								<td><a routerLink="/assignatures/{{ assignaturaId }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
 								<td>{{ prova.data | date }}</td>
+								<td>{{ prova.pes_total | percent:'0.0-1' }}</td>
 								<td *ngIf="prova.puntuacio_promig">
 									<span class="float-right">
 										{{ prova.puntuacio_promig | number:'1.0-2'}} / {{ prova.puntuacio_total }}
@@ -118,20 +120,36 @@
 								<td><a routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a></td>
 								<td *ngFor="let prova_assignatura of assignatura.proves_assignatura">
 									<div *ngFor="let puntuacio of prova_assignatura.notes_prova">
-										<div *ngIf="puntuacio.alumne.id == alumne.id; then thenBlock else elseBlock">...</div>
+										<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
 										<ng-template #thenBlock>
-											<span class="float-right">
-												{{ puntuacio.nota }}
-											</span>
+											<div *ngIf="puntuacio.nota">
+												<span class="float-right">
+													{{ puntuacio.nota }}
+												</span>
+											</div>
 										</ng-template>
 										<!-- <ng-template #elseBlock><span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span></ng-template> -->
 									</div>
 								</td>
 							</tr>
+							<!-- Total row -->
+							<tr>
+								<td style="border-top: 2px solid #eceeef; color: #636c72">
+									Nota promig
+								</td>
+								<td 
+								style="border-top: 2px solid #eceeef"
+								*ngFor="let prova of proves">
+									<span class="float-right"
+									style="color: #636c72;">
+										{{ prova?.puntuacio_promig | number: '1.0-2' }}
+									</span>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div *ngIf="assignatura.proves_assignatura.length == 0">
+				<div *ngIf="assignatura.proves_assignatura?.length == 0">
 					<div class="alert alert-warning" role="alert">
 						No hi ha cap alumne ...
 					</div>

@@ -127,6 +127,7 @@ export class AssignaturesService {
 				"nom": prova.nom,
 				"data": prova.data,
 				"puntuacio_promig": avg,
+				"pes_total": prova.pes_total,
 				"puntuacio_total": prova.nota_total
 			})
 		}
