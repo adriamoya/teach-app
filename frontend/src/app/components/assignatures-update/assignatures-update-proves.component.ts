@@ -50,11 +50,28 @@ export class AssignaturesUpdateProvesComponent implements OnDestroy {
 			.subscribe(
 				response => {
 					console.log('deleted');
-					let assignaturaId = this.assignatura.id;
-					this.reqDelete = this._assignatures.get(assignaturaId).subscribe(item => {
-						this._assignaturesData.passAssignatura(item);
-						this.assignatura = item
-					});
+
+					/*
+					Retrieving the new assignatura with the Prova deleted changed
+
+					// let assignaturaId = this.assignatura.id;
+					// this.reqDelete = this._assignatures.get(assignaturaId).subscribe(item => {
+					// 	this._assignaturesData.passAssignatura(item);
+					// 	this.assignatura = item
+					// });
+
+					This however will discard the changes done in the general tab.
+					Instead, we could just update the copy of the assignatura item in the
+					data service by splicing the prova from the prova array attribute of the assignatura.
+					*/
+
+					// filter the prova and splice from assignatura image
+					let index = this.assignatura.proves_assignatura.indexOf(this.prova);
+					this.assignatura.proves_assignatura.splice(index, 1);
+
+					// pass assignatura image to data service
+					this._assignaturesData.passAssignatura(this.assignatura);
+
 					this.bsModalRef.hide()
 				}
 			);

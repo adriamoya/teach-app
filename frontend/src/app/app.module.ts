@@ -45,6 +45,8 @@ import { SignupDetailComponent } from './components/signup-detail/signup-detail.
 import { Ng2TagsInputItem } from "./components/tags-input/ng2-tagsinput-item";
 import { Ng2TagsInput } from "./components/tags-input/ng2-tagsinput";
 
+import { ModalAssignaturesUpdateComponent } from './components/assignatures-update/assignatures-update.component';
+
 // Services
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './services/auth.guard';
@@ -81,6 +83,7 @@ import { AlumnesService } from './services/alumnes.service';
     ProvesUpdateComponent,
     ProvesUpdateDetailComponent,
 
+    ModalAssignaturesUpdateComponent,
     Ng2TagsInputItem,
     Ng2TagsInput,
     LoginDetailComponent,
@@ -119,7 +122,7 @@ import { AlumnesService } from './services/alumnes.service';
     AlumnesService,
     // ModalDataService
     ],
-  bootstrap: [AppComponent]
-  // entryComponents: [ModalProvesUpdateDeleteComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalAssignaturesUpdateComponent]
 })
 export class AppModule { }

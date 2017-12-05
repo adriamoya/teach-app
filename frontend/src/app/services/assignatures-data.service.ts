@@ -18,10 +18,12 @@ export class AssignaturesDataService {
 	// Service commands
 	passAssignatura(assignatura:any) {
 		// this.assignaturaSource.next(assignatura);
+		console.log('passed assignatura')
 		this.data = assignatura;
 	}
 
 	getAssignatura() {
+		console.log('downloading assignatura')
 		return this.data;
 		// return this.assignaturaSource.asObservable();
 	}

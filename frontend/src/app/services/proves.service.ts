@@ -45,7 +45,7 @@ export class ProvesService {
 		return this._http.post(ENDPOINT + 'add/', body, options)
 						.map(
 							response=>{
-								return response
+								return response.json()
 							}
 						)
 						.catch(this.handleError);
