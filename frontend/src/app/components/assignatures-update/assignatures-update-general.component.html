@@ -17,6 +17,8 @@
 				id="nom-assignatura" 
 				name="nom-assignatura" 
 				[ngModel]="assignatura.nom"
+				(ngModelChange)="changesMade($event)"
+				(change)="onChange($event.target.id, $event.target.value)"
 				required>
 			</dd>
 		</div>
@@ -30,6 +32,8 @@
 				id="curs-assignatura"
 				name="curs-assignatura"
 				[(ngModel)]="assignatura.curs"
+				(ngModelChange)="changesMade($event)"
+				(change)="onChange($event.target.id, $event.target.value)"
 				required>
 					<option 
 					*ngFor="let curs of cursos"
@@ -51,7 +55,9 @@
 			id="bio-assignatura"
 			name="bio-assignatura" 
 			rows="3"
-			[(ngModel)]="assignatura.bio">
+			[(ngModel)]="assignatura.bio"
+			(ngModelChange)="changesMade($event)"
+			(change)="onChange($event.target.id, $event.target.value)">
 			</textarea>
 		</dd>
 	</dl>

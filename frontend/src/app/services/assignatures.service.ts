@@ -82,6 +82,26 @@ export class AssignaturesService {
 						)
 						.catch(this.handleError);
 	};
+
+
+	update(assignatura: Assignatura) {
+
+		let body = JSON.stringify(assignatura);
+
+		const headers = new Headers();
+		headers.append('Accept', 'application/json');
+		headers.append('Content-Type', 'application/json');
+		headers.append('Authorization', 'JWT ' + this.token)
+		const options = new RequestOptions({headers: headers});
+
+		return this._http.put(ENDPOINT + assignatura.id + '/', body, options)
+						.map(
+							response => {
+								console.log(response.json());
+							}
+						)
+						.catch(this.handleError);
+	};
 	
 
 	delete(assignaturaId: string) {

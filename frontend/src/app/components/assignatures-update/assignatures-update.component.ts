@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; // Provider that allows us to work and get parameters from the route given
+import { ActivatedRoute, Router } from '@angular/router'; // Provider that allows us to work and get parameters from the route given
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
@@ -21,7 +21,7 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 	private assignatura: any;
 	private copiedAssignatura: any;
 	private id: string;
-	private changesSaved: boolean = false;
+	private changesSaved: boolean = true;
 	private bsModalRef: BsModalRef;
 
 
@@ -30,16 +30,18 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 	constructor(
 		private _modalService: BsModalService,
 		private _route: ActivatedRoute, 
+		private _router: Router,
 		private _assignatures: AssignaturesService,
 		private _assignaturesData: AssignaturesDataService) {
+		this._assignaturesData.passChangesSaved(this.changesSaved);
 		this.routeSub = this._route.params.subscribe(params => {
 			this.id = params['id'];
 			this.req = this._assignatures.get(this.id).subscribe(item => {
 				this.assignatura = item;
-				// console.log(item);
+				// pass assignatura image to the data service
 				this._assignaturesData.passAssignatura(item);
+				// create a copy of the assignatura so that there is no data-binding (breadcrumb)
 				this.copiedAssignatura = Object.assign({}, this.copiedAssignatura , item );
-				console.log(this.copiedAssignatura);
 			});
 		});
 	};
@@ -63,7 +65,6 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 		// }, 2000);
 	};
 
-
 	saveChanges(){
 		let assignaturaSubmit = this._assignaturesData.getAssignatura();
 		console.log(assignaturaSubmit);
@@ -72,14 +73,15 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.preventDefault();
+		// this._router.navigate(['/assignatures', this.id, 'edit'])
 		this.routeSub.unsubscribe();
 		this.req.unsubscribe();
 
+		this.changesSaved = this._assignaturesData.getChangesSaved();
 		// if changes not saved, show warning message
 		if (this.changesSaved == false) {
 			this.openModalWithComponent();
-		}
+		};
 	};
 }
 
@@ -105,7 +107,7 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 			</span>
 			<br>
 			Què voleu fer?
-			<button type="button"class="btn btn-outline-danger float-right" (click)="proceed()">Sortir</button>
+			<button type="button"class="btn btn-outline-danger float-right" (click)="bsModalRef.hide()">Descartar</button>
 			<button type="button" style="margin-right: 10px;"  class="btn btn-outline-success float-right" (click)="saveChangesModal()">Guardar</button>
 		</div>
 	</div>
@@ -115,17 +117,38 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 export class ModalAssignaturesUpdateComponent {
 
 	// title: string;
-	// list: any[] = [];
+	private assignaturaSubmit: any;
+
 	constructor(
+		public _router: Router,
+		public _assignatures: AssignaturesService,
 		public _assignaturesData: AssignaturesDataService,
 		public bsModalRef: BsModalRef) {
+		this.assignaturaSubmit = this._assignaturesData.getAssignatura()
 
 	}
 
+	// CANDEACTIVATE use a service here to prevent from ngOnDestroy
+
+	// discardChanges() {
+	// 	this._router.navigate(['/assignatures', this.assignaturaSubmit.id, 'edit'])
+	// 	this._assignaturesData.passAssignatura(this.assignaturaSubmit);
+	// 	this.bsModalRef.hide();
+	// }
+
 	saveChangesModal(){
-		let assignaturaSubmit = this._assignaturesData.getAssignatura();
-		console.log(assignaturaSubmit);
+		// let assignaturaSubmit = this._assignaturesData.getAssignatura();
+		console.log(this.assignaturaSubmit);
+		this._assignatures.update(this.assignaturaSubmit)
+			.subscribe(
+				response => {
+					console.log(response);
+					this.changesSaved = true;
+				}
+			)
 		// save changes here
+		console.log('changes saved ...')
+		this.bsModalRef.hide();
 	}
 
 }

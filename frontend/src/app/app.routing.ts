@@ -1,8 +1,8 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './services/auth.guard';
 
+// Components
 import { HomeComponent }   from './components/home/home.component';
 import { AlumnesListComponent } from './components/alumnes-list/alumnes-list.component';
 import { AlumnesDetailComponent } from './components/alumnes-detail/alumnes-detail.component';
@@ -21,6 +21,12 @@ import { ProvesUpdateComponent } from './components/proves-update/proves-update.
 
 import { LoginDetailComponent } from './components/login-detail/login-detail.component';
 import { SignupDetailComponent } from './components/signup-detail/signup-detail.component';
+
+
+// Services
+import { AuthGuard } from './services/auth.guard';
+
+
 
 const APP_ROUTES: Routes = [
   {

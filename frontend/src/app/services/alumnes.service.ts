@@ -87,7 +87,7 @@ export class AlumnesService {
 							}
 						)
 						.catch(this.handleError);
-	}
+	};
 
 
 	delete(alumneId: string) {

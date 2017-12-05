@@ -8,7 +8,7 @@ export class AssignaturesDataService {
 	// Observable source
 	// private assignaturaSource = new Subject<any>();
 	private data: any;
-	private alumnes: any;
+	private changesSaved: boolean;
 
 	// Observable stream
 	// private assignaturaSource$ = this.assignaturaSource.asObservable();
@@ -20,13 +20,23 @@ export class AssignaturesDataService {
 		// this.assignaturaSource.next(assignatura);
 		console.log('passed assignatura')
 		this.data = assignatura;
-	}
+	};
+
+	passChangesSaved(changesSaved:boolean) {
+		console.log('changes not saved')
+		this.changesSaved = changesSaved;
+	};
+
 
 	getAssignatura() {
 		console.log('downloading assignatura')
 		return this.data;
 		// return this.assignaturaSource.asObservable();
-	}
+	};
+
+	getChangesSaved() {
+		return this.changesSaved;
+	};
 
 };
 

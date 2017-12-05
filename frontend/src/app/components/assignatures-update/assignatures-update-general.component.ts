@@ -20,30 +20,60 @@ export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 	private assignatura: any;
 	private title: string = "General";
 	private bsModalRef: BsModalRef;
-	private cursos: string[] = ['2016', '2017', '2018', '2019', '2020', '2021']
+	private cursos: string[] = ['2016', '2017', '2018', '2019', '2020', '2021'];
+	private changesSaved: boolean;
+
 
 	constructor(
 		private _router: Router,
 		private _modalService: BsModalService,
 		private _assignatures: AssignaturesService,
 		private _assignaturesData: AssignaturesDataService) {
+			this.changesSaved = this._assignaturesData.getChangesSaved();
 			this.assignatura = this._assignaturesData.getAssignatura();
-			// console.log(this.assignatura);
 	};
+
 
 	openModal(event, template: TemplateRef<any>) {
 		this.bsModalRef = this._modalService.show(template);
 	};
 
+ 
+	changesMade(event) {
+		// Tracks the any change made and passes to the service a flag to show the modal before exit
+		// if changes no saved
+		// console.log(event);
+		if (this.changesSaved) {
+			this.changesSaved = false;
+			this._assignaturesData.passChangesSaved(this.changesSaved);
+		}
+	};
+
+
+	onChange(id: string, selectedValue: string) {
+		// refreshes any change done in form (even if submit is not triggered)
+		if (id == "nom-assignatura") {
+			this.assignatura.nom = selectedValue;
+			// validation!
+		} else if (id == "curs-assignatura") {
+			this.assignatura.curs = selectedValue;
+			// validation!
+		} else if (id == "bio-assignatura") {
+			this.assignatura.bio = selectedValue;
+			// validation!
+		};
+	};
+
+
 	saveGeneral(formGeneral: NgForm){
-		// post the new info to the server
-		// console.log(formGeneral.value);
+		// Only triggered when submit method in form
 		let changedAssignatura = this.assignatura;
 		changedAssignatura.nom = formGeneral.value['nom-assignatura'];
 		changedAssignatura.curs = formGeneral.value['curs-assignatura'];
 		changedAssignatura.bio = formGeneral.value['bio-assignatura'];
 		this._assignaturesData.passAssignatura(changedAssignatura);
 	};
+
 
 	deleteAssignatura() {
 		this.sub = this._assignatures.delete(this.assignatura.id)
@@ -57,6 +87,7 @@ export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 		this.bsModalRef.hide();
 		this._router.navigate(['/assignatures']);
 	};
+
 
 	ngOnDestroy() {
 		// post the new info to the server
