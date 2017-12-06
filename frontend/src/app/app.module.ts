@@ -45,7 +45,11 @@ import { SignupDetailComponent } from './components/signup-detail/signup-detail.
 import { Ng2TagsInputItem } from "./components/tags-input/ng2-tagsinput-item";
 import { Ng2TagsInput } from "./components/tags-input/ng2-tagsinput";
 
-import { ModalAssignaturesUpdateComponent } from './components/assignatures-update/assignatures-update.component';
+
+// Modals
+import { ModalSavedChangesComponent } from './components/_modals/modal-saved-changes.component';
+import { ModalAssignaturesUpdateComponent } from './components/_modals/modal-assignatures-update.component';
+
 
 // Services
 import { AuthenticationService } from './services/authentication.service';
@@ -74,8 +78,6 @@ import { AlumnesService } from './services/alumnes.service';
     AssignaturesUpdateGeneralComponent,
     AssignaturesUpdateProvesComponent,
     AssignaturesUpdateAlumnesComponent,
-    // ModalProvesUpdateDeleteComponent,
-
     AlumnesListComponent,
     AlumnesDetailComponent,
     AssignaturesCreateComponent,
@@ -83,11 +85,15 @@ import { AlumnesService } from './services/alumnes.service';
     ProvesUpdateComponent,
     ProvesUpdateDetailComponent,
 
-    ModalAssignaturesUpdateComponent,
+    // Third-party
     Ng2TagsInputItem,
     Ng2TagsInput,
     LoginDetailComponent,
     SignupDetailComponent,
+    
+    // Modals
+    ModalSavedChangesComponent,
+    ModalAssignaturesUpdateComponent,
   ],
   imports: [
     // AppRoutingModule,
@@ -121,8 +127,11 @@ import { AlumnesService } from './services/alumnes.service';
     AssignaturesDataService,
     AlumnesService,
     // ModalDataService
-    ],
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [ModalAssignaturesUpdateComponent]
+  entryComponents: [
+    ModalAssignaturesUpdateComponent,
+    ModalSavedChangesComponent
+  ]
 })
 export class AppModule { }

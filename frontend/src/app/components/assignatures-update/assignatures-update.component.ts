@@ -7,6 +7,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AssignaturesService } from '../../services/assignatures.service';
 import { AssignaturesDataService } from '../../services/assignatures-data.service';
 
+// Modals
+import { ModalAssignaturesUpdateComponent } from '../_modals/modal-assignatures-update.component';
+import { ModalSavedChangesComponent } from '../_modals/modal-saved-changes.component';
+
 
 @Component({
 	selector: 'app-assignatures-update',
@@ -94,72 +98,6 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 
 
 
-
-@Component({
-  selector: 'modal-content',
-  template: `
-<div class="modal-header">
-	<h4 class="modal-title pull-left">Guardar els canvis</h4>
-	<button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-		<span aria-hidden="true">&times;</span>
-	</button>
-</div>
-<div class="modal-body">
-	<div class="row">
-		<div class="col-12">
-			<span>
-				<strong>
-					No s'han guardat els canvis.
-				</strong>
-			</span>
-			<br>
-			Què voleu fer?
-			<button type="button"class="btn btn-outline-danger float-right" (click)="bsModalRef.hide()">Descartar</button>
-			<button type="button" style="margin-right: 10px;"  class="btn btn-outline-success float-right" (click)="saveChangesModal()">Guardar</button>
-		</div>
-	</div>
-</div>
-  `
-})
-export class ModalAssignaturesUpdateComponent {
-
-	// title: string;
-	private assignaturaSubmit: any;
-
-	constructor(
-		public _router: Router,
-		public _assignatures: AssignaturesService,
-		public _assignaturesData: AssignaturesDataService,
-		public bsModalRef: BsModalRef) {
-		this.assignaturaSubmit = this._assignaturesData.getAssignatura()
-
-	}
-
-	// CANDEACTIVATE use a service here to prevent from ngOnDestroy
-
-	// discardChanges() {
-	// 	this._router.navigate(['/assignatures', this.assignaturaSubmit.id, 'edit'])
-	// 	this._assignaturesData.passAssignatura(this.assignaturaSubmit);
-	// 	this.bsModalRef.hide();
-	// }
-
-	saveChangesModal(){
-		// let assignaturaSubmit = this._assignaturesData.getAssignatura();
-		console.log(this.assignaturaSubmit);
-		this._assignatures.update(this.assignaturaSubmit)
-			.subscribe(
-				response => {
-					console.log('changes saved ...');
-					console.log(response);
-					// this.changesSaved = true;
-				}
-			)
-		// save changes here
-		
-		this.bsModalRef.hide();
-	}
-
-}
 
 
 
