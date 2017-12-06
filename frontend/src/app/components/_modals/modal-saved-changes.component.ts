@@ -5,13 +5,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 @Component({
   selector: 'modal-saved-changes',
   template: `
-<div class="modal-body">
-	<div class="row">
-		<div class="col-12">
+<div class="modal-body modal-success">
+	<div class="row" style="text-align: center;">
+		<div class="col">
 			<span>
-				<strong>
-					Canvis guardats
-				</strong>
+				Canvis guardats
 			</span>
 		</div>
 	</div>
