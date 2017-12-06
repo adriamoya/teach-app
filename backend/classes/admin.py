@@ -12,7 +12,7 @@ class ClasseModelAdmin(admin.ModelAdmin):
 	list_display = [
 		'__str__',
 		'nom',
-		'curs',
+		'curs'
 	]
 
 	# inlines = [
@@ -25,5 +25,12 @@ class ClasseModelAdmin(admin.ModelAdmin):
 
 	class Meta:
 		model = Classe
+		fields = [
+			'id',
+			'nom',
+			'curs',
+			'assignatures',
+			'alumnes'
+		]
 
 admin.site.register(Classe, ClasseModelAdmin)

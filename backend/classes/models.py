@@ -1,5 +1,8 @@
 from django.db import models
 
+from assignatures.models import Assignatura
+
+
 # Create your models here.
 
 class ClasseManager(models.Manager):
@@ -13,9 +16,19 @@ class Classe(models.Model):
 
 	nom 			= models.CharField(max_length=120)
 	curs 			= models.PositiveIntegerField()
+	assignatures 	= models.ManyToManyField('assignatures.Assignatura', related_name='classe_assignatures', blank=True)
 	# professors 		= models.ManyToManyField('Professor', related_name='classe_professors', blank=True)
-	# alumnes			= models.ManyToManyField('alumnes.Alumne', related_name='classe_alumnes', blank=True)
+	alumnes			= models.ManyToManyField('alumnes.Alumne', related_name='classe_alumnes', blank=True)
 	objects			= ClasseManager()
+
+	def get_absolute_url(self):
+		return reverse("classes-api:detail", kwargs={"pk": self.id})
+
+	def get_assignatures(self):
+		return self.assignatures.all()
+
+	def get_assignatura_detail_url(self):
+		return reverse("assignatures-api:detail", kwargs={"pk": self.id})
 
 	def __unicode__(self):
 		return "Classe %s - %s" % (self.nom, self.curs)
