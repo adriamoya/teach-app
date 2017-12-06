@@ -68,8 +68,15 @@ export class AssignaturesUpdateComponent implements OnDestroy {
 	saveChanges(){
 		let assignaturaSubmit = this._assignaturesData.getAssignatura();
 		console.log(assignaturaSubmit);
-		// save changes here
-		this.changesSaved = true;
+		this._assignatures.update(assignaturaSubmit)
+			.subscribe(
+				response => {
+					console.log('changes saved ...');
+					console.log(response);
+					this.changesSaved = true;
+					this._assignaturesData.passChangesSaved(this.changesSaved);
+				}
+			)
 	}
 
 	ngOnDestroy() {
@@ -142,12 +149,13 @@ export class ModalAssignaturesUpdateComponent {
 		this._assignatures.update(this.assignaturaSubmit)
 			.subscribe(
 				response => {
+					console.log('changes saved ...');
 					console.log(response);
-					this.changesSaved = true;
+					// this.changesSaved = true;
 				}
 			)
 		// save changes here
-		console.log('changes saved ...')
+		
 		this.bsModalRef.hide();
 	}
 

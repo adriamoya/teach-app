@@ -97,7 +97,7 @@ export class AssignaturesService {
 		return this._http.put(ENDPOINT + assignatura.id + '/', body, options)
 						.map(
 							response => {
-								console.log(response.json());
+								return response.json();
 							}
 						)
 						.catch(this.handleError);

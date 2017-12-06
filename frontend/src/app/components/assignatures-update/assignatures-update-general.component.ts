@@ -56,7 +56,7 @@ export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 			this.assignatura.nom = selectedValue;
 			// validation!
 		} else if (id == "curs-assignatura") {
-			this.assignatura.curs = selectedValue;
+			this.assignatura.curs = parseInt(selectedValue);
 			// validation!
 		} else if (id == "bio-assignatura") {
 			this.assignatura.bio = selectedValue;

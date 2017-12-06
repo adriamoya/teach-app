@@ -61,13 +61,16 @@ class AssignaturaDetailSerializer(ModelSerializer):
 		alumne_assignatures = AlumneListSerializer(many=True)
 	
 	"""
+
+	# IMPORTANT: read_only=True in nested fields to avoid errors for CREATE, PUT methods from frontend
+
 	alumne_count = IntegerField(
 	    source='alumne_assignatures.count', # related_name - ManyToManyField
 	    read_only=True
 	)
-	proves_assignatura = ProvaListSerializer(many=True)
-	professor_assignatures = ProfessorListSerializer(many=True)
-	alumne_assignatures = AlumneListSerializer(many=True)
+	proves_assignatura = ProvaListSerializer(many=True, read_only=True)
+	professor_assignatures = ProfessorListSerializer(many=True, read_only=True)
+	alumne_assignatures = AlumneListSerializer(many=True, read_only=True)
 	# proves_assignatura = HyperlinkedRelatedField(many=True, view_name='proves-api:prova-detail', read_only=True)
 
 	class Meta:
