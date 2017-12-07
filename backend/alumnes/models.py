@@ -23,7 +23,7 @@ class Alumne(models.Model):
 	bio 			= models.TextField(max_length=500, blank=True)
 	lloc 			= models.CharField(max_length=30, blank=True)
 	data_naixement 	= models.DateField(null=True, blank=True)
-	classe 			= models.ForeignKey('classes.Classe', blank=True)
+	classe 			= models.ForeignKey('classes.Classe', related_name='alumne_classe',blank=True, null=True)
 	assignatures 	= models.ManyToManyField('assignatures.Assignatura', related_name='alumne_assignatures', blank=True)
 	objects 		= AlumneManager()
 

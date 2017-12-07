@@ -127,8 +127,9 @@
 				<button 
 				type="submit" 
 				class="btn btn-success float-right"
-				[disabled]="!newClasseForm.valid">
-				Afegir
+				[disabled]="!newClasseForm.valid"
+				(click)="newClasse()">
+				Guardar
 				</button>
 				
 				<!-- Cancelar -->

@@ -33,6 +33,26 @@ export class ClassesService {
 	};
 
 
+	add(classe: Classe){
+
+		const body = JSON.stringify(classe);
+
+		const headers = new Headers();
+		headers.append('Accept', 'application/json');
+		headers.append('Content-Type', 'application/json');
+		headers.append('Authorization', 'JWT ' + this.token)
+		const options = new RequestOptions({headers: headers});
+
+		return this._http.post(ENDPOINT + 'add/', body, options)
+						.map(
+							response=>{
+								return response.json()
+							}
+						)
+						.catch(this.handleError);
+	};
+
+
 	list(){
 
 		const headers = new Headers();

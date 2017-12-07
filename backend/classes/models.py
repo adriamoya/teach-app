@@ -18,7 +18,7 @@ class Classe(models.Model):
 	curs 			= models.PositiveIntegerField()
 	assignatures 	= models.ManyToManyField('assignatures.Assignatura', related_name='classe_assignatures', blank=True)
 	# professors 		= models.ManyToManyField('Professor', related_name='classe_professors', blank=True)
-	alumnes			= models.ManyToManyField('alumnes.Alumne', related_name='classe_alumnes', blank=True)
+	# alumnes			= models.ManyToManyField('alumnes.Alumne', related_name='classe_alumnes', blank=True)
 	objects			= ClasseManager()
 
 	def get_absolute_url(self):

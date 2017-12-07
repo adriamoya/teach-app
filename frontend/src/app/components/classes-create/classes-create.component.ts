@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 // Services
+import { ClassesService } from '../../services/classes.service';
 import { AlumnesService } from '../../services/alumnes.service';
 
 // Interfaces
@@ -12,7 +13,7 @@ import { Alumne } from '../../interfaces/alumne.interface';
   selector: 'app-classes-create',
   templateUrl: './classes-create.component.html'
 })
-export class ClassesCreateComponent implements OnInit {
+export class ClassesCreateComponent implements OnDestroy {
 
 	private classe: Classe = {
 		nom: "",
@@ -23,13 +24,14 @@ export class ClassesCreateComponent implements OnInit {
 	private alumnes: [any];
 	private newAlumne: any = {
 		fullName: "",
-		included: true
+		included: false
 	};
 	private subAlumnes: any;
 	private cursos: string[] = ['2017', '2018', '2019', '2020', '2021'];
 	private ready: boolean = false;
 
 	constructor(
+		private _classes: ClassesService,
 		private _alumnes: AlumnesService) {
 		this.subAlumnes = this._alumnes.list()
 			.subscribe(
@@ -39,10 +41,10 @@ export class ClassesCreateComponent implements OnInit {
 					for (let alumne of this.alumnes) {
 						alumne.included = false;
 						alumne.fullName = alumne.nom + ' ' + alumne.primer_cognom + ' ' + alumne.segon_cognom;
-					}
+					};
 					this.ready = true;
-				}
-			)
+				};
+			);
 	}
 
 	onChange(id: string, selectedValue: string) {
@@ -56,7 +58,7 @@ export class ClassesCreateComponent implements OnInit {
 		this.alumnes.push(this.newAlumne);
 		this.newAlumne = {
 			fullName: "",
-			included: true
+			included: false
 		};
 	}
 
@@ -64,8 +66,17 @@ export class ClassesCreateComponent implements OnInit {
 		console.log(this.alumnes);
 	}
 
-	ngOnInit() {
+	newClasse() {
+		console.log(this.classe);
 		console.log(this.alumnes);
-	}
+		// this._classes.add(this.classe)
+		// 	.subscribe(
+		// 		response => {
+		// 			console.log(response);
+		// 		}
+		// 	)
+	};
+
+	ngOnDestroy() {}
 
 }
