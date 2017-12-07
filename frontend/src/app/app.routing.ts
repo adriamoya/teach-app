@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Components
 import { HomeComponent }   from './components/home/home.component';
+
 import { AlumnesListComponent } from './components/alumnes-list/alumnes-list.component';
 import { AlumnesDetailComponent } from './components/alumnes-detail/alumnes-detail.component';
 
@@ -12,6 +13,8 @@ import { AssignaturesListComponent } from './components/assignatures-list/assign
 import { AssignaturesDetailComponent } from './components/assignatures-detail/assignatures-detail.component';
 import { AssignaturesUpdateComponent } from './components/assignatures-update/assignatures-update.component';
 import { ASSIGNATURES_UPDATE_ROUTES } from './components/assignatures-update/assignatures-update.routing';
+
+import { ClassesCreateComponent } from './components/classes-create/classes-create.component';
 
 import { ProfileDetailComponent } from './components/profile-detail/profile-detail.component';
 
@@ -25,7 +28,6 @@ import { SignupDetailComponent } from './components/signup-detail/signup-detail.
 
 // Services
 import { AuthGuard } from './services/auth.guard';
-
 
 
 const APP_ROUTES: Routes = [
@@ -62,6 +64,11 @@ const APP_ROUTES: Routes = [
     component: AlumnesDetailComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'classes/add',
+    component: ClassesCreateComponent,
+    canActivate: [AuthGuard]
+  }
   {
     path: 'assignatures/add',
     component: AssignaturesCreateComponent,

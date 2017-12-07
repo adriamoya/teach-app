@@ -34,6 +34,8 @@ import { AssignaturesUpdateAlumnesComponent } from './components/assignatures-up
 import { AlumnesListComponent } from './components/alumnes-list/alumnes-list.component';
 import { AlumnesDetailComponent } from './components/alumnes-detail/alumnes-detail.component';
 
+import { ClassesCreateComponent } from './components/classes-create/classes-create.component';
+
 import { ProvesCreateComponent } from './components/proves-create/proves-create.component';
 import { ProvesDetailComponent } from './components/proves-detail/proves-detail.component';
 import { ProvesUpdateComponent } from './components/proves-update/proves-update.component';
@@ -61,6 +63,7 @@ import { AssignaturesService } from './services/assignatures.service';
 import { AssignaturesDataService } from './services/assignatures-data.service';
 import { AlumnesService } from './services/alumnes.service';
 
+
 // import { ModalDataService } from './components/assignatures-update/assignatures-update-proves.component';
 
 // entryComponents
@@ -71,18 +74,22 @@ import { AlumnesService } from './services/alumnes.service';
     AppComponent,
     HomeComponent,
     NavbarComponent,
+    ProfileDetailComponent,
+
+    AssignaturesCreateComponent,
     AssignaturesListComponent,
     AssignaturesDetailComponent,
-    ProvesDetailComponent,
-    ProfileDetailComponent,
     AssignaturesUpdateComponent,
     AssignaturesUpdateGeneralComponent,
     AssignaturesUpdateProvesComponent,
     AssignaturesUpdateAlumnesComponent,
+
     AlumnesListComponent,
     AlumnesDetailComponent,
-    AssignaturesCreateComponent,
+    ClassesCreateComponent,
+    
     ProvesCreateComponent,
+    ProvesDetailComponent,
     ProvesUpdateComponent,
     ProvesUpdateDetailComponent,
 
