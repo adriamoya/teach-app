@@ -19,7 +19,7 @@ class Alumne(models.Model):
 	nom 			= models.CharField(max_length=120, blank=True)
 	primer_cognom 	= models.CharField(max_length=120, blank=True)
 	segon_cognom 	= models.CharField(max_length=120, blank=True)
-	email 			= models.EmailField()
+	email 			= models.EmailField(null=True, blank=True)
 	bio 			= models.TextField(max_length=500, blank=True)
 	lloc 			= models.CharField(max_length=30, blank=True)
 	data_naixement 	= models.DateField(null=True, blank=True)

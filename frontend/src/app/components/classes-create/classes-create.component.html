@@ -50,7 +50,8 @@
 								[(ngModel)]="classe.curs"
 								class="form-control" 
 								id="curs-classe"
-								name="curs">
+								name="curs"
+								required>
 									<option *ngFor="let curs of cursos">{{ curs }}</option>
 								</select>
 							</dd>
@@ -65,7 +66,8 @@
 						<dd>
 							<!-- Current alumnes -->
 							<div *ngFor="let alumne of alumnes"
-							class="list-group-item list-group-item-action clearfix">
+							class="list-group-item d-flex align-items-center clearfix"
+							style="display: block;">
 								<span style="margin-right: 18px;">
 									<input
 									[(ngModel)]="alumne.included"
@@ -75,13 +77,13 @@
 									type="checkbox" 
 									aria-label="Checkbox for following text input">
 								</span>
-								<a 
+								<a
 								routerLink="/alumnes/{{ alumne.id }}" 
 								routerLinkActive="active">
 									{{ alumne.fullName }}
 								</a>
-								<span class="icon-right">
-									
+								<span class="float-right text-muted">
+									({{ alumne.classe }})
 								</span>
 							</div>
 						</dd>

@@ -1,7 +1,8 @@
 from rest_framework.serializers import (
 	HyperlinkedIdentityField, 
 	ModelSerializer, 
-	SerializerMethodField
+	SerializerMethodField,
+	StringRelatedField
 	)
  
 from .models import Alumne
@@ -9,14 +10,29 @@ from .models import Alumne
 from assignatures.models import Assignatura
 
 
-# Alumne
-# ------------------------------------------------------------------------
+
+class AlumneCreateSerializer(ModelSerializer):
+	"""
+	Create alumne.
+
+	"""
+	class Meta:
+		model = Alumne
+		fields = [
+			'id',				# id of alumne
+			'nom', 				# name of alumne
+			'primer_cognom',	# first surname
+			'segon_cognom',		# second surname
+			'classe'
+		]
+
 
 class AlumneListSerializer(ModelSerializer):
 	"""
 	List of all alumnes available.
 
 	"""
+	classe = StringRelatedField(many=False)
 	url_detail =  HyperlinkedIdentityField(view_name='alumnes-api:detail', lookup_field='pk')
 
 	class Meta:
@@ -26,6 +42,7 @@ class AlumneListSerializer(ModelSerializer):
 			'nom', 				# name of alumne
 			'primer_cognom',	# first surname
 			'segon_cognom',		# second surname
+			'classe',
 			'url_detail',		# link alumne detail view
 		]
 
@@ -69,7 +86,8 @@ class AlumneDetailSerializer(ModelSerializer):
 			'data_naixement',
 			'assignatures_url',
 			'assignatures',
-			'nota_alumne'
+			'nota_alumne',
+			'classe'
 			# 'alumne_assignatures'
 		]
 

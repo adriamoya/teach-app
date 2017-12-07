@@ -33,8 +33,27 @@ export class AlumnesService {
 		}
 	};
 
-	// list method: lists out all alumnes
-	// ------------------------------------------------------
+
+	add(alumne: Alumne){
+
+		const body = JSON.stringify(alumne);
+
+		const headers = new Headers();
+		headers.append('Accept', 'application/json');
+		headers.append('Content-Type', 'application/json');
+		headers.append('Authorization', 'JWT ' + this.token)
+		const options = new RequestOptions({headers: headers});
+
+		return this._http.post(ENDPOINT + 'add/', body, options)
+						.map(
+							response=>{
+								return response.json()
+							}
+						)
+						.catch(this.handleError);
+	};
+
+
 	list(){
 
 		const headers = new Headers();
@@ -48,8 +67,8 @@ export class AlumnesService {
 						.catch(this.handleError);
 	};
 
-	// get method: gets specific alumne with passed id
-	// ------------------------------------------------------
+
+
 	get(alumneId: string) {
 
 		const headers = new Headers();

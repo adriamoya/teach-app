@@ -11,8 +11,9 @@ class ClasseCreateSerializer(ModelSerializer):
 	class Meta:
 		model = Classe
 		fields = [
+			'id',
 			'nom',
-			'alumne_classe'
+			'curs'
 			]
 
 
@@ -23,6 +24,7 @@ class ClasseListSerializer(ModelSerializer):
 		fields = [
 			'id',
 			'nom',
+			'curs',
 			'url_detail',
 			'alumne_classe'
 		]

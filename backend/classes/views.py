@@ -3,9 +3,25 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 
 from .models import Classe
 from .serializers import ClasseCreateSerializer, ClasseListSerializer, ClasseDetailSerializer
+from rest_framework.mixins import CreateModelMixin
 
 
-class ClasseCreateView(CreateAPIView):
+# We are here using a model mixin because we want to return
+# the id of the saved instance to the frontend 
+
+class ClasseCreateMixin(CreateModelMixin):
+	def create(self, request, *args, **kwargs):
+		serializer = self.get_serializer(data=request.data)
+		serializer.is_valid(raise_exception=True)
+		self.perform_create(serializer)
+		headers = self.get_success_headers(serializer.data)
+		return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+	def perform_create(self, serializer):
+		serializer.save()
+
+
+class ClasseCreateView(CreateAPIView, CreateModelMixin):
 	permission_classes = [IsAuthenticated]
 	queryset = Classe.objects.all()
 	serializer_class = ClasseCreateSerializer

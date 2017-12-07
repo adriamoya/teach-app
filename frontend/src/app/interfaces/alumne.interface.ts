@@ -10,4 +10,5 @@ export interface Alumne {
 	assignatures_url?: any[];
 	assignatures?: any[];
 	nota_alumnes?: any;
+	classe?: string;
 }
