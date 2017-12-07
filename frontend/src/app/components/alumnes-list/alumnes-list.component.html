@@ -10,31 +10,76 @@
 		</ol>
 	</nav>
 
-	<!-- Title -->
-	<div class="mt-3">
-		<h1>{{ title }}</h1>
-		<hr>
+	<!-- Pills -->
+	<ul class="nav nav-pills" id="myTab" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="classes-tab" data-toggle="tab" href="#classes" role="tab" aria-controls="classes" aria-selected="true">Classes</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="alumnes-tab" data-toggle="tab" href="#alumnes" role="tab" aria-controls="alumnes" aria-selected="false">Alumnes</a>
+		</li>
+	</ul>
+
+	<!-- <hr> -->
+
+	<div style="margin-top: 20px;" class="tab-content" id="myTabContent">
+
+		<div class="tab-pane fade" id="classes" role="tabpanel" aria-labelledby="classes-tab">
+
+			<!-- Classes -->
+			<div class="mt-3">
+				<h1>Classes</h1>
+				<hr>
+			</div>
+
+			<!-- Classe items -->
+			<section class="row text-center placeholder">
+				<div 
+				style="margin-bottom: 25px;" 
+				class="col-xs-6 col-sm-3 col-md-3 col-lg-2 placeholder" 
+				*ngFor="let classe of classesList">
+					<i 
+					class="material-icons"
+					style="font-size: 120px; cursor: pointer; color: #e9ecef" 
+					routerLink="" 
+					routerLinkActive="active">
+						person_pin
+					</i>
+					<br>
+					<a style="margin-top: -10px;"  routerLink="" routerLinkActive="active">{{ classe?.nom }}</a>
+				</div>
+			</section>
+
+		</div>
+
+		<div class="tab-pane fade" id="alumnes" role="tabpanel" aria-labelledby="alumnes-tab">
+
+			<!-- Alumnes -->
+			<div class="mt-3">
+				<h1>Alumnes</h1>
+				<hr>
+			</div>
+
+			<!-- Alumne items -->
+			<section class="row text-center placeholder">
+				<div 
+				style="margin-bottom: 25px;" 
+				class="col-xs-6 col-sm-3 col-md-3 col-lg-2 placeholder" 
+				*ngFor="let alumne of alumnesList">
+					<i 
+					class="material-icons"
+					style="font-size: 120px; cursor: pointer; color: #e9ecef" 
+					routerLink="/alumnes/{{ alumne.id }}" 
+					routerLinkActive="active">
+						person_pin
+					</i>
+					<br>
+					<a style="margin-top: -10px;"  routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne?.nom }} {{ alumne?.primer_cognom }} {{ alumne?.segon_cognom }}</a>
+				</div>
+			</section>
+
+		</div>
+
 	</div>
 
-	<!-- Assignatura items -->
-	<section class="row text-center placeholder">
-		<div 
-		style="margin-bottom: 25px;" 
-		class="col-xs-6 col-sm-3 col-md-3 col-lg-2 placeholder" 
-		*ngFor="let alumne of alumnesList">
-			<i 
-			class="material-icons"
-			style="font-size: 120px; cursor: pointer; color: #e9ecef" 
-			routerLink="/alumnes/{{ alumne.id }}" 
-			routerLinkActive="active">
-				person_pin
-			</i>
-			<br>
-			<a style="margin-top: -10px;"  routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a>
-		</div>
-	</section>
-
 </div>
-			
-
-<!-- [ngStyle]="{'color': alumne.color}" -->

@@ -56,6 +56,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './services/auth.guard';
 import { NotesService } from './services/notes.service';
 import { ProvesService } from './services/proves.service';
+import { ClassesService } from './services/classes.service';
 import { AssignaturesService } from './services/assignatures.service';
 import { AssignaturesDataService } from './services/assignatures-data.service';
 import { AlumnesService } from './services/alumnes.service';
@@ -126,6 +127,7 @@ import { AlumnesService } from './services/alumnes.service';
     AssignaturesService,
     AssignaturesDataService,
     AlumnesService,
+    ClassesService,
     // ModalDataService
   ],
   bootstrap: [AppComponent],
