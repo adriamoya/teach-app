@@ -44,8 +44,8 @@ export class ClassesCreateComponent implements OnDestroy {
 						alumne.fullName = alumne.nom + ' ' + alumne.primer_cognom + ' ' + alumne.segon_cognom;
 					};
 					this.ready = true;
-				};
-			);
+				}
+			)
 	}
 
 	onChange(id: string, selectedValue: string) {
@@ -91,7 +91,9 @@ export class ClassesCreateComponent implements OnDestroy {
 			.subscribe(
 				response => {
 					this.classe.id = response.id;
+					// Use classe.id to update or create alumnes associated to that classe
 					this.newAlumnes();
+					// Navigate to /alumnes
 					this._router.navigate(['/alumnes']);
 				}
 			)
@@ -155,7 +157,9 @@ export class ClassesCreateComponent implements OnDestroy {
 		}
 	}
 
-	ngOnDestroy() {}
+	ngOnDestroy() {
+		this.subAlumnes.unsubscribe();
+	}
 
 }
 

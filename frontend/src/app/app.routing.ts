@@ -68,7 +68,7 @@ const APP_ROUTES: Routes = [
     path: 'classes/add',
     component: ClassesCreateComponent,
     canActivate: [AuthGuard]
-  }
+  },
   {
     path: 'assignatures/add',
     component: AssignaturesCreateComponent,

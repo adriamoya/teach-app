@@ -66,7 +66,7 @@
 						<dd>
 							<!-- Current alumnes -->
 							<div *ngFor="let alumne of alumnes"
-							class="list-group-item d-flex align-items-center clearfix"
+							class="list-group-item clearfix"
 							style="display: block;">
 								<span style="margin-right: 18px;">
 									<input
@@ -138,7 +138,7 @@
 				<button 
 				type="button" 
 				class="btn btn-secondary float-left"
-				(click)="test()">
+				[routerLink]="['/alumnes']">
 				Cancel·lar
 				</button>
 
