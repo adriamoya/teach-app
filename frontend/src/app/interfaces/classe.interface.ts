@@ -3,4 +3,5 @@ export interface Classe {
 	nom: string;
 	curs: number;
 	alumnes?: any[];
+	included?: boolean;
 }

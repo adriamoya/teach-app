@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router'
 
 // Services
+import { AlumnesService } from '../../services/alumnes.service';
 import { AssignaturesService } from '../../services/assignatures.service';
 import { ClassesService } from '../../services/classes.service';
 
@@ -22,6 +23,7 @@ export class AssignaturesCreateComponent implements OnDestroy {
 		curs: '2017',
 		bio: ''
 	};
+	private assignaturaId: string;
 	private cursos: string[] = ['2017', '2018', '2019', '2020', '2021'];
 	private subClasses: any;
 	private classes: Classe[];
@@ -30,6 +32,7 @@ export class AssignaturesCreateComponent implements OnDestroy {
 	constructor(
 		private _router: Router,
 		private _classes: ClassesService,
+		private _alumnes: AlumnesService,
 		private _assignatures: AssignaturesService) {
 		this.subClasses = this._classes.list()
 			.subscribe(
@@ -39,7 +42,6 @@ export class AssignaturesCreateComponent implements OnDestroy {
 				}
 			)
 	};
-
 
 	onChange(id: string, selectedValue: string) {
 		// refreshes any change done in form (even if submit is not triggered)
@@ -81,19 +83,71 @@ export class AssignaturesCreateComponent implements OnDestroy {
 		this._assignatures.add(this.assignatura)
 			.subscribe(
 				response => {
-					console.log(response.id);
+					this.assignaturaId = response.id;
+
+					// Add assignatura to alumnes
+					for (let alumne of this.alumnes) {
+						if (alumne.included) {
+							this._alumnes.get(alumne.id)
+								.subscribe(
+									response => {
+										let alumneUpdate = response;
+										// console.log(alumne);
+										if (alumneUpdate.assignatures.length > 0) {
+											alumneUpdate.assignatures.push(this.assignaturaId);
+										} else {
+											alumneUpdate.assignatures = [this.assignaturaId];
+										}
+										this.updateAlumne(alumneUpdate);
+									}
+								)
+						}
+					}
+					// Add assignatura to classes
+					for (let classe of this.classes) {
+						if (classe.included) {
+							this._classes.get(classe.id)
+								.subscribe(
+									response => {
+										let classeUpdate = response;
+										// console.log(classeUpdate);
+										if (classeUpdate.assignatures.length > 0) {
+											classeUpdate.assignatures.push(this.assignaturaId);
+										} else {
+											classeUpdate.assignatures = [this.assignaturaId];
+										}
+										this.updateClasse(classeUpdate);
+									})
+						}
+					}
 					this._router.navigate(['/assignatures']);
 				}
 			);
 	};
 
-	test() {
-		console.log(this.classes);
-		console.log(this.alumnes);
-	}
+	updateAlumne(alumne: Alumne) {
+		this._alumnes.update(alumne)
+			.subscribe(
+				response => {
+					// console.log(alumne);
+					// console.log(alumne.nom, ' updated')
+					// console.log(response);
+				})
+	};
+
+	updateClasse(classe: Classe) {
+		console.log(classe);
+		this._classes.update(classe)
+			.subscribe(
+				response => {
+					// console.log(classe);
+					// console.log(classe.nom, ' updated')
+					// console.log(response);
+				})
+	};
 
 	ngOnDestroy(){
 		this.subClasses.unsubscribe();
-	}
+	};
 
 }

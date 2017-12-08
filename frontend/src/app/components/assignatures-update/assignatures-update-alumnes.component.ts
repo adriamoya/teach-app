@@ -8,6 +8,11 @@ import { AssignaturesUpdateComponent } from './assignatures-update.component';
 import { AssignaturesService } from '../../services/assignatures.service';
 import { AssignaturesDataService } from '../../services/assignatures-data.service';
 import { AlumnesService } from '../../services/alumnes.service';
+import { ClassesService } from '../../services/classes.service';
+
+// Interfaces
+import { Classe } from '../../interfaces/classe.interface';
+
 
 @Component({
 	selector: 'app-assignatures-update-alumnes',
@@ -17,19 +22,29 @@ import { AlumnesService } from '../../services/alumnes.service';
 export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 
 	private sub: any;
+	private subClasses: any;
 	private assignatura: any;
 	private alumne: any;
 	private alumnes: any[] = [];
+	private newAlumnes: any[] = [];
+	private classes: Classe[];
 	private title: string = "Alumnes";
 	private bsModalRef: BsModalRef;
 
 	constructor(
 		private _modalService: BsModalService,
 		private _alumnes: AlumnesService,
+		private _classes: ClassesService,
 		private _assignatures: AssignaturesService,
 		private _assignaturesData: AssignaturesDataService) {
 			this.assignatura = this._assignaturesData.getAssignatura();
-
+			this.subClasses = this._classes.list()
+			.subscribe(
+				response => {
+					// console.log(response);
+					this.classes = response;
+				}
+			)
 			this.sub = this._alumnes.list().subscribe(alumnes => {
 				for (let alumne of alumnes) {
 					this._alumnes.get(alumne.id).subscribe(alumneData => {
@@ -45,6 +60,55 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 			})
 	};
 
+	// New alumnes form
+	// --------------------------------------------------------------------
+
+	isCollapsed: boolean = true;
+ 
+	collapsed(event: any): void {
+		console.log(event);
+	}
+
+	expanded(event: any): void {
+		console.log(event);
+	}
+
+	onChange(id: string, selectedValue: string) {
+	// refreshes any change done in form (even if submit is not triggered)
+	// console.log(id);
+	// console.log(selectedValue);
+
+	this.subClasses = this._classes.get(id)
+		.subscribe(
+			response => {
+				if (response.alumne_classe.length > 0) {
+					
+					// Add alumnes
+					if (selectedValue) {
+						for (let alumne of response.alumne_classe) {
+							alumne.included = true;
+							this.newAlumnes.push(alumne);
+						}
+					}
+					// Delete alumnes
+					else {
+						for (let alumne of response.alumne_classe) {
+							let index = 0;
+							for (let alumneIncluded of this.newAlumnes) {
+								index += 1;
+								if (alumne.id == alumneIncluded.id) {
+									this.newAlumnes.splice(index-1, 1)
+								}
+
+							}			
+						}
+					}
+				}
+			}
+		);
+	};
+
+	// --------------------------------------------------------------------
 
 	openModal(event, template: TemplateRef<any>) {
 		let id = event.target.parentElement.attributes.id.nodeValue;
@@ -97,6 +161,7 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 	ngOnDestroy() {
 		this._assignaturesData.passAssignatura(this.assignatura);
 		this.sub.unsubscribe();
+		this.subClasses.unsubscribe();
 	};
 
 };

@@ -13,7 +13,8 @@ class ClasseCreateSerializer(ModelSerializer):
 		fields = [
 			'id',
 			'nom',
-			'curs'
+			'curs',
+			'assignatures'
 			]
 
 
@@ -23,14 +24,16 @@ class ClasseListSerializer(ModelSerializer):
 		model = Classe
 		fields = [
 			'id',
+			'__unicode__',
 			'nom',
 			'curs',
 			'url_detail',
-			'alumne_classe'
+			'alumne_classe',
+			'assignatures'
 		]
 
 class ClasseDetailSerializer(ModelSerializer):
-	alumne_classe = AlumneListSerializer(many=True)
+	alumne_classe = AlumneListSerializer(many=True, read_only=True)
 	# assignatures = AssignaturaListSerializer(many=True)
 	class Meta:
 		model = Classe
@@ -38,5 +41,6 @@ class ClasseDetailSerializer(ModelSerializer):
 			'id',
 			'nom',
 			'curs',
-			'alumne_classe'
+			'alumne_classe',
+			'assignatures'
 		]

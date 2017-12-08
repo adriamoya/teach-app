@@ -34,6 +34,84 @@
 	</div>
 </div>
 
+<section>
+
+	<div class="row">
+		<div class="col">
+			<hr>
+		  	<button type="button" class="btn btn-outline-success float-left"
+				(click)="isCollapsed = !isCollapsed">Afegir alumnes
+			</button>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 20px;">
+		<div class="col">
+			
+			<form (collapsed)="collapsed($event)"
+				(expanded)="expanded($event)"
+				[collapse]="isCollapsed">
+				<dl class="form-group row">
+					<div class="col-4">
+						<dt>
+							<label class="form-label" for="classes-assignatura">Classes</label>
+						</dt>
+						<dd>
+							<div *ngFor="let classe of classes"
+							class="list-group-item clearfix"
+							style="display: block;">
+								<span style="margin-right: 18px;">
+									<input
+									type="checkbox"
+									name="classe-included"
+									[(ngModel)]="classe.included"
+									[id]="classe.id"
+									(change)="onChange($event.target.id, $event.target.checked)">
+								</span>
+								<span>
+									{{ classe.__unicode__ }}
+								</span>
+								<!-- <span class="float-right text-muted">
+									({{ alumne.classe }})
+								</span> -->
+							</div>
+						</dd>
+					</div>
+					<div class="col-8">
+						<dt>
+							<label class="form-label" for="alumnes-assignatura">Alumnes</label>
+						</dt>
+						<dd>
+							<div *ngFor="let alumne of newAlumnes"
+							class="list-group-item clearfix"
+							style="display: block;">
+								<span style="margin-right: 18px;">
+									<input
+									type="checkbox"
+									value="checked"
+									name="alumne-included"
+									[(ngModel)]="alumne.included"
+									[id]="alumne.id">
+								</span>
+								<span>
+									{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom}}
+								</span>
+								<span class="float-right text-muted">
+									({{ alumne.classe }})
+								</span>
+							</div>								
+						</dd>
+					</div>
+				</dl>
+
+			</form>	
+
+		</div>
+	</div>
+	
+
+</section>
+
+
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Eliminar {{ alumne.nom }} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</h4>

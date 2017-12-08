@@ -11,4 +11,5 @@ export interface Alumne {
 	assignatures?: any[];
 	nota_alumnes?: any;
 	classe?: string;
+	included?: boolean;
 }

@@ -88,11 +88,9 @@
 										[id]="classe.id"
 										(change)="onChange($event.target.id, $event.target.checked)">
 									</span>
-									<a
-									routerLink="/alumnes" 
-									routerLinkActive="active">
-										{{ classe.nom }}
-									</a>
+									<span>
+										{{ classe.__unicode__ }}
+									</span>
 									<!-- <span class="float-right text-muted">
 										({{ alumne.classe }})
 									</span> -->
@@ -113,14 +111,11 @@
 										value="checked"
 										name="alumne-included"
 										[(ngModel)]="alumne.included"
-										[id]="alumne.id"
-										(change)="onChange($event.target.id, $event.target.checked)">
+										[id]="alumne.id">
 									</span>
-									<a
-									routerLink="/alumnes" 
-									routerLinkActive="active">
+									<span>
 										{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom}}
-									</a>
+									</span>
 									<span class="float-right text-muted">
 										({{ alumne.classe }})
 									</span>
