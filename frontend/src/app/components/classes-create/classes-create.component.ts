@@ -1,6 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 // Services
 import { ClassesService } from '../../services/classes.service';
@@ -9,6 +11,9 @@ import { AlumnesService } from '../../services/alumnes.service';
 // Interfaces
 import { Classe } from '../../interfaces/classe.interface';
 import { Alumne } from '../../interfaces/alumne.interface';
+
+// Modals
+import { ModalClassesCreateComponent } from '../_modals/modal-classes-create.component';
 
 @Component({
   selector: 'app-classes-create',
@@ -29,11 +34,13 @@ export class ClassesCreateComponent implements OnDestroy {
 	private subAlumnes: any;
 	private cursos: string[] = ['2017', '2018', '2019', '2020', '2021'];
 	private ready: boolean = false;
+	private bsModalRef: BsModalRef;
 
 	constructor(
 		private _router: Router,
 		private _classes: ClassesService,
-		private _alumnes: AlumnesService) {
+		private _alumnes: AlumnesService,
+		private _modalService: BsModalService) {
 		this.subAlumnes = this._alumnes.list()
 			.subscribe(
 				response => {
@@ -46,12 +53,6 @@ export class ClassesCreateComponent implements OnDestroy {
 					this.ready = true;
 				}
 			)
-	}
-
-	onChange(id: string, selectedValue: string) {
-		// refreshes any change done in form (even if submit is not triggered)
-		console.log(id);
-		console.log(selectedValue);
 	};
 
 	addAlumne() {
@@ -61,11 +62,7 @@ export class ClassesCreateComponent implements OnDestroy {
 			fullName: "",
 			included: false
 		};
-	}
-
-	test() {
-		console.log(this.alumnes);
-	}
+	};
 
 	newClasse() {
 
@@ -80,8 +77,7 @@ export class ClassesCreateComponent implements OnDestroy {
 			}
 		};
 		if (includedCount == 0) {
-			alert("no alumnes included")
-			return false
+			return this.openModalClassesCreate();
 		};
 
 		// console.log(classe);
@@ -155,11 +151,15 @@ export class ClassesCreateComponent implements OnDestroy {
 				}
 			}
 		}
-	}
+	};
+
+	openModalClassesCreate() {
+		this.bsModalRef = this._modalService.show(ModalClassesCreateComponent);
+	};
 
 	ngOnDestroy() {
 		this.subAlumnes.unsubscribe();
-	}
+	};
 
 }
 

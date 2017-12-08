@@ -3,14 +3,14 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 
 @Component({
-  selector: 'modal-saved-changes',
+  selector: 'modal-classes-create',
   template: `
-<div class="modal-body modal-success">
+<div class="modal-body modal-danger">
 	<div class="row" style="text-align: center;">
 		<div class="col">
 			<div class="clearfix">
 				<span>
-					Canvis guardats
+					No s'ha seleccionat cap alumne
 				</span>
 			</div>
 		</div>
@@ -18,27 +18,23 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 </div>
   `,
   styles: [`
-	.modal-success {
+	.modal-danger {
 		background-clip: padding-box;
 		border: 1px solid rgba(0,0,0,.2);
 		border-radius: .3rem;
 		outline: 0;
-		background-color: #d4edda;
-		color: #155724;
-		border-color: #c3e6cb;
+		background-color: #f8d7da;
+		color: #721C25;
+		border-color: #F4C6CB;
 	}
   `]
 })
-export class ModalSavedChangesComponent {
-
-	// title: string;
-	private assignaturaSubmit: any;
-	private bsModalRef: BsModalRef;
+export class ModalClassesCreateComponent {
 
 	constructor(
-		public modalSavedChangesRef: BsModalRef) {
+		public modalClassesCreatesRef: BsModalRef) {
 		setTimeout(() => {
-			this.modalSavedChangesRef.hide();
+			this.modalClassesCreatesRef.hide();
 		}, 1500);
 	}
 }

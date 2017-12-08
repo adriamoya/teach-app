@@ -51,6 +51,7 @@ import { Ng2TagsInput } from "./components/tags-input/ng2-tagsinput";
 // Modals
 import { ModalSavedChangesComponent } from './components/_modals/modal-saved-changes.component';
 import { ModalAssignaturesUpdateComponent } from './components/_modals/modal-assignatures-update.component';
+import { ModalClassesCreateComponent } from './components/_modals/modal-classes-create.component';
 
 
 // Services
@@ -102,6 +103,7 @@ import { AlumnesService } from './services/alumnes.service';
     // Modals
     ModalSavedChangesComponent,
     ModalAssignaturesUpdateComponent,
+    ModalClassesCreateComponent,
   ],
   imports: [
     // AppRoutingModule,
@@ -140,7 +142,8 @@ import { AlumnesService } from './services/alumnes.service';
   bootstrap: [AppComponent],
   entryComponents: [
     ModalAssignaturesUpdateComponent,
-    ModalSavedChangesComponent
+    ModalSavedChangesComponent,
+    ModalClassesCreateComponent,
   ]
 })
 export class AppModule { }
