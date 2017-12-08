@@ -22,6 +22,8 @@
 				class="animated fadeIn"
 				(ngSubmit)="newAssignatura()"
 				#newAssignaturaForm="ngForm">
+
+					<!-- Informacio general -->
 					<dl class="form-group row">
 						<div class="col">
 							<dt>
@@ -52,6 +54,8 @@
 							</dd>
 						</div>
 					</dl>
+
+					<!-- Bio -->
 					<dl class="form-group">
 						<dt>
 							<label class="form-label" for="bio-assignatura">Bio</label>
@@ -64,6 +68,65 @@
 							rows="3"
 							name="bio"></textarea>
 						</dd>
+					</dl>
+
+					<!-- Classes - Alumnes -->
+					<dl class="form-group row">
+						<div class="col">
+							<dt>
+								<label class="form-label" for="classes-assignatura">Classes</label>
+							</dt>
+							<dd>
+								<div *ngFor="let classe of classes"
+								class="list-group-item clearfix"
+								style="display: block;">
+									<span style="margin-right: 18px;">
+										<input
+										type="checkbox"
+										name="classe-included"
+										[(ngModel)]="classe.included"
+										[id]="classe.id"
+										(change)="onChange($event.target.id, $event.target.checked)">
+									</span>
+									<a
+									routerLink="/alumnes" 
+									routerLinkActive="active">
+										{{ classe.nom }}
+									</a>
+									<!-- <span class="float-right text-muted">
+										({{ alumne.classe }})
+									</span> -->
+								</div>
+							</dd>
+						</div>
+						<div class="col">
+							<dt>
+								<label class="form-label" for="alumnes-assignatura">Alumnes</label>
+							</dt>
+							<dd>
+								<div *ngFor="let alumne of alumnes"
+								class="list-group-item clearfix"
+								style="display: block;">
+									<span style="margin-right: 18px;">
+										<input
+										type="checkbox"
+										value="checked"
+										name="alumne-included"
+										[(ngModel)]="alumne.included"
+										[id]="alumne.id"
+										(change)="onChange($event.target.id, $event.target.checked)">
+									</span>
+									<a
+									routerLink="/alumnes" 
+									routerLinkActive="active">
+										{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom}}
+									</a>
+									<span class="float-right text-muted">
+										({{ alumne.classe }})
+									</span>
+								</div>								
+							</dd>
+						</div>
 					</dl>
 
 					<hr>
@@ -80,8 +143,7 @@
 					<button 
 					type="button" 
 					class="btn btn-secondary float-left"
-					routerLink="/assignatures/" 
-					routerLinkActive="active">
+					(click)="test()">
 					Cancel·lar
 					</button>
 

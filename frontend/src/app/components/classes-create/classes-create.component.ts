@@ -55,6 +55,13 @@ export class ClassesCreateComponent implements OnDestroy {
 			)
 	};
 
+
+	onChange(id: string, selectedValue: string) {
+		// refreshes any change done in form (even if submit is not triggered)
+		console.log(id);
+		console.log(selectedValue);
+	};
+
 	addAlumne() {
 		console.log(this.newAlumne);
 		this.alumnes.push(this.newAlumne);
