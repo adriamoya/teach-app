@@ -77,9 +77,11 @@ export class AssignaturesCreateComponent implements OnDestroy {
 	};
 
 	newAssignatura(){
+		console.log(this.assignatura);
 		this._assignatures.add(this.assignatura)
 			.subscribe(
 				response => {
+					console.log(response.id);
 					this._router.navigate(['/assignatures']);
 				}
 			);

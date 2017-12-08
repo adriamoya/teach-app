@@ -19,10 +19,11 @@ from proves.serializers import ProvaListSerializer
 # Assignatura
 # ------------------------------------------------------------------------
 
-class AssignaturaCreateUpdateSerializer(ModelSerializer):
+class AssignaturaCreateSerializer(ModelSerializer):
 	class Meta:
 		model = Assignatura
 		fields = [
+			'id',
 			'nom',
 			'curs',
 			'bio'
