@@ -3,7 +3,46 @@
 	<hr>
 </div>
 
-<div class="list-group">
+<div *ngFor="let classe of classes">
+	<div *ngIf="classe?.alumnes?.length>0">
+		<h5 style="margin: 20px 0px;">{{ classe.__unicode__ }}</h5>
+		<div class="list-group">
+			<div *ngFor="let alumne of classe.alumnes" 
+			class="list-group-item list-group-item-action clearfix">
+				<a 
+				routerLink="/alumnes/{{ alumne.id }}" 
+				routerLinkActive="active">
+					{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}
+				</a>
+				<!-- <div class="justify-content-between">Cras justo odio</div> -->
+				<span *ngIf="alumne.new" class="badge badge-warning" style="margin-left: 10px;">
+					Nou
+				</span>
+				<span class="icon-right">
+					<a 
+					routerLink="/alumnes/{{ alumne.id }}" 
+					routerLinkActive>
+						<i class="material-icons" style="cursor: pointer;">mode_edit</i>
+					</a>
+					<a
+					routerLink="/assignatures/{{ assignatura.id }}/edit/alumnes"
+					routerLinkActive
+					[id]="alumne.id"
+					(click)="openModal($event, template)">
+						<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
+					</a>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="alumnes.length==0">
+	<div class="alert alert-warning" role="alert">
+		No hi ha cap alumne ...
+	</div>
+</div>
+<!-- <div class="list-group">
 	<div *ngFor="let alumne of alumnes" 
 	class="list-group-item list-group-item-action clearfix">
 		<a 
@@ -11,7 +50,9 @@
 		routerLinkActive="active">
 			{{alumne.nom}} {{alumne.primer_cognom}} {{alumne.segon_cognom}}
 		</a>
-		<!-- <div class="justify-content-between">Cras justo odio</div> -->
+		<span *ngIf="alumne.new" class="badge badge-warning" style="margin-left: 10px;">
+			Nou
+		</span>
 		<span class="icon-right">
 			<a 
 			routerLink="/alumnes/{{ alumne.id }}" 
@@ -27,12 +68,7 @@
 			</a>
 		</span>
 	</div>
-</div>
-<div *ngIf="alumnes.length==0">
-	<div class="alert alert-warning" role="alert">
-		No hi ha cap alumne ...
-	</div>
-</div>
+</div> -->
 
 <section>
 
@@ -40,7 +76,7 @@
 		<div class="col">
 			<hr>
 		  	<button type="button" class="btn btn-link"
-				(click)="isCollapsed = !isCollapsed">Afegir alumnes
+				(click)="isCollapsed = !isCollapsed">Afegir més alumnes a {{ assignatura.nom }}
 			</button>
 		</div>
 	</div>
@@ -89,10 +125,15 @@
 									type="checkbox"
 									name="alumne-included"
 									[checked]="alumne.included"
+									[attr.disabled]="alumne.disabled"
 									[(ngModel)]="alumne.included"
 									[id]="alumne.id">
 								</span>
-								<span>
+								<span *ngIf="alumne.disabled" class="text-muted">
+									{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom}}
+									<span class="badge badge-secondary float-right">Afegit</span>
+								</span>
+								<span *ngIf="!alumne.disabled">
 									{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom}}
 								</span>
 								<!-- <span class="float-right text-muted">
@@ -103,7 +144,7 @@
 					</div>
 				</dl>
 
-				<button type="button" class="btn btn-success float-right" (click)="test()">Guardar canvis</button>
+				<button type="button" class="btn btn-success float-right" (click)="saveAlumnesChanges()">Afegir alumnes</button>
 
 			</form>	
 

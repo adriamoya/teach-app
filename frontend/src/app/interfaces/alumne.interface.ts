@@ -13,4 +13,5 @@ export interface Alumne {
 	classe?: string;
 	included?: boolean;
 	disabled?: boolean;
+	new?: boolean;
 }
