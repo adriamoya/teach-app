@@ -1,6 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router'
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
 
 // Services
 import { AlumnesService } from '../../services/alumnes.service';
@@ -84,48 +86,121 @@ export class AssignaturesCreateComponent implements OnDestroy {
 			.subscribe(
 				response => {
 					this.assignaturaId = response.id;
+					console.log(this.assignaturaId);
 
-					// Add assignatura to alumnes
+					let getAlumnesObservables: Observable<any>[] = [];
 					for (let alumne of this.alumnes) {
 						if (alumne.included) {
-							this._alumnes.get(alumne.id)
-								.subscribe(
-									response => {
-										let alumneUpdate = response;
-										// console.log(alumne);
-										if (alumneUpdate.assignatures.length > 0) {
-											alumneUpdate.assignatures.push(this.assignaturaId);
-										} else {
-											alumneUpdate.assignatures = [this.assignaturaId];
-										}
-										this.updateAlumne(alumneUpdate);
-									}
-								)
+							getAlumnesObservables.push(this._alumnes.get(alumne.id));
 						}
 					}
-					// Add assignatura to classes
+
+					Observable.forkJoin(getAlumnesObservables)
+						.subscribe(dataArray => {
+
+							let updateAlumnesObservables: Observable<any>[] = [];
+
+							console.log(dataArray);
+
+							for (let alumne of dataArray) {
+
+								if (alumne.assignatures.length > 0) {
+									alumne.assignatures.push(this.assignaturaId);
+								} else {
+									alumne.assignatures = [this.assignaturaId];
+								}
+
+								updateAlumnesObservables.push(this._alumnes.update(alumne));
+							}
+
+							Observable.forkJoin(updateAlumnesObservables)
+								.subscribe();
+
+
+					let getClassesObservables: Observable<any>[] = [];
 					for (let classe of this.classes) {
 						if (classe.included) {
-							this._classes.get(classe.id)
-								.subscribe(
-									response => {
-										let classeUpdate = response;
-										// console.log(classeUpdate);
-										if (classeUpdate.assignatures.length > 0) {
-											classeUpdate.assignatures.push(this.assignaturaId);
-										} else {
-											classeUpdate.assignatures = [this.assignaturaId];
-										}
-										this.updateClasse(classeUpdate);
-									})
+							getClassesObservables.push(this._classes.get(classe.id));
 						}
 					}
-					this._router.navigate(['/assignatures']);
-				}
+
+					Observable.forkJoin(getClassesObservables)
+						.subscribe(dataArray => {
+
+							let updateClassesObservables: Observable<any>[] = [];
+
+							console.log(dataArray);
+
+							for (let classe of dataArray) {
+
+								if (classe.assignatures.length > 0) {
+									classe.assignatures.push(this.assignaturaId);
+								} else {
+									classe.assignatures = [this.assignaturaId];
+								}
+
+								updateClassesObservables.push(this._classes.update(classe));
+							}
+
+							Observable.forkJoin(updateClassesObservables)
+								.subscribe();
+
+
+						this._router.navigate(['/assignatures']);
+
+						// All observables in `observables` array have resolved and `dataArray` is an array of result of each observable
+					});
+
+
+
+
+
+
+					// Add assignatura to alumnes
+					// for (let alumne of this.alumnes) {
+					// 	if (alumne.included) {
+					// 		this._alumnes.get(alumne.id)
+					// 			.subscribe(
+					// 				response => {
+					// 					let alumneUpdate = response;
+					// 					// console.log(alumne);
+					// 					if (alumneUpdate.assignatures.length > 0) {
+					// 						alumneUpdate.assignatures.push(this.assignaturaId);
+					// 					} else {
+					// 						alumneUpdate.assignatures = [this.assignaturaId];
+					// 					}
+					// 					this.updateAlumne(alumneUpdate);
+					// 				}
+					// 			)
+					// 	}
+					// }
+					// // Add assignatura to classes
+					// for (let classe of this.classes) {
+					// 	if (classe.included) {
+					// 		this._classes.get(classe.id)
+					// 			.subscribe(
+					// 				response => {
+					// 					let classeUpdate = response;
+					// 					// console.log(classeUpdate);
+					// 					if (classeUpdate.assignatures.length > 0) {
+					// 						classeUpdate.assignatures.push(this.assignaturaId);
+					// 					} else {
+					// 						classeUpdate.assignatures = [this.assignaturaId];
+					// 					}
+					// 					this.updateClasse(classeUpdate);
+					// 				})
+					// 	}
+					// }
+
+					// setTimeout(() => {
+					// 	this._router.navigate(['/assignatures']);
+					// }, 1000);
+				};
 			);
 	};
 
 	updateAlumne(alumne: Alumne) {
+		console.log(alumne);
 		this._alumnes.update(alumne)
 			.subscribe(
 				response => {
