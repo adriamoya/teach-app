@@ -4,4 +4,5 @@ export interface Classe {
 	curs: number;
 	alumnes?: any[];
 	included?: boolean;
+	assignatures?: any[];
 }

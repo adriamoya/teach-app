@@ -39,7 +39,7 @@
 	<div class="row">
 		<div class="col">
 			<hr>
-		  	<button type="button" class="btn btn-outline-success float-left"
+		  	<button type="button" class="btn btn-link"
 				(click)="isCollapsed = !isCollapsed">Afegir alumnes
 			</button>
 		</div>
@@ -63,7 +63,7 @@
 									<input
 									type="checkbox"
 									name="classe-included"
-									[(ngModel)]="classe.included"
+									[checked]="classe.included"
 									[id]="classe.id"
 									(change)="onChange($event.target.id, $event.target.checked)">
 								</span>
@@ -87,21 +87,23 @@
 								<span style="margin-right: 18px;">
 									<input
 									type="checkbox"
-									value="checked"
 									name="alumne-included"
+									[checked]="alumne.included"
 									[(ngModel)]="alumne.included"
 									[id]="alumne.id">
 								</span>
 								<span>
 									{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom}}
 								</span>
-								<span class="float-right text-muted">
+								<!-- <span class="float-right text-muted">
 									({{ alumne.classe }})
-								</span>
+								</span> -->
 							</div>								
 						</dd>
 					</div>
 				</dl>
+
+				<button type="button" class="btn btn-success float-right" (click)="test()">Guardar canvis</button>
 
 			</form>	
 
@@ -110,6 +112,8 @@
 	
 
 </section>
+
+
 
 
 <ng-template #template>

@@ -12,4 +12,5 @@ export interface Alumne {
 	nota_alumnes?: any;
 	classe?: string;
 	included?: boolean;
+	disabled?: boolean;
 }

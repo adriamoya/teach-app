@@ -43,16 +43,25 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 				response => {
 					// console.log(response);
 					this.classes = response;
+					for (let classe of this.classes) {
+						classe.included = false;
+						for (let assignaturaId of classe.assignatures) {
+							if (assignaturaId == this.assignatura.id) {
+								classe.included = true;
+							}
+						}
+					}
 				}
 			)
 			this.sub = this._alumnes.list().subscribe(alumnes => {
 				for (let alumne of alumnes) {
 					this._alumnes.get(alumne.id).subscribe(alumneData => {
-						console.log(alumneData);
+						// console.log(alumneData);
 						for (let assignatura of alumneData.assignatures) {
 							if (assignatura == this.assignatura.id) {
+								alumneData.included = true;
 								this.alumnes.push(alumneData);
-								// console.log(this.alumnes);
+								this.newAlumnes.push(alumneData);
 							}
 						}
 					})
@@ -60,53 +69,66 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 			})
 	};
 
+
 	// New alumnes form
 	// --------------------------------------------------------------------
 
-	isCollapsed: boolean = true;
+	isCollapsed: boolean = false;
  
 	collapsed(event: any): void {
-		console.log(event);
+		// console.log(event);
 	}
 
 	expanded(event: any): void {
-		console.log(event);
+		// console.log(event);
+		// console.log(this.classes);
 	}
 
-	onChange(id: string, selectedValue: string) {
-	// refreshes any change done in form (even if submit is not triggered)
-	// console.log(id);
-	// console.log(selectedValue);
-
-	this.subClasses = this._classes.get(id)
-		.subscribe(
-			response => {
-				if (response.alumne_classe.length > 0) {
-					
-					// Add alumnes
-					if (selectedValue) {
-						for (let alumne of response.alumne_classe) {
-							alumne.included = true;
-							this.newAlumnes.push(alumne);
+	onChange(id: string, selectedValue: boolean) {
+		console.log(selectedValue);
+		for (let classe of this.classes) {
+			if (classe.id == id) {
+				classe.included = selectedValue;
+			}
+		}
+		// refreshes any change done in form (even if submit is not triggered)
+		console.log(id);
+		console.log(selectedValue);
+		this.subClasses = this._classes.get(id)
+			.subscribe(
+				response => {
+					if (response.alumne_classe.length > 0) {
+						
+						// Add alumnes
+						if (selectedValue) {
+							for (let alumne of response.alumne_classe) {
+								alumne.included = true;
+								this.newAlumnes.push(alumne);
+							}
 						}
-					}
-					// Delete alumnes
-					else {
-						for (let alumne of response.alumne_classe) {
-							let index = 0;
-							for (let alumneIncluded of this.newAlumnes) {
-								index += 1;
-								if (alumne.id == alumneIncluded.id) {
-									this.newAlumnes.splice(index-1, 1)
-								}
+						// Delete alumnes
+						else {
+							for (let alumne of response.alumne_classe) {
+								let index = 0;
+								for (let alumneIncluded of this.newAlumnes) {
+									index += 1;
+									if (alumne.id == alumneIncluded.id) {
+										this.newAlumnes.splice(index-1, 1)
+									}
 
-							}			
+								}			
+							}
 						}
 					}
 				}
-			}
-		);
+			);
 	};
+
+	test(){
+		console.log(this.classes);
+		console.log(this.newAlumnes);
+	}
+
 
 	// --------------------------------------------------------------------
 
@@ -127,6 +149,13 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 
 		index = this.alumnes.indexOf(this.alumne);
 		this.alumnes.splice(index, 1);
+
+		for (let newAlumne of this.newAlumnes) {
+			if (newAlumne.id == this.alumne.id) {
+				console.log(newAlumne.nom);
+				newAlumne.included = false;
+			}
+		}
 
 		this._alumnes.update(this.alumne)
 			.subscribe(
