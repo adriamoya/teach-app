@@ -14,7 +14,7 @@ class ClasseCreateSerializer(ModelSerializer):
 			'id',
 			'nom',
 			'curs',
-			'assignatures'
+			# 'assignatures'
 			]
 
 
@@ -29,7 +29,7 @@ class ClasseListSerializer(ModelSerializer):
 			'curs',
 			'url_detail',
 			'alumne_classe',
-			'assignatures'
+			# 'assignatures'
 		]
 
 class ClasseDetailSerializer(ModelSerializer):
@@ -42,5 +42,5 @@ class ClasseDetailSerializer(ModelSerializer):
 			'nom',
 			'curs',
 			'alumne_classe',
-			'assignatures'
+			# 'assignatures'
 		]

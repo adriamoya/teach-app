@@ -70,7 +70,7 @@ class ProvaCreateUpdateSerializer(ModelSerializer):
 			'continguts',
 			'nota_total',
 			'pes_total',
-			'assignatura'
+			'avaluacio'
 		]
 
 
@@ -84,7 +84,7 @@ class ProvaListSerializer(ModelSerializer):
 	# notes_prova = HyperlinkedRelatedField(many=True, view_name='proves-api:nota-detail', read_only=True) # Hyperlinked Identity Field
 	url_detail =  HyperlinkedIdentityField(view_name='proves-api:prova-detail', lookup_field='pk')
 	notes_prova = NotaListSerializer(many=True)
-	assignatura = PrimaryKeyRelatedField(read_only=True)
+	avaluacio = PrimaryKeyRelatedField(read_only=True)
 
 	class Meta:
 		model = Prova
@@ -95,7 +95,7 @@ class ProvaListSerializer(ModelSerializer):
 			'nota_total',
 			'notes_count',
 			'notes_prova',
-			'assignatura',
+			'avaluacio',
 			'pes_total',
 			'url_detail'
 		]
@@ -111,7 +111,7 @@ class ProvaDetailSerializer(ModelSerializer):
 	# notes_prova = HyperlinkedRelatedField(many=True, view_name='proves-api:nota-detail', read_only=True) # Hyperlinked Identity Field
 
 	notes_prova = NotaDetailSerializer(many=True)
-	assignatura = PrimaryKeyRelatedField(read_only=True)
+	avaluacio = PrimaryKeyRelatedField(read_only=True)
 
 	class Meta:
 		model = Prova
@@ -123,6 +123,6 @@ class ProvaDetailSerializer(ModelSerializer):
 			'notes_count',
 			'notes_prova',
 			'pes_total',
-			'assignatura',
+			'avaluacio',
 			'continguts',
 		]

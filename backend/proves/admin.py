@@ -9,7 +9,6 @@ class ProvaModelAdmin(admin.ModelAdmin):
 	
 	list_display = [
 		'__str__',
-		'assignatura'
 	]
 
 	class Meta:

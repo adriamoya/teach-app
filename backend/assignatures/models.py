@@ -10,12 +10,11 @@ class AssignaturaManager(models.Manager):
 		qs = super(AssignaturaManager, self).filter(id= obj_id)
 		return qs
 
-
 class Assignatura(models.Model):
 
 	nom 		= models.CharField(max_length=120)
-	curs 		= models.PositiveIntegerField(blank=True, null=True)
 	bio 		= models.TextField(blank=True, null=True)
+	curs		= models.ForeignKey('cursos.Curs', related_name='curs_assignatures', blank=True, null=True)
 	objects		= AssignaturaManager()
 
 	def get_absolute_url(self):
@@ -26,3 +25,15 @@ class Assignatura(models.Model):
 
 	# def __unicode__(self):
 	# 	return "%s - %s" % (self.nom, self.curs)
+
+
+class Avaluacio(models.Model):
+
+	nom 		= models.CharField(max_length=120)
+	assignatura = models.ForeignKey('Assignatura', related_name='assignatura_avaluacions', blank=True, null=True)
+
+	def get_absolute_url(self):
+		return reverse("assignatures-api:avaluacio-detail", kwargs={"pk": self.id})
+
+	def __unicode__(self):
+		return "%s %s - Avaluacio %s" % (self.assignatura.nom, self.assignatura.curs.nom, self.nom)

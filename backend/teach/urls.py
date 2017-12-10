@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^api/alumnes/', include("alumnes.urls", namespace='alumnes-api')),
     url(r'^api/assignatures/', include("assignatures.urls", namespace='assignatures-api')),
     url(r'^api/classes/', include("classes.urls", namespace='classes-api')),
+    url(r'^api/cursos/', include("cursos.urls", namespace='cursos-api')),
     url(r'^api/professors/', include("professors.urls", namespace='professors-api')),
     url(r'^api/proves/', include("proves.urls", namespace='proves-api')),
     url(r'^api/auth/', include('rest_framework.urls', namespace='rest_framework')),

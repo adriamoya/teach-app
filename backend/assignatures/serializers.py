@@ -8,12 +8,59 @@ from rest_framework.serializers import (
 	SerializerMethodField
 	)
 
-from .models import Assignatura
+from .models import Assignatura, Avaluacio
 
 from alumnes.serializers import AlumneListSerializer
 from professors.serializers import ProfessorListSerializer
 from proves.serializers import ProvaListSerializer
 
+
+
+# Avaluacio
+# ------------------------------------------------------------------------
+
+class AvaluacioCreateSerializer(ModelSerializer):
+	class Meta:
+		model = Avaluacio
+		fields = [
+			'id',
+			'nom',
+			'assignatura'
+		]
+
+class AvaluacioListSerializer(ModelSerializer):
+	"""
+	List of all avaluacions available.
+
+	"""
+	url_detail =  HyperlinkedIdentityField(view_name='assignatures-api:avaluacio-detail', lookup_field='pk')
+	proves_avaluacio = ProvaListSerializer(many=True, read_only=True)
+	# proves_assignatura = ProvaListSerializer(many=True)
+
+	class Meta:
+		model = Avaluacio
+		fields = [
+			'id',					
+			'nom',					
+			'proves_avaluacio',	
+			'assignatura',	
+			'url_detail',	
+		]
+
+class AvaluacioDetailSerializer(ModelSerializer):
+
+	proves_avaluacio = ProvaListSerializer(many=True, read_only=True)
+	#proves_assignatura = ProvaListSerializer(many=True)
+
+	class Meta:
+		model = Avaluacio
+		fields = [
+			'id',					
+			'nom',					
+			'proves_avaluacio',	
+			'assignatura',	
+			#'url_detail',	
+		]
 
 
 # Assignatura
@@ -36,7 +83,7 @@ class AssignaturaListSerializer(HyperlinkedModelSerializer):
 
 	"""
 	url_detail =  HyperlinkedIdentityField(view_name='assignatures-api:detail', lookup_field='pk')
-	proves_assignatura = HyperlinkedRelatedField(many=True, view_name='proves-api:prova-detail', read_only=True)
+	assignatura_avaluacions = AvaluacioListSerializer(many=True, read_only=True)
 	# proves_assignatura = ProvaListSerializer(many=True)
 
 	class Meta:
@@ -44,7 +91,8 @@ class AssignaturaListSerializer(HyperlinkedModelSerializer):
 		fields = [
 			'id',					# id of assignatura
 			'nom',					# name of assignatura
-			'proves_assignatura',	# link to proves detail view
+			'assignatura_avaluacions',
+			#'proves_assignatura',	# link to proves detail view
 			'url_detail', 			# link to assignatura detail view
 		]
 
@@ -69,9 +117,10 @@ class AssignaturaDetailSerializer(ModelSerializer):
 	    source='alumne_assignatures.count', # related_name - ManyToManyField
 	    read_only=True
 	)
-	proves_assignatura = ProvaListSerializer(many=True, read_only=True)
+	# proves_assignatura = ProvaListSerializer(many=True, read_only=True)
 	professor_assignatures = ProfessorListSerializer(many=True, read_only=True)
 	alumne_assignatures = AlumneListSerializer(many=True, read_only=True)
+	assignatura_avaluacions = AvaluacioListSerializer(many=True, read_only=True)
 	# proves_assignatura = HyperlinkedRelatedField(many=True, view_name='proves-api:prova-detail', read_only=True)
 
 	class Meta:
@@ -79,11 +128,12 @@ class AssignaturaDetailSerializer(ModelSerializer):
 		fields = [
 			'id',						# id of assignatura
 			'nom',						# name of assignatura
-			'curs',						# curs of assignatura
+			'curs',					# curs of assignatura
 			'bio',
 			'alumne_count',				# count of alumnes in assignatura
 			'professor_assignatures',	# professor info in assignatura
-			'proves_assignatura',		# link to prova detail view
+			'assignatura_avaluacions',
+			#'proves_assignatura',		# link to prova detail view
 			'alumne_assignatures'
 		]
 

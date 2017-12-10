@@ -10,7 +10,8 @@ class Prova(models.Model):
 	# curs 		= models.PositiveIntegerField()
 	nota_total 	= models.FloatField()
 	pes_total 	= models.FloatField()
-	assignatura = models.ForeignKey('assignatures.Assignatura', related_name='proves_assignatura',blank=True, null=True)
+	avaluacio 	= models.ForeignKey('assignatures.Avaluacio', related_name='proves_avaluacio',blank=True, null=True)
+	# assignatura = models.ForeignKey('assignatures.Assignatura', related_name='proves_assignatura',blank=True, null=True)
 	data 		= models.DateField(auto_now=False, auto_now_add=False, default=now)
 	continguts	= models.TextField(blank=True, null=True)
 

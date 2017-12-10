@@ -12,16 +12,15 @@ class ClasseModelAdmin(admin.ModelAdmin):
 	list_display = [
 		'__str__',
 		'nom',
-		'curs'
 	]
 
 	# inlines = [
 	# 	ProfessorInline,
 	# ]
 
-	search_fields = [
-		'curs',
-	]
+	# search_fields = [
+	# 	'curs',
+	# ]
 
 	class Meta:
 		model = Classe

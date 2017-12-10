@@ -15,7 +15,7 @@ class ClasseManager(models.Manager):
 class Classe(models.Model):
 
 	nom 			= models.CharField(max_length=120)
-	curs 			= models.PositiveIntegerField()
+	curs			= models.ForeignKey('cursos.Curs', related_name='curs_classes', blank=True, null=True)
 	assignatures 	= models.ManyToManyField('assignatures.Assignatura', related_name='classe_assignatures', blank=True)
 	# professors 		= models.ManyToManyField('Professor', related_name='classe_professors', blank=True)
 	# alumnes			= models.ManyToManyField('alumnes.Alumne', related_name='classe_alumnes', blank=True)
