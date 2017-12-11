@@ -16,24 +16,44 @@
 		<hr>
 	</div>
 
-	<!-- Assignatura items -->
-	<section class="row text-center placeholder">
-		<div 
-		style="margin-bottom: 25px;" 
-		class="col-xs-6 col-sm-3 col-md-3 col-lg-2 placeholder" 
-		*ngFor="let assignatura of assignaturesList">
-			<i
-			class="material-icons"
-			style="font-size: 120px; cursor: pointer; color: #e9ecef" 
-			routerLink="/assignatures/{{ assignatura.id }}" 
-			routerLinkActive="active">
-				folder
-			</i>
-			<br>
-			<a style="margin-top: -10px;" routerLink="/assignatures/{{ assignatura.id }}" routerLinkActive="active">{{ assignatura.nom }}</a>
-			<p class="text-muted"><small>{{ assignatura.curs }}</small></p>
+	<div class="row">
+		<div class="col-3">
+			<dt>
+				<label class="form-label" for="cursos">Cursos</label>
+			</dt>
+			<div class="list-group">
+				<a 
+				*ngFor="let curs of cursos"
+				[id]="curs.id"
+				(click)="onChange($event)"
+				class="list-group-item list-group-item-action clickable">
+					{{ curs.__unicode__ }}						
+				</a>
+			</div>
 		</div>
-	</section>
+		<div class="col-9">
+			<!-- Assignatura items -->
+			<dt>
+				<label class="form-label" for="assignatures">Assignatures</label>
+			</dt>
+			<section class="row text-center placeholder">
+				<div 
+				style="margin-bottom: 25px;" 
+				class="col-xs-6 col-sm-3 col-md-3 col-lg-2 placeholder" 
+				*ngFor="let assignatura of assignatures">
+					<i
+					class="material-icons"
+					style="font-size: 120px; cursor: pointer; color: #e9ecef" 
+					routerLink="/assignatures/{{ assignatura.id }}" 
+					routerLinkActive="active">
+						folder
+					</i>
+					<br>
+					<a style="margin-top: -10px;" routerLink="/assignatures/{{ assignatura.id }}" routerLinkActive="active">{{ assignatura.nom }}</a>
+				</div>
+			</section>
+		</div>
+	</div>
 
 </div>
 

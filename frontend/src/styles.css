@@ -34,8 +34,16 @@ body {
 	background-color: #fafafa;
 }
 
+.container {
+  height: 1000px;
+}
+
 h4 {
 	margin-bottom:15px;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .bg-faded {

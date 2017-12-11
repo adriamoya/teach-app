@@ -77,7 +77,7 @@ class AssignaturaCreateSerializer(ModelSerializer):
 		]
 		
 
-class AssignaturaListSerializer(HyperlinkedModelSerializer):
+class AssignaturaListSerializer(ModelSerializer):
 	"""
 	List of all assignatures available.
 
@@ -90,8 +90,10 @@ class AssignaturaListSerializer(HyperlinkedModelSerializer):
 		model = Assignatura
 		fields = [
 			'id',					# id of assignatura
+			'__unicode__',
 			'nom',					# name of assignatura
 			'assignatura_avaluacions',
+			'curs',
 			#'proves_assignatura',	# link to proves detail view
 			'url_detail', 			# link to assignatura detail view
 		]
