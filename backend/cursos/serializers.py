@@ -26,6 +26,7 @@ class CursListSerializer(ModelSerializer):
 		fields = [
 			'id',
 			'__unicode__',
+			'nom',
 			'curs_classes',
 			'curs_assignatures',
 			'url_detail'
@@ -38,6 +39,7 @@ class CursDetailSerializer(ModelSerializer):
 		model = Curs
 		fields = [
 			'id',
+			'nom',
 			'curs_assignatures',
 			'curs_classes'
 		]

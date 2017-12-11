@@ -49,7 +49,7 @@
 								class="form-control" 
 								id="curs-assignatura"
 								name="curs">
-									<option *ngFor="let curs of cursos">{{ curs }}</option>
+									<option *ngFor="let curs of cursos">{{ curs.nom }}</option>
 								</select>
 							</dd>
 						</div>
@@ -76,7 +76,12 @@
 							<dt>
 								<label class="form-label" for="classes-assignatura">Classes</label>
 							</dt>
-							<dd>
+							<dd> 
+								<div *ngIf="classes?.length==0">
+									<div class="alert alert-warning" role="alert">
+										No hi ha cap classe. Feu click <a class="alert-link clickable" [routerLink]="['/classes','add']">aquí</a> per afegir-ne.
+									</div>
+								</div>
 								<div *ngFor="let classe of classes"
 								class="list-group-item clearfix"
 								style="display: block;">

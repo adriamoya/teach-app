@@ -8,11 +8,13 @@ import 'rxjs/add/observable/forkJoin';
 import { AlumnesService } from '../../services/alumnes.service';
 import { AssignaturesService } from '../../services/assignatures.service';
 import { ClassesService } from '../../services/classes.service';
+import { CursosService } from '../../services/cursos.service';
 
 // Interfaces
 import { Alumne } from '../../interfaces/alumne.interface';
 import { Assignatura } from '../../interfaces/assignatura.interface';
 import { Classe } from '../../interfaces/classe.interface';
+import { Curs } from '../../interfaces/curs.interface';
 
 @Component({
   selector: 'app-assignatures-create',
@@ -26,16 +28,24 @@ export class AssignaturesCreateComponent implements OnDestroy {
 		bio: ''
 	};
 	private assignaturaId: string;
-	private cursos: string[] = ['2017', '2018', '2019', '2020', '2021'];
 	private subClasses: any;
 	private classes: Classe[];
+	private cursos: Curs[];
 	private alumnes: Alumne[] = [];
 
 	constructor(
 		private _router: Router,
+		private _cursos: CursosService,
 		private _classes: ClassesService,
 		private _alumnes: AlumnesService,
 		private _assignatures: AssignaturesService) {
+		this.subCursos = this._cursos.list()
+			.subscribe(
+				response => {
+					console.log(response);
+					this.cursos = response;
+				}
+			)
 		this.subClasses = this._classes.list()
 			.subscribe(
 				response => {
