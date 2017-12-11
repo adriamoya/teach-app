@@ -4,6 +4,8 @@
 
 ### Backend
 
+![alt text](https://github.com/adriamoya/teach-app/tree/branch-trimestre-app/backend/backend-graph.png)
+
 After building with Django a few Apps in order to set up a first version of the DRF API, we need to configure the urls so that there is a catch-all url that will handle the Angular app. This url needs to go at the very end of the url_pattern list.
 
 ```python
