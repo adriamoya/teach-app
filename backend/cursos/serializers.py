@@ -16,7 +16,6 @@ class CursCreateSerializer(ModelSerializer):
 			'nom',
 			]
 
-
 class CursListSerializer(ModelSerializer):
 	url_detail =  HyperlinkedIdentityField(view_name='cursos-api:detail', lookup_field='pk')
 	# curs_assignatures = AssignaturaListSerializer(many=True, read_only=True)

@@ -2,7 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SlicePipe } from '@angular/common';
 
+// Services
+import { CursosService } from '../../services/cursos.service';
 import { AssignaturesService } from '../../services/assignatures.service';
+
+// Interfaces
+import { Curs } from '../../interfaces/curs.interfaces';
+import { Alumne } from '../../interfaces/alumne.interfaces';
+import { Assignatura } from '../../interfaces/assignatura.interfaces';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -11,36 +18,42 @@ import 'rxjs/add/operator/catch';
   selector: 'app-assignatures-detail',
   templateUrl: './assignatures-detail.component.html',
   styleUrls: ['./assignatures-detail.component.css'],
-  providers: []
 })
 
 export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 
 	// CREATE A NEW COMPONENT FOR THE LINECHART
 
-	private routeSub: any;
-	private reqAssignatures: any;
-	private assignatura: any;
+	private subRoute: any;
+	private subAssignatura: any;
+	private subCurs: any;
+
+	private assignatura: Assignatura;
 	private assignaturaId: string;
-	private proves: any;
-	private alumnes: any;
+	private curs: Curs;
+	private proves: any[]=[];
+	private alumnes: any[];
 
 	constructor(
 		public _route: ActivatedRoute,
 		public _router: Router,
+		public _cursos: CursosService,
 		public _assignatures: AssignaturesService) {
-	};
-
-	ngOnInit() {
-
-		this.routeSub = this._route.params.subscribe(params => {
+		this.subRoute = this._route.params.subscribe(params => {
 			this.assignaturaId = params['id'];
-			this.reqAssignatures = this._assignatures.get(this.assignaturaId)
+			this.subAssignatura = this._assignatures.get(this.assignaturaId)
 				.subscribe(
 					data => {
 						this.assignatura = data;
-						this.proves = this._assignatures.get_proves_promedio();
 						this.alumnes = data.alumne_assignatures;
+						this.subCurs = this._cursos.get(data.curs)
+										.subscribe(
+											curs => {
+												this.assignatura.curs = curs.nom;
+											}
+										)
+
+						console.log(data);
 						// console.log(this.assignatura);
 						// console.log(this.proves);
 						// console.log(this.alumnes);
@@ -52,12 +65,23 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 						this._router.navigate(['login'])
 					});
 		});
+	
+	};
+
+	onChangeAvaluacio(event) {
+		let avaluacioId = event.target.id;
+		let avaluacio = this.assignatura.assignatura_avaluacions
+						.filter((avaluacio) => avaluacio.id == avaluacioId);
+		this.proves = avaluacio[0].proves_avaluacio;
+		console.log(this.proves);
+
 	};
 
 	// important to unsubscribe (destroy) after using subscribe ...
 	ngOnDestroy() {
-		this.routeSub.unsubscribe();
-		this.reqAssignatures.unsubscribe();
+		this.subRoute.unsubscribe();
+		this.subCurs.unsubscribe();
+		this.subAssignatura.unsubscribe();
 	};
 }
 

@@ -32,133 +32,166 @@
 		
 		<!-- Title -->
 		<div class="mt-3">
-			<h1>{{ assignatura.nom }}</h1>
-			<hr>
+			<h1 style="margin-bottom: 5px;">{{ assignatura.nom }}</h1>
+			<p class="text-muted" style="margin-bottom: 20px;">
+				Curs {{ assignatura.curs }}
+			</p>
+			<!-- <p>Curs <a [routerLink]="['/']">{{ assignatura.curs }}</a></p> -->
 		</div>
 
-		<!-- Info -->
-		<div class="mt-3">
-			<p>Curs {{ assignatura.curs }}</p>
-			<p><small>{{ assignatura.bio }}</small></p>
-			<hr>
-		</div>
-
-		<!-- Pills -->
-		<ul class="nav nav-pills" id="myTab" role="tablist">
-			<li class="nav-item">
-				<a class="nav-link active" id="proves-tab" data-toggle="tab" href="#proves" role="tab" aria-controls="proves" aria-selected="true">Proves</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="alumnes-tab" data-toggle="tab" href="#alumnes" role="tab" aria-controls="alumnes" aria-selected="false">Alumnes</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="professors-tab" data-toggle="tab" href="#professors" role="tab" aria-controls="professors" aria-selected="false">Professors</a>
-			</li>
-		</ul>
-
-		<!-- <hr> -->
-
-		<div style="margin-top: 20px;" class="tab-content" id="myTabContent">
-
-			<!-- Proves - list -->
-			<div class="tab-pane fade show active" id="proves" role="tabpanel" aria-labelledby="proves-tab">
-				<div class="table-responsive">
-					<table class="table table-sm table-hover">
-						<thead>
-							<tr>
-								<th>Prova</th>
-								<th>Data</th>
-								<th>Pes prova</th>
-								<th>
-									<span class="float-right">
-										Puntació mitja
-									</span>
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							<tr *ngFor="let prova of proves">
-								<td><a routerLink="/assignatures/{{ assignaturaId }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
-								<td>{{ prova.data | date }}</td>
-								<td>{{ prova.pes_total | percent:'0.0-1' }}</td>
-								<td *ngIf="prova.puntuacio_promig">
-									<span class="float-right">
-										{{ prova.puntuacio_promig | number:'1.0-2'}} / {{ prova.puntuacio_total }}
-									</span>
-								</td>
-								<td *ngIf="!prova.puntuacio_promig">
-									<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+		<div class="row">
+			<div class="col-3">
+				<div class="list-group">
+					<a 
+					*ngFor="let avaluacio of assignatura.assignatura_avaluacions"
+					[id]="avaluacio.id"
+					(click)="onChangeAvaluacio($event)"
+					class="list-group-item list-group-item-action clickable">
+						Avaluació {{ avaluacio.nom }}						
+					</a>
 				</div>
-				<div *ngIf="assignatura.proves_assignatura.length==0">
-					<div class="alert alert-warning" role="alert">
-						No hi ha cap prova ...
-					</div>
-				</div>
-			</div> <!-- Proves - list -->
+			</div>
+			<div class="col-9">
 
-			<!-- Alumnes - list -->
-			<div class="tab-pane fade" id="alumnes" role="tabpanel" aria-labelledby="alumnes-tab">
-				<div *ngIf="alumnes" class="table-responsive">
-					<table class="table table-sm table-hover">
-						<thead>
-							<tr>
-								<th>Alumne</th>
-								<th *ngFor="let prova of proves">
-									<span class="float-right">
-										{{ prova.nom }} <span style="font-weight: 400;">(/{{ prova.puntuacio_total }})</span>
-									</span>
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let alumne of alumnes">
-								<td><a routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a></td>
-								<td *ngFor="let prova_assignatura of assignatura.proves_assignatura">
-									<div *ngFor="let puntuacio of prova_assignatura.notes_prova">
-										<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
-										<ng-template #thenBlock>
-											<div *ngIf="puntuacio.nota">
-												<span class="float-right">
-													{{ puntuacio.nota }}
-												</span>
+				<!-- Pills -->
+				<ul class="nav nav-pills" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="proves-tab" data-toggle="tab" href="#proves" role="tab" aria-controls="proves" aria-selected="true">Proves</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="alumnes-tab" data-toggle="tab" href="#alumnes" role="tab" aria-controls="alumnes" aria-selected="false">Alumnes</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="professors-tab" data-toggle="tab" href="#professors" role="tab" aria-controls="professors" aria-selected="false">Professors</a>
+					</li>
+				</ul>
+
+				<!-- <hr> -->
+
+				<div style="margin-top: 20px;" class="tab-content" id="myTabContent">
+
+					<!-- Proves - list -->
+					<div class="tab-pane fade show active" id="proves" role="tabpanel" aria-labelledby="proves-tab">
+						<div class="table-responsive">
+							<table class="table table-sm table-hover">
+								<thead>
+									<tr>
+										<th>Prova</th>
+										<th>Data</th>
+										<th>Pes prova</th>
+										<th>
+											<span class="float-right">
+												Puntació mitja
+											</span>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let prova of proves">
+										<td><a routerLink="/assignatures/{{ assignaturaId }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
+										<td>{{ prova.data | date }}</td>
+										<td>{{ prova.pes_total | percent:'0.0-1' }}</td>
+										<td *ngIf="prova.puntuacio_promig">
+											<span class="float-right">
+												{{ prova.puntuacio_promig | number:'1.0-2'}} / {{ prova.puntuacio_total }}
+											</span>
+										</td>
+										<td *ngIf="!prova.puntuacio_promig">
+											<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div *ngIf="proves.length==0">
+							<div class="alert alert-warning" role="alert">
+								No hi ha cap prova ...
+							</div>
+						</div>
+					</div> <!-- Proves - list -->
+
+					<!-- Alumnes - list -->
+					<div class="tab-pane fade" id="alumnes" role="tabpanel" aria-labelledby="alumnes-tab">
+
+						<div *ngIf="alumnes" class="table-responsive">
+							<table class="table table-sm table-hover">
+								<thead>
+									<tr>
+										<th>Alumne</th>
+										<th *ngFor="let prova of proves">
+											<span class="float-right">
+												{{ prova.nom }} <span style="font-weight: 400;">(/{{ prova.nota_total }})</span>
+											</span>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let alumne of alumnes">
+										<td><a routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a></td>
+										<td *ngFor="let prova of proves">
+											<div *ngFor="let puntuacio of prova.notes_prova">
+												<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
+												<ng-template #thenBlock>
+													<div *ngIf="puntuacio.nota">
+														<span class="float-right">
+															{{ puntuacio.nota }}
+														</span>
+													</div>
+												</ng-template>
 											</div>
-										</ng-template>
-										<!-- <ng-template #elseBlock><span class="badge badge-warning" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span></ng-template> -->
-									</div>
-								</td>
-							</tr>
-							<!-- Total row -->
-							<tr>
-								<td style="border-top: 2px solid #eceeef; color: #636c72">
-									Nota promig
-								</td>
-								<td 
-								style="border-top: 2px solid #eceeef"
-								*ngFor="let prova of proves">
-									<span class="float-right"
-									style="color: #636c72;">
-										{{ prova?.puntuacio_promig | number: '1.0-2' }}
-									</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+										</td>
+									</tr>
+									<tr>
+										<td style="border-top: 2px solid #eceeef; color: #636c72">
+											Nota promig
+										</td>
+										<td 
+										style="border-top: 2px solid #eceeef"
+										*ngFor="let prova of proves">
+											<span class="float-right"
+											style="color: #636c72;">
+												{{ prova?.puntuacio_promig | number: '1.0-2' }}
+											</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div *ngIf="assignatura.proves_assignatura?.length == 0">
+							<div class="alert alert-warning" role="alert">
+								No hi ha cap alumne ...
+							</div>
+						</div>
+					</div><!-- Alumnes - list -->
+
+					<div class="tab-pane fade" id="professors" role="tabpanel" aria-labelledby="professors-tab">
+
+						<section class="row text-center placeholder">
+							<div *ngFor="let professor of assignatura.professor_assignatures" class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+
+								<i 
+								class="material-icons"
+								style="font-size: 120px; cursor: pointer; color: #e9ecef;"
+								routerLink="/assignatures/{{ assignatura.id }}" 
+								routerLinkActive="active">
+									lens
+								</i>
+								<a routerLink="/assignatures/{{ assignatura.id }}" routerLinkActive="active">{{ professor.nom}} {{ professor.primer_cognom }}</a>
+
+							</div>
+						</section>
+
 				</div>
-				<div *ngIf="assignatura.proves_assignatura?.length == 0">
-					<div class="alert alert-warning" role="alert">
-						No hi ha cap alumne ...
-					</div>
-				</div>
-			</div><!-- Alumnes - list -->
+
+			</div>
+		</div>
+
+
+
 
 			<!-- Professors -->
 
-			<div class="tab-pane fade" id="professors" role="tabpanel" aria-labelledby="professors-tab">
+<!-- 			<div class="tab-pane fade" id="professors" role="tabpanel" aria-labelledby="professors-tab">
 
 				<section class="row text-center placeholder">
 					<div *ngFor="let professor of assignatura.professor_assignatures" class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
@@ -173,7 +206,7 @@
 						<a routerLink="/assignatures/{{ assignatura.id }}" routerLinkActive="active">{{ professor.nom}} {{ professor.primer_cognom }}</a>
 
 					</div>
-				</section>
+				</section> -->
 			
 				<!-- <div class="col-sm-12 col-md-6">
 					<div style="display: block;">
@@ -193,9 +226,6 @@
 					</div>
 				</div> -->
 
-			</div>
-
-		</div>
 
 	</div>
 
