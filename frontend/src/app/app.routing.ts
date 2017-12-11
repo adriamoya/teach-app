@@ -16,6 +16,8 @@ import { ASSIGNATURES_UPDATE_ROUTES } from './components/assignatures-update/ass
 
 import { ClassesCreateComponent } from './components/classes-create/classes-create.component';
 
+import { CursosCreateComponent } from './components/cursos-create/cursos-create.component';
+
 import { ProfileDetailComponent } from './components/profile-detail/profile-detail.component';
 
 import { ProvesCreateComponent } from './components/proves-create/proves-create.component';
@@ -67,6 +69,11 @@ const APP_ROUTES: Routes = [
   {
     path: 'classes/add',
     component: ClassesCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'cursos/add',
+    component: CursosCreateComponent,
     canActivate: [AuthGuard]
   },
   {

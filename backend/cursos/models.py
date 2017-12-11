@@ -7,7 +7,7 @@ from django.db import models
 
 class Curs(models.Model):
 
-	nom 			= models.PositiveIntegerField()
+	nom = models.CharField(max_length=120)
 
 	def get_absolute_url(self):
 		return reverse("cursos-api:detail", kwargs={"pk": self.id})

@@ -36,6 +36,8 @@ import { AlumnesDetailComponent } from './components/alumnes-detail/alumnes-deta
 
 import { ClassesCreateComponent } from './components/classes-create/classes-create.component';
 
+import { CursosCreateComponent } from './components/cursos-create/cursos-create.component';
+
 import { ProvesCreateComponent } from './components/proves-create/proves-create.component';
 import { ProvesDetailComponent } from './components/proves-detail/proves-detail.component';
 import { ProvesUpdateComponent } from './components/proves-update/proves-update.component';
@@ -60,6 +62,7 @@ import { AuthGuard } from './services/auth.guard';
 import { NotesService } from './services/notes.service';
 import { ProvesService } from './services/proves.service';
 import { ClassesService } from './services/classes.service';
+import { CursosService } from './services/cursos.service';
 import { AssignaturesService } from './services/assignatures.service';
 import { AssignaturesDataService } from './services/assignatures-data.service';
 import { AlumnesService } from './services/alumnes.service';
@@ -87,7 +90,10 @@ import { AlumnesService } from './services/alumnes.service';
 
     AlumnesListComponent,
     AlumnesDetailComponent,
+
     ClassesCreateComponent,
+    
+    CursosCreateComponent,
     
     ProvesCreateComponent,
     ProvesDetailComponent,
@@ -137,6 +143,7 @@ import { AlumnesService } from './services/alumnes.service';
     AssignaturesDataService,
     AlumnesService,
     ClassesService,
+    CursosService,
     // ModalDataService
   ],
   bootstrap: [AppComponent],
