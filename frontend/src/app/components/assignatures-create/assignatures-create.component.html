@@ -46,10 +46,15 @@
 							<dd>
 								<select
 								[(ngModel)]="assignatura.curs"
+								(change)="onChangeCurs($event)"
 								class="form-control" 
 								id="curs-assignatura"
 								name="curs">
-									<option *ngFor="let curs of cursos">{{ curs.nom }}</option>
+									<option 
+									*ngFor="let curs of cursos"
+									[id]="curs.id">
+										{{ curs.nom }}
+									</option>
 								</select>
 							</dd>
 						</div>
