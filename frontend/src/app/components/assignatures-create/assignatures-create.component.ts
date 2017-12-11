@@ -116,6 +116,8 @@ export class AssignaturesCreateComponent implements OnDestroy {
 							Observable.forkJoin(updateAlumnesObservables)
 								.subscribe();
 
+					});
+
 
 					let getClassesObservables: Observable<any>[] = [];
 					for (let classe of this.classes) {

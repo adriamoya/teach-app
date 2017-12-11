@@ -90,7 +90,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'teachappdb',
-        'USER': 'moyandreu',
+        'USER': 'moyandreu', #moyandrey
         'PASSWORD': 'tarra1991',
         'HOST': 'localhost',
         'PORT': '',
@@ -156,8 +156,8 @@ REST_FRAMEWORK = {
     #   'rest_framework.parsers.JSONParser',
     # )
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        # 'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         #'rest_framework.authentication.BasicAuthentication'
 
     ), 

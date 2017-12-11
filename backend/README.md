@@ -89,3 +89,9 @@ Django is handling the Angular app through `ang_home.html`, which is connected t
 ## Frontend
 
 We can now continue designing the Angular app from the `frontend` directory, connect it to the Django API, etc.
+
+
+# Installing PostgreSQL in Linux
+
+Use this [link](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04)
+
