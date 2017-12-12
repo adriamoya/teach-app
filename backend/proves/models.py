@@ -4,6 +4,8 @@ from django.utils.timezone import now
 
 import numpy as np
 
+from assignatures.models import Avaluacio
+from alumnes.models import Alumne
 
 # Create your models here.
 
@@ -22,9 +24,54 @@ class Prova(models.Model):
 	def __unicode__(self):
 		return "%s" % (self.nom)
 
+	@classmethod
+	def create_prova_final_avaluacio(cls, sender, instance, created, **kwargs):
+		'''
+		This method is triggered after post_save of an Avaluacio instance.
+		It creates a Prova instance (Total) that will wrap up all the notes
+		from the various proves linked to that avaluacio.
+		In addition, inizialization of the notes that populate the Total prova
+		is required to reserve some id in the db.
+		'''
+
+		# retrieve Avaluacio instance passed by post_save method (sender)
+		avaluacio_id = instance.id
+		avaluacio_obj = Avaluacio.objects.filter(id = avaluacio_id).first() # retrieve newly created avaluacio instance 
+		
+		# create the Total prova instance
+		prova_avaluacio = Prova.objects.create(
+			nom 		= "Total avaluacio",
+			avaluacio 	= avaluacio_obj,
+			pes_total	= 1,
+			nota_total	= 10,
+			)
+
+		# retrieve id of Total prova
+		prova_avaluacio_obj = Prova.objects.filter(avaluacio = avaluacio_id).first()
+		# print(prova_avaluacio_obj.id)
+
+		# retrieve alumnes from avaluacio (assignatura)
+		qs_alumnes = Avaluacio.get_alumnes(avaluacio_obj)
+		# print(qs_alumnes)
+
+		for alumne_obj in qs_alumnes:
+			Nota.objects.create(
+				nota 	= 0,
+				alumne 	= alumne_obj,
+				prova 	= prova_avaluacio_obj
+			)
+
+
 	# this method is triggered after a nota is assigned to a prova (post_save signal)
 	@classmethod
 	def recalculate_params(cls, sender, instance, created, **kwargs):
+		'''
+		This method is triggered after post_save of a Nota instance.
+		It is meant to do the following:
+			-	Recalculate the mean (nota_mitja) of the prova linked to the nota created/changed.
+			-	Update the prova_avaluacio with the new notes
+		'''
+
 		# grab the current instance of Prova
 		prova_id = instance.prova.id # get the id
 		qs = Prova.objects.filter(id = prova_id) # filter Prova objects by this id
@@ -33,19 +80,27 @@ class Prova(models.Model):
 		if qs.exists():
 			prova_obj = qs.first()
 
-			notes = prova_obj.notes_prova.all() # calculate the mean of all the notes of this prova
-			print(notes)
+			qs_notes = prova_obj.notes_prova.all() # calculate the mean of all the notes of this prova
 
 			# wraps all the notes in an array in order to use numpy
 			notes_array = []
-			for nota in notes:
+			for nota in qs_notes:
 				notes_array.append(nota.nota)
 
 			nota_mitja = np.mean(notes_array) # calculating the mean of all the notes
-			print(nota_mitja)
+			# print(nota_mitja)
 
 			prova_obj.nota_mitja = nota_mitja # assigning this mean to the filtered prova
 			prova_obj.save() #saving the object
+
+			# Recalculate the final notes for the corresponding avaluacio
+			notes_avaluacio, prova_avaluacio_obj, qs_alumnes_avaluacio = Avaluacio.recalculate_notes_avaluacio(prova_obj.avaluacio)
+
+			print notes_avaluacio
+
+			for alumne_obj in qs_alumnes_avaluacio:
+				nota = [nota["nota"] for nota in notes_avaluacio if nota["alumne"] == alumne_obj.id][0]
+				qs_nota = Nota.objects.filter(alumne = alumne_obj).filter(prova = prova_avaluacio_obj).update(nota=nota)
 
 
 class Nota(models.Model):
@@ -58,4 +113,12 @@ class Nota(models.Model):
 		return "%s - %s %s - %s" % (self.prova, self.alumne.nom, self.alumne.primer_cognom, self.nota)
 
 
+	def save(self, *args, **kwargs):
+		super(Nota, self).save(*args, **kwargs)
+
+
 post_save.connect(receiver=Prova.recalculate_params,sender=Nota)
+
+post_save.connect(receiver=Prova.create_prova_final_avaluacio,sender=Avaluacio)
+
+# post_save.connect(receiver=Avaluacio.recalculate_notes_avaluacio,sender=Nota)
