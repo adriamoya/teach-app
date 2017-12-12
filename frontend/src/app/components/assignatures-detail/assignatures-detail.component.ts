@@ -31,6 +31,7 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 	private assignatura: Assignatura;
 	private assignaturaId: string;
 	private curs: Curs;
+	private classes: any[];
 	private proves: any[]=[];
 	private prova_avaluacio: any = {};
 	private alumnes: any[];
@@ -58,7 +59,9 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 						this.subCurs = this._cursos.get(data.curs)
 										.subscribe(
 											curs => {
+												console.log(curs);
 												this.assignatura.curs = curs.nom;
+												this.classes = curs.curs_classes;
 											}
 										)
 
@@ -81,7 +84,7 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 						}
 
 
-						// console.log(this.assignatura);
+						console.log(this.assignatura);
 						// console.log(this.proves);
 						// console.log(this.alumnes);
 					},
@@ -128,6 +131,7 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 
 		let proves = avaluacio[0].proves_avaluacio;
 		console.log(proves);
+		console.log(this.classes);
 
 		let proves_avaluacio: any[] = [];
 
