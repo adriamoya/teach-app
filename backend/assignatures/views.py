@@ -6,6 +6,10 @@ from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.filters import (
+		SearchFilter,
+		OrderingFilter,
+		)
 
 from .models import Assignatura, Avaluacio
 from .serializers import (
@@ -44,6 +48,8 @@ class AvaluacioListView(ListAPIView):
 	queryset = Avaluacio.objects.all()
 	# serializer = AssignaturaListSerializer(queryset, context={'request': request})
 	serializer_class = AvaluacioListSerializer
+	# filter_backends = [OrderingFilter]
+	# ordering_fields = ('-id')
 
 
 class AvaluacioDetailView(RetrieveUpdateDestroyAPIView):
@@ -85,5 +91,3 @@ class AssignaturaDetailView(RetrieveUpdateDestroyAPIView):
 	queryset = Assignatura.objects.all()
 	# serializer = AssignaturaDetailSerializer(queryset, context={'request': request})
 	serializer_class = AssignaturaDetailSerializer
-
-
