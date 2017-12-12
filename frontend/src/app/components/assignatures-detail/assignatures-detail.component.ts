@@ -32,6 +32,7 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 	private assignaturaId: string;
 	private curs: Curs;
 	private proves: any[]=[];
+	private prova_avaluacio: any = {};
 	private alumnes: any[];
 
 	constructor(
@@ -106,8 +107,20 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 		let avaluacioId = event.target.id;
 		let avaluacio = this.assignatura.assignatura_avaluacions
 						.filter((avaluacio) => avaluacio.id == avaluacioId);
-		this.proves = avaluacio[0].proves_avaluacio;
-		console.log(this.proves);
+
+		let proves = avaluacio[0].proves_avaluacio;
+		console.log(proves);
+
+		let proves_avaluacio: any[] = [];
+
+		for (let prova of proves) {
+			if (prova.nom == "Total avaluacio") {
+				this.prova_avaluacio = prova;
+			} else {
+				proves_avaluacio.push(prova);
+			}
+		}
+		this.proves = proves_avaluacio;
 
 	};
 

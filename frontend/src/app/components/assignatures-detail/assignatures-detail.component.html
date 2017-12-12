@@ -131,13 +131,37 @@
 												{{ prova.nom }} <span style="font-weight: 400;">(/{{ prova.nota_total }})</span>
 											</span>
 										</th>
+										<th>
+											<span class="float-right">
+												<span style="font-weight: 400;" class="float-right text-muted">{{ prova_avaluacio.pes_total | percent:'0.0-1' }}</span>
+												<br>
+												{{ prova_avaluacio.nom }} <span style="font-weight: 400;">(/{{ prova_avaluacio.nota_total }})</span>
+											</span>
+										</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr *ngFor="let alumne of alumnes">
-										<td><a routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a></td>
+										<td>
+											<a 
+											routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">
+												{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}
+											</a>
+										</td>
 										<td *ngFor="let prova of proves">
 											<div *ngFor="let puntuacio of prova.notes_prova">
+												<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
+												<ng-template #thenBlock>
+													<div *ngIf="puntuacio.nota">
+														<span class="float-right">
+															{{ puntuacio.nota }}
+														</span>
+													</div>
+												</ng-template>
+											</div>
+										</td>
+										<td>
+											<div *ngFor="let puntuacio of prova_avaluacio?.notes_prova">
 												<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
 												<ng-template #thenBlock>
 													<div *ngIf="puntuacio.nota">
