@@ -9,10 +9,27 @@ class ProvaModelAdmin(admin.ModelAdmin):
 	
 	list_display = [
 		'__str__',
+		'avaluacio',
+		'pes_total',
+		'nota_total'
 	]
 
 	class Meta:
 		model = Prova
 
 admin.site.register(Prova, ProvaModelAdmin)
-admin.site.register(Nota)
+
+
+	
+class NotaModelAdmin(admin.ModelAdmin):
+	
+	list_display = [
+		'__str__',
+		'prova',
+	]
+
+	class Meta:
+		model = Nota
+
+admin.site.register(Nota, NotaModelAdmin)
+
