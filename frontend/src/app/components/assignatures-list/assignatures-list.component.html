@@ -53,6 +53,11 @@
 					<br>
 					<a style="margin-top: -10px;" routerLink="/assignatures/{{ assignatura.id }}" routerLinkActive="active">{{ assignatura.nom }}</a>
 				</div>
+				<div *ngIf="assignatures?.length==0" class="col-12">
+					<div class="alert alert-warning" role="alert">
+						No hi ha cap assignatura. Feu click <a class="alert-link clickable" [routerLink]="['/assignatures','add']">aquí</a> per afegir-ne.
+					</div>
+				</div>
 			</section>
 		</div>
 	</div>

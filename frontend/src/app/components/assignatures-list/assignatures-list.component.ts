@@ -42,6 +42,10 @@ export class AssignaturesListComponent implements OnDestroy {
 				response => {
 					console.log(response);
 					this.assignaturesList = response;
+					this.assignatures = this.assignaturesList
+								.filter(
+									(assignatura) => assignatura.curs == this.cursos[0].id
+								)
 				})
 	}
 

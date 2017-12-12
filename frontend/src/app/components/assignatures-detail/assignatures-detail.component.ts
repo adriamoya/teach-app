@@ -62,7 +62,25 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 											}
 										)
 
-						console.log(data);
+						// initiate proves and alumnes for first avaluacio
+
+						if (this.assignatura.assignatura_avaluacions.length > 0 ) {
+							let avaluacio = this.assignatura.assignatura_avaluacions
+							let proves = avaluacio[0].proves_avaluacio;
+
+							let proves_avaluacio: any[] = [];
+
+							for (let prova of proves) {
+								if (prova.nom == "Total avaluacio") {
+									this.prova_avaluacio = prova;
+								} else {
+									proves_avaluacio.push(prova);
+								}
+							}
+							this.proves = proves_avaluacio;
+						}
+
+
 						// console.log(this.assignatura);
 						// console.log(this.proves);
 						// console.log(this.alumnes);
