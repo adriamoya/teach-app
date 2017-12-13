@@ -66,8 +66,8 @@ export class AssignaturesService {
 
 
 		return this._http.get(ENDPOINT, options)
-						// .map(response => response.json())
-						// .catch(this.handleError);
+						.map(response => response.json())
+						.catch(this.handleError);
 	};
 
 

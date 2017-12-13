@@ -29,12 +29,12 @@ export class AssignaturesListComponent implements OnDestroy {
 		this.subAssignatures = this._assignatures.list()
 			.subscribe(
 				response => {
-					console.log(response.json());
-					this.assignaturesList = response.json();
-					this.assignatures = response.json();
-								// .filter(
-								// 	(assignatura) => assignatura.curs == this.cursos[0].id
-								// )
+					console.log(response);
+					this.assignaturesList = response;
+					this.assignatures = response
+								.filter(
+									(assignatura) => assignatura.curs == this.cursos[0].id
+								)
 				})
 
 		this.subCursos = this._cursos.list()

@@ -1,23 +1,86 @@
 <div 
 class="bg"
 style="height: 1000px">
+	<section 
+	class="jumbotron text-center"
+	style="background-color: rgba(236, 238, 239, 0); border-radius: 0;">
+		<div class="container">
+			<div class="animated fadeIn">
+
+				<div class="row justify-content-center">
+					<div class="col-md-8 col-sm-10 col-xs-12">
+						
+						<h1 
+						class="jumbotron-heading" 
+						style="font-size: 5em; font-weight: 600;">
+							{{ title }}
+						</h1>
+
+
+						<div class="card" style="background-color: rgba(236, 238, 239, 0);">
+							<!-- Title -->
+							<div class="row justify-content-center">
+								<div class="col-12">
+
+									<form role="form" (submit)="login($event, username.value, password.value)">
+										<div class="form-group">
+											<label class="form-label float-left" for="username">Username</label>
+											<input type="text" #username class="form-control" id="username">
+											<div style="margin-top: 10px;" *ngIf="usernameError" class="alert alert-danger" role="alert">	
+												<span *ngFor="let error of usernameError">
+													{{ error }}
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="form-label float-left" for="password">Password</label>
+											<input type="password" #password class="form-control" id="password">
+											<div style="margin-top: 10px;" *ngIf="passwordError" class="alert alert-danger" role="alert">	
+												<span *ngFor="let error of passwordError">
+													{{ error }}
+												</span>
+											</div>
+										</div>
+										<div style="margin-top: 10px;" *ngIf="nonFieldError" class="alert alert-danger" role="alert">	
+											<span *ngFor="let error of nonFieldError">
+												{{ error }}
+											</span>
+										</div>
+										<br>
+										<div class="row">
+											<div class="col">
+												<button type="submit" class="btn btn-primary float-left">Submit</button>
+												<a class="float-right align-middle" [routerLink]="['/signup']">Click here to signup</a>
+											</div>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<p class="lead">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+				<p>
+					<a href="#" class="btn btn-outline-secondary">Main call to action</a>
+				</p>
+
+			</div>
+		</div>
+	</section>
+	<!-- <img src="/assets/img/school.jpg" class="img-fluid" alt="Responsive image"> -->
+</div>
+
+<!-- <div 
+class="bg"
+style="height: 1000px">
 	<div class="container">
-
-<!-- 		<br>
-
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Login</li>
-			</ol>
-		</nav> -->
-
 
 		<div class="row justify-content-center">
 			<div class="col-md-8 col-sm-10 col-xs-12">
 
 				<div class="card">
-					<!-- Title -->
 					<div class="row justify-content-center">
 						<div class="col-12">
 							<h1>{{ title }}</h1>
@@ -63,4 +126,4 @@ style="height: 1000px">
 		</div>
 
 	</div>
-</div>
+</div> -->

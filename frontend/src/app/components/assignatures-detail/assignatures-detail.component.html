@@ -53,6 +53,11 @@
 						Avaluació {{ avaluacio.nom }}						
 					</a>
 				</div>
+				<div *ngIf="assignatura.assignatura_avaluacions.length==0" class="text-center">
+					<div class="alert alert-warning" role="alert" style="padding: 20px 20px;">
+						No hi ha cap avaluació. Feu click <a class="alert-link clickable" [routerLink]="['/proves','add']">aquí</a> per afegir-ne.
+					</div>
+				</div>
 			</div>
 
 			<div class="col-9">
@@ -65,7 +70,7 @@
 						<a class="nav-link active" id="proves-tab" data-toggle="tab" href="#proves" role="tab" aria-controls="proves" aria-selected="true">Proves</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="alumnes-tab" data-toggle="tab" href="#alumnes" role="tab" aria-controls="alumnes" aria-selected="false">Alumnes</a>
+						<a class="nav-link" id="alumnes-tab" data-toggle="tab" href="#alumnes" role="tab" aria-controls="alumnes" aria-selected="false">Resultats</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="professors-tab" data-toggle="tab" href="#professors" role="tab" aria-controls="professors" aria-selected="false">Professors</a>
@@ -78,7 +83,7 @@
 
 					<!-- Proves - list -->
 					<div class="tab-pane fade show active" id="proves" role="tabpanel" aria-labelledby="proves-tab">
-						<div class="table-responsive">
+						<div *ngIf="proves?.length>0" class="table-responsive">
 							<table class="table table-sm table-hover">
 								<thead>
 									<tr>
@@ -109,12 +114,14 @@
 								</tbody>
 							</table>
 						</div>
-						<div *ngIf="proves.length==0">
-							<div class="alert alert-warning" role="alert">
-								No hi ha cap prova ...
+						<!-- <div class="row">
+							<div *ngIf="proves?.length==0" class="col-12 text-center">
+								<div class="alert alert-warning" role="alert">
+									No hi ha cap prova. Feu click <a class="alert-link clickable" [routerLink]="['/proves','add']">aquí</a> per afegir-ne.
+								</div>
 							</div>
-						</div>
-					</div> <!-- Proves - list -->
+						</div>  -->
+					</div><!-- Proves - list -->
 
 					<!-- Alumnes - list -->
 					<div class="tab-pane fade" id="alumnes" role="tabpanel" aria-labelledby="alumnes-tab">
