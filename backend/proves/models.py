@@ -73,7 +73,6 @@ class Prova(models.Model):
 		'''
 
 		if sender == Nota:
-
 			# grab the current instance of Prova
 			prova_id = instance.prova.id # get the id
 			qs = Prova.objects.filter(id = prova_id) # filter Prova objects by this id
@@ -81,9 +80,6 @@ class Prova(models.Model):
 			prova_obj = qs.first()
 
 		elif sender == Prova:
-
-			print 'sender is prova'
-
 			prova_obj = instance
 
 		qs_notes = prova_obj.notes_prova.all() # calculate the mean of all the notes of this prova
@@ -103,9 +99,10 @@ class Prova(models.Model):
 		qs_prova = Prova.objects.filter(id = prova_obj.id).update(nota_mitja=nota_mitja)
 
 		# Recalculate the final notes for the corresponding avaluacio
-		notes_avaluacio, prova_avaluacio_obj, qs_alumnes_avaluacio = Avaluacio.recalculate_notes_avaluacio(prova_obj.avaluacio)
+		pes_total, notes_avaluacio, prova_avaluacio_obj, qs_alumnes_avaluacio = Avaluacio.recalculate_notes_avaluacio(prova_obj.avaluacio)
 
-		print notes_avaluacio
+		# updating the total weight of the prova_avaluacio (based on the weights of individuals proves)
+		qs_prova = Prova.objects.filter(id = prova_avaluacio_obj.id).update(pes_total=pes_total)
 
 		for alumne_obj in qs_alumnes_avaluacio:
 			nota = [nota["nota"] for nota in notes_avaluacio if nota["alumne"] == alumne_obj.id][0]

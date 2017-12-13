@@ -74,21 +74,27 @@ class Avaluacio(models.Model):
 		prova_avaluacio_obj = qs.proves_avaluacio.filter(nom__iexact="Total avaluacio").first()
 		# print(prova_avaluacio_obj)
 				
+		# sum the total weight of all proves in order to update the weight of the prova_avaluacio
+		pes_total = 0
+		for prova in qs_proves:
+			pes_total += prova.pes_total
+
 		# create a list of objects that represents notes_avaluacio
 		notes_avaluacio = []
 		for alumne in qs_alumnes:
 			nota_avaluacio_alumne = []
 			for prova in qs_proves:
-				print(prova.notes_prova.all())
+				# print(prova.notes_prova.all())
 				for nota in prova.notes_prova.all():
 					if nota.alumne.id == alumne.id:
 						nota_avaluacio_alumne.append(nota.nota*prova.pes_total/prova.nota_total)
 			notes_avaluacio.append(
 				{ 
-					"nota": np.sum(nota_avaluacio_alumne)*10,
+					"nota": np.sum(nota_avaluacio_alumne)*10/pes_total,
 					"prova": prova_avaluacio_obj.id,
 					"alumne": alumne.id
 				}
 			)
 
-		return notes_avaluacio, prova_avaluacio_obj, qs_alumnes
+
+		return pes_total, notes_avaluacio, prova_avaluacio_obj, qs_alumnes
