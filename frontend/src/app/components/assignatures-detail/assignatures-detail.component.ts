@@ -28,7 +28,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	private subAssignatura: any;
 	private subCurs: any;
 
-	private assignatura: Assignatura;
+	private assignatura: any;
 	private assignaturaId: string;
 	private curs: Curs;
 	private classes: any[];
@@ -149,9 +149,9 @@ export class AssignaturesDetailComponent implements OnDestroy {
 
 	// important to unsubscribe (destroy) after using subscribe ...
 	ngOnDestroy() {
-		this.subRoute.unsubscribe();
-		this.subCurs.unsubscribe();
-		this.subAssignatura.unsubscribe();
+		// this.subRoute.unsubscribe();
+		// this.subCurs.unsubscribe();
+		// this.subAssignatura.unsubscribe();
 	};
 }
 
