@@ -60,6 +60,7 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 										.subscribe(
 											curs => {
 												console.log(curs);
+												curs.curs_classes.sort(this.compareValues('nom'));
 												this.assignatura.curs = curs.nom;
 												this.classes = curs.curs_classes;
 											}
