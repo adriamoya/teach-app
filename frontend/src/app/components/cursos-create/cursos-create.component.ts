@@ -5,6 +5,9 @@ import { NgForm } from '@angular/forms';
 // Services
 import { CursosService } from '../../services/cursos.service';
 
+// Interfaces
+import { Curs } from '../../interfaces/curs.interface';
+
 @Component({
   selector: 'app-cursos-create',
   templateUrl: './cursos-create.component.html',

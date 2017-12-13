@@ -3,10 +3,11 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { tokenNotExpired} from 'angular2-jwt';
 
+// Interfaces
+import { Curs } from '../interfaces/curs.interface';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-
-import { Curs } from '../interfaces/cursos.interface';
 
 const ENDPOINT = 'http://127.0.0.1:8000/api/cursos/'; // eventually run from '/api/assignatures/'
 
@@ -16,6 +17,7 @@ export class CursosService {
 	private token: string;
 	private alumne: any;
 	private alumnes: any;
+	private curs: Curs;
 
 	constructor(
 		public _http: Http,
@@ -82,7 +84,7 @@ export class CursosService {
 							response => {
 								let data = response.json();
 								this.curs = data;
-								return this.curs;
+								return data;
 							}
 						)
 						.catch(this.handleError);

@@ -39,7 +39,7 @@ class Prova(models.Model):
 		avaluacio_obj = Avaluacio.objects.filter(id = avaluacio_id).first() # retrieve newly created avaluacio instance 
 		
 		# create the Total prova instance
-		prova_avaluacio = Prova.objects.create(
+		prova_avaluacio = Prova.objects.get_or_create(
 			nom 		= "Total avaluacio",
 			avaluacio 	= avaluacio_obj,
 			pes_total	= 1,

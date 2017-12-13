@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SlicePipe } from '@angular/common';
 
@@ -7,9 +7,9 @@ import { CursosService } from '../../services/cursos.service';
 import { AssignaturesService } from '../../services/assignatures.service';
 
 // Interfaces
-import { Curs } from '../../interfaces/curs.interfaces';
-import { Alumne } from '../../interfaces/alumne.interfaces';
-import { Assignatura } from '../../interfaces/assignatura.interfaces';
+import { Curs } from '../../interfaces/curs.interface';
+import { Alumne } from '../../interfaces/alumne.interface';
+import { Assignatura } from '../../interfaces/assignatura.interface';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -20,7 +20,7 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['./assignatures-detail.component.css'],
 })
 
-export class AssignaturesDetailComponent implements OnInit, OnDestroy {
+export class AssignaturesDetailComponent implements OnDestroy {
 
 	// CREATE A NEW COMPONENT FOR THE LINECHART
 
@@ -102,7 +102,7 @@ export class AssignaturesDetailComponent implements OnInit, OnDestroy {
 
 	// function for dynamic sorting
 	compareValues(key, order='asc') {
-		return (a, b) {
+		return (a, b) => {
 			if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
 				// property doesn't exist on either object
 				return 0; 

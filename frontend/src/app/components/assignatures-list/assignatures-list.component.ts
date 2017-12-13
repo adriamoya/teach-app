@@ -11,8 +11,7 @@ import { Assignatura } from '../../interfaces/assignatura.interface';
 @Component({
   selector: 'app-assignatures-list',
   templateUrl: './assignatures-list.component.html',
-  styleUrls: ['./assignatures-list.component.css'],
-  providers: []
+  styleUrls: ['./assignatures-list.component.css']
 })
 export class AssignaturesListComponent implements OnDestroy {
 
@@ -20,32 +19,29 @@ export class AssignaturesListComponent implements OnDestroy {
 	private subAssignatures: any;
 	private title = "Assignatures";
 	private cursos: Curs[];
-	private assignatures: Assignatura[] = [];
+	private assignatures: Assignatura[];
 	private assignaturesList: Assignatura[];
 
 	constructor(
 		private _cursos: CursosService,
 		private _assignatures:AssignaturesService) {
-		this.subCursos = this._cursos.list()
-			.subscribe(
-				cursos => {
-					console.log(cursos);
-					// for the list-group we must set one curs active (last one)
-					for (let curs of cursos) {
-						curs.active = false;
-					};
-					cursos[cursos.length-1].active = true;
-					this.cursos = cursos;
-				})
+		
 		this.subAssignatures = this._assignatures.list()
 			.subscribe(
 				response => {
 					console.log(response);
 					this.assignaturesList = response;
-					this.assignatures = this.assignaturesList
-								.filter(
-									(assignatura) => assignatura.curs == this.cursos[0].id
-								)
+					this.assignatures = response;
+								// .filter(
+								// 	(assignatura) => assignatura.curs == this.cursos[0].id
+								// )
+				})
+
+		this.subCursos = this._cursos.list()
+			.subscribe(
+				cursos => {
+					console.log(cursos);
+					this.cursos = cursos;
 				})
 	}
 

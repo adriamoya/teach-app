@@ -102,18 +102,18 @@ export class ProvesCreateComponent implements OnDestroy {
 		}
 
 		// processing data
-		let data = this.prova.data;
-		let dd = data.getDate();
-		let mm = data.getMonth()+1; //January is 0!
-		let yyyy = data.getFullYear();
-		if(dd<10){
-			dd='0'+dd;
-		} 
-		if(mm<10){
-			mm='0'+mm;
-		} 
-		let data_final = yyyy+'-'+mm+'-'+dd;
-		prova.data = data_final;
+		// let data = this.prova.data;
+		// // let dd = data.getDate();
+		// // let mm = data.getMonth()+1; //January is 0!
+		// // let yyyy = data.getFullYear();
+		// if(dd<10){
+		// 	dd='0'+dd;
+		// } 
+		// if(mm<10){
+		// 	mm='0'+mm;
+		// } 
+		// let data_final = yyyy+'-'+mm+'-'+dd;
+		// prova.data = data_final;
 
 		//console.log(prova);
 

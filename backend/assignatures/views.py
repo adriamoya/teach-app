@@ -80,7 +80,7 @@ class AssignaturaCreateView(CreateAPIView, AssignaturaCreateMixin):
 
 
 class AssignaturaListView(ListAPIView):
-	permission_classes = [IsAuthenticatedOrReadOnly]
+	permission_classes = [IsAuthenticated]
 	queryset = Assignatura.objects.all()
 	# serializer = AssignaturaListSerializer(queryset, context={'request': request})
 	serializer_class = AssignaturaListSerializer
