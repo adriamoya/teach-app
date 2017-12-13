@@ -72,35 +72,44 @@ class Prova(models.Model):
 			-	Update the prova_avaluacio with the new notes
 		'''
 
-		# grab the current instance of Prova
-		prova_id = instance.prova.id # get the id
-		qs = Prova.objects.filter(id = prova_id) # filter Prova objects by this id
-		
-		# we should only get one object (prova)
-		if qs.exists():
+		if sender == Nota:
+
+			# grab the current instance of Prova
+			prova_id = instance.prova.id # get the id
+			qs = Prova.objects.filter(id = prova_id) # filter Prova objects by this id
+
 			prova_obj = qs.first()
 
-			qs_notes = prova_obj.notes_prova.all() # calculate the mean of all the notes of this prova
+		elif sender == Prova:
 
-			# wraps all the notes in an array in order to use numpy
-			notes_array = []
-			for nota in qs_notes:
-				notes_array.append(nota.nota)
+			print 'sender is prova'
 
-			nota_mitja = np.mean(notes_array) # calculating the mean of all the notes
-			# print(nota_mitja)
+			prova_obj = instance
 
-			prova_obj.nota_mitja = nota_mitja # assigning this mean to the filtered prova
-			prova_obj.save() #saving the object
+		qs_notes = prova_obj.notes_prova.all() # calculate the mean of all the notes of this prova
 
-			# Recalculate the final notes for the corresponding avaluacio
-			notes_avaluacio, prova_avaluacio_obj, qs_alumnes_avaluacio = Avaluacio.recalculate_notes_avaluacio(prova_obj.avaluacio)
+		# wraps all the notes in an array in order to use numpy
+		notes_array = []
+		for nota in qs_notes:
+			notes_array.append(nota.nota)
 
-			print notes_avaluacio
+		nota_mitja = np.mean(notes_array) # calculating the mean of all the notes
+		# print(nota_mitja)
 
-			for alumne_obj in qs_alumnes_avaluacio:
-				nota = [nota["nota"] for nota in notes_avaluacio if nota["alumne"] == alumne_obj.id][0]
-				qs_nota = Nota.objects.filter(alumne = alumne_obj).filter(prova = prova_avaluacio_obj).update(nota=nota)
+		# assigning this mean to the filtered prova
+		# It is important to note that we are using update() method instead of .save() to avoid
+		# recursion with post_save method. To use .update() it is necessary to pass in a queryset (qs_prova),
+		# not the object (prova_obj)
+		qs_prova = Prova.objects.filter(id = prova_obj.id).update(nota_mitja=nota_mitja)
+
+		# Recalculate the final notes for the corresponding avaluacio
+		notes_avaluacio, prova_avaluacio_obj, qs_alumnes_avaluacio = Avaluacio.recalculate_notes_avaluacio(prova_obj.avaluacio)
+
+		print notes_avaluacio
+
+		for alumne_obj in qs_alumnes_avaluacio:
+			nota = [nota["nota"] for nota in notes_avaluacio if nota["alumne"] == alumne_obj.id][0]
+			qs_nota = Nota.objects.filter(alumne = alumne_obj).filter(prova = prova_avaluacio_obj).update(nota=nota)
 
 
 class Nota(models.Model):
@@ -118,6 +127,8 @@ class Nota(models.Model):
 
 
 post_save.connect(receiver=Prova.recalculate_params,sender=Nota)
+
+post_save.connect(receiver=Prova.recalculate_params,sender=Prova)
 
 post_save.connect(receiver=Prova.create_prova_final_avaluacio,sender=Avaluacio)
 
