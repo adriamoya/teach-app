@@ -61,6 +61,13 @@ class Prova(models.Model):
 				prova 	= prova_avaluacio_obj
 			)
 
+		# the create method is assigning NaN to all the notes
+		# the api call will return a json with NaN in floatfield and will
+		# produce errors in the frontend.
+		# in order to ammend this, we update all the notes from this newly created prova
+		# with 0.
+		Nota.objects.filter(prova=prova_avaluacio_obj).update(nota=0)
+
 
 	# this method is triggered after a nota is assigned to a prova (post_save signal)
 	@classmethod
@@ -90,6 +97,7 @@ class Prova(models.Model):
 			notes_array.append(nota.nota)
 
 		nota_mitja = np.mean(notes_array) # calculating the mean of all the notes
+		nota_mitja = np.nan_to_num(nota_mitja) # translating nan to 0
 		# print(nota_mitja)
 
 		# assigning this mean to the filtered prova
@@ -111,7 +119,7 @@ class Prova(models.Model):
 
 class Nota(models.Model):
 
-	nota 		= models.FloatField()
+	nota 		= models.FloatField(null=False)
 	prova 		= models.ForeignKey('Prova', related_name='notes_prova', blank=True)
 	alumne 		= models.ForeignKey('alumnes.Alumne', related_name='nota_alumne', blank=True, null=True)
 

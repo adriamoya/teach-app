@@ -83,7 +83,7 @@ class AssignaturaListSerializer(ModelSerializer):
 
 	"""
 	url_detail =  HyperlinkedIdentityField(view_name='assignatures-api:detail', lookup_field='pk')
-	# assignatura_avaluacions = AvaluacioListSerializer(many=True, read_only=True)
+	assignatura_avaluacions = AvaluacioListSerializer(many=True, read_only=True)
 	# proves_assignatura = ProvaListSerializer(many=True)
 
 	class Meta:
@@ -92,7 +92,7 @@ class AssignaturaListSerializer(ModelSerializer):
 			'id',					# id of assignatura
 			'__unicode__',
 			'nom',					# name of assignatura
-			# 'assignatura_avaluacions',
+			'assignatura_avaluacions',
 			'curs',
 			#'proves_assignatura',	# link to proves detail view
 			'url_detail', 			# link to assignatura detail view
