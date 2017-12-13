@@ -59,8 +59,7 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 						}
 					}
 				};
-			};
-		);
+			});
 
 		// Alumnes
 		// --------------------------------------------------------------------

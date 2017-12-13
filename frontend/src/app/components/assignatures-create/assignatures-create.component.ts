@@ -29,7 +29,9 @@ export class AssignaturesCreateComponent implements OnDestroy {
 	};
 	private assignaturaId: string;
 	private subClasses: any;
+	private subCursos: any;
 	private classes: Classe[];
+	private classesList: Classe[];
 	private cursos: Curs[];
 	private alumnes: Alumne[] = [];
 
@@ -58,12 +60,10 @@ export class AssignaturesCreateComponent implements OnDestroy {
 
 	onChangeCurs(event) {
 
-		let cursId = event.target.selectedOptions["0"].id;
+		let cursId: any = event.target.selectedOptions["0"].id;
 		this.assignatura.curs = cursId;
 		this.classes = this.classesList
-							.filter(
-								(classe) => classe.curs == cursId;
-							)
+							.filter((classe) => classe.curs == cursId)
 	}
 
 	onChange(id: string, selectedValue: string) {
@@ -102,11 +102,13 @@ export class AssignaturesCreateComponent implements OnDestroy {
 	};
 
 	newAssignatura(){
+
 		console.log(this.assignatura);
 
 		this._assignatures.add(this.assignatura)
 			.subscribe(
 				response => {
+					
 					this.assignaturaId = response.id;
 					console.log(this.assignaturaId);
 
@@ -177,8 +179,7 @@ export class AssignaturesCreateComponent implements OnDestroy {
 
 					this._router.navigate(['/assignatures']);
 
-				};
-			);
+		});
 	};
 
 	updateAlumne(alumne: Alumne) {
@@ -205,6 +206,7 @@ export class AssignaturesCreateComponent implements OnDestroy {
 
 	ngOnDestroy(){
 		this.subClasses.unsubscribe();
+		this.subCursos.unsubscribe();
 	};
 
 }

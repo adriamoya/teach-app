@@ -2,7 +2,7 @@ export interface Assignatura {
 	id?: string;
 	__unicode__?: string;
 	nom: string;
-	curs: string;
+	curs?: any;
 	alumne_count?: string;
 	professor_assignatures?: any[];
 	bio?: string;
