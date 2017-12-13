@@ -61,6 +61,9 @@ export class AssignaturesDetailComponent implements OnDestroy {
 											curs => {
 												console.log(curs);
 												curs.curs_classes.sort(this.compareValues('nom'));
+												for (let classe of curs.curs_classes) {
+													classe.alumne_classe.sort(this.compareValues('nom'))
+												}
 												this.assignatura.curs = curs.nom;
 												this.classes = curs.curs_classes;
 											}
