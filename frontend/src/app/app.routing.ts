@@ -8,6 +8,8 @@ import { HomeComponent }   from './components/home/home.component';
 import { AlumnesListComponent } from './components/alumnes-list/alumnes-list.component';
 import { AlumnesDetailComponent } from './components/alumnes-detail/alumnes-detail.component';
 
+import { AvaluacionsCreateComponent } from './components/avaluacions-create/avaluacions-create.component';
+
 import { AssignaturesCreateComponent } from './components/assignatures-create/assignatures-create.component';
 import { AssignaturesListComponent } from './components/assignatures-list/assignatures-list.component';
 import { AssignaturesDetailComponent } from './components/assignatures-detail/assignatures-detail.component';
@@ -74,6 +76,11 @@ const APP_ROUTES: Routes = [
   {
     path: 'cursos/add',
     component: CursosCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'avaluacions/add',
+    component: AvaluacionsCreateComponent,
     canActivate: [AuthGuard]
   },
   {

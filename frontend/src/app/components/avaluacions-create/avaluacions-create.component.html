@@ -1,0 +1,90 @@
+<div class="container">
+	<br>
+
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
+		</ol>
+	</nav>
+
+	<div class="row">
+		<div class="col-12">
+			<div class="mt-3">
+					
+				<!-- Nova assignatura -->
+				<div class="mt-3">
+					<h1>Nova avaluació</h1>
+				</div>
+
+				<!-- <div class="mt-3">
+					<h4>Informació prova</h4>
+				</div> -->
+
+				<form
+				class="animated fadeIn"
+				(ngSubmit)="newAvaluacio()"
+				#newAvaluacioForm="ngForm">
+
+					<dl class="form-group row">
+						<div class="col">
+							<dt>
+								<label class="form-label" for="nom-avaluacio">Avaluació</label>
+							</dt>
+							<dd>
+								<input
+								[(ngModel)]="avaluacio.nom"
+								name="nom"
+								type="text" 
+								class="form-control" 
+								id="nom-avaluacio"
+								required>
+							</dd>
+						</div>
+						<div class="col">
+							<dt>
+								<label class="form-label" for="assignatura-avaluacio">Assignatura</label>
+							</dt>
+							<dd>
+								<select 
+								class="form-control" 
+								id="assignatura-avaluacio"
+								name="avaluacio.assignatura"
+								[(ngModel)]="assignaturaId" 
+								(ngModelChange)="toAssignatura()"
+								required>
+									<option 
+									*ngFor="let assignatura of assignatures" 
+									[ngValue]="assignatura.id">
+										{{ assignatura.nom }}
+									</option>
+								</select>
+							</dd>
+						</div>
+					</dl>
+
+				</form>
+
+				<hr>
+				<!-- <br> -->
+
+				<!-- Add button -->
+				<button 
+				type="submit" 
+				class="btn btn-success float-right"
+				[disabled]="!newAvaluacioForm.valid"
+				(click)="newAvaluacio()">
+				Guardar
+				</button>
+				
+				<!-- Cancelar -->
+				<button 
+				type="button" 
+				class="btn btn-secondary float-left"
+				[routerLink]="['/home']">
+				Cancel·lar
+				</button>
+
+			</div>
+		</div>
+	</div>
+</div>

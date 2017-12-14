@@ -64,9 +64,11 @@ import { NotesService } from './services/notes.service';
 import { ProvesService } from './services/proves.service';
 import { ClassesService } from './services/classes.service';
 import { CursosService } from './services/cursos.service';
+import { AvaluacionsService } from './services/avaluacions.service';
 import { AssignaturesService } from './services/assignatures.service';
 import { AssignaturesDataService } from './services/assignatures-data.service';
 import { AlumnesService } from './services/alumnes.service';
+import { AvaluacionsCreateComponent } from './components/avaluacions-create/avaluacions-create.component';
 
 
 // import { ModalDataService } from './components/assignatures-update/assignatures-update-proves.component';
@@ -111,6 +113,7 @@ import { AlumnesService } from './services/alumnes.service';
     ModalSavedChangesComponent,
     ModalAssignaturesUpdateComponent,
     ModalClassesCreateComponent,
+    AvaluacionsCreateComponent,
   ],
   imports: [
     // AppRoutingModule,
@@ -141,6 +144,7 @@ import { AlumnesService } from './services/alumnes.service';
     AuthenticationService,
     NotesService,
     ProvesService,
+    AvaluacionsService,
     AssignaturesService,
     AssignaturesDataService,
     AlumnesService,
