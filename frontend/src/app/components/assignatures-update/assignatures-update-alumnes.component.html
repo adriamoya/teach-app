@@ -5,7 +5,7 @@
 
 <div *ngFor="let classe of classes">
 	<div *ngIf="classe?.alumnes?.length>0">
-		<h5 style="margin: 20px 0px;">{{ classe.__unicode__ }}</h5>
+		<h4 style="margin: 20px 0px;">{{ classe.__unicode__ }}</h4>
 		<div class="list-group">
 			<div *ngFor="let alumne of classe.alumnes" 
 			class="list-group-item list-group-item-action clearfix">
@@ -37,11 +37,24 @@
 	</div>
 </div>
 
-<div *ngIf="alumnes.length==0">
-	<div class="alert alert-warning" role="alert">
-		No hi ha cap alumne ...
+<div *ngIf="!alumnes.length>0">
+	<div class="alert alert-warning" role="alert" style="padding: 20px 20px;">
+		<span class="text-center">
+			No hi ha cap alumne. 
+		</span>
+		<br>
+		<br>
+		<ul>
+			<li>
+				Feu click <a class="alert-link clickable" [routerLink]="['/alumnes','add']">aquí</a> per crear nous alumnes.
+			</li>
+			<li>
+				Seleccioneu <span class="alert-link">"Afegir més alumnes a {{ assignatura.nom }}"</span> per afegir alumnes ja registrats.
+			</li>
+		</ul>
 	</div>
 </div>
+
 <!-- <div class="list-group">
 	<div *ngFor="let alumne of alumnes" 
 	class="list-group-item list-group-item-action clearfix">
@@ -159,7 +172,7 @@
 
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Eliminar {{ alumne.nom }} {{alumne.primer_cognom}} {{alumne.segon_cognom}}</h4>
+    <h4 class="modal-title pull-left">Eliminar {{ alumne.nom }} {{alumne.primer_cognom}} de {{ assignatura.nom }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -167,8 +180,25 @@
   <div class="modal-body">
   	<div class="row">
   		<div class="col-12">
-		    Segur que voleu eliminar aquest alumne?
-			<button type="button" class="btn btn-danger float-right" (click)="deleteAlumneFromAssignatura()">Eliminar</button>
+			<div class="row">
+				<div class="col-12">
+				    <span style="margin-bottom:20px; line-height: 1.5;">
+						Segur que voleu eliminar aquest alumne d'aquest assignatura?
+						<br>
+						Tingueu en compte:
+						<ul>
+							<li>No es poden desfer els canvis</li>
+							<li>Totes les seves notes d'aquesta assignatura seran eliminades</li>
+							<li>L'alumne no serà borrat d'altres assignatures</li>
+						</ul>
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<button type="button" class="btn btn-danger float-right" (click)="deleteAlumneFromAssignatura()">Eliminar</button>
+				</div>
+			</div>
   		</div>
   	</div>
   </div>

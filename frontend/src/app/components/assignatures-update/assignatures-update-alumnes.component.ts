@@ -14,6 +14,9 @@ import { ClassesService } from '../../services/classes.service';
 // Interfaces
 import { Classe } from '../../interfaces/classe.interface';
 
+// Shared
+import compareValues from '../../shared/compare-values';
+
 
 @Component({
 	selector: 'app-assignatures-update-alumnes',
@@ -49,16 +52,17 @@ export class AssignaturesUpdateAlumnesComponent implements OnDestroy {
 		this.subClasses = this._classes.list()
 		.subscribe(
 			response => {
-				// console.log(response);
-				this.classes = response;
-				for (let classe of this.classes) {
-					classe.included = false;
-					for (let assignaturaId of classe.assignatures) {
-						if (assignaturaId == this.assignatura.id) {
-							classe.included = false;
-						}
-					}
-				};
+				console.log(response);
+				let classes = response.sort(compareValues('nom'))
+				this.classes = classes;
+				// for (let classe of this.classes) {
+				// 	classe.included = false;
+				// 	for (let assignaturaId of classe.assignatures) {
+				// 		if (assignaturaId == this.assignatura.id) {
+				// 			classe.included = false;
+				// 		}
+				// 	}
+				// };
 			});
 
 		// Alumnes

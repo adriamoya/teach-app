@@ -6,7 +6,7 @@
 
 <div *ngFor="let avaluacio of copiedAssignatura.assignatura_avaluacions">
 
-	<h3 style="margin-bottom: 20px;">Avaluació {{ avaluacio.nom }}</h3>
+	<h4 style="margin-bottom: 20px;">Avaluació {{ avaluacio.nom }}</h4>
 
 	<div class="list-group" *ngIf="avaluacio.proves_avaluacio?.length>0">
 
@@ -41,13 +41,14 @@
 				</span>
 
 		</div>
-	</div>
-	<div *ngIf="avaluacio.proves_avaluacio?.length==0">
-		<div class="alert alert-warning" role="alert">
-			No hi ha cap prova ...
-		</div>
+
 	</div>
 
+	<div class="text-center" *ngIf="!avaluacio.proves_avaluacio?.length>0">
+		<div class="alert alert-warning" role="alert" style="padding: 20px 20px;">
+			No hi ha cap prova. Feu click <a class="alert-link clickable" [routerLink]="['/proves','add']">aquí</a> per afegir-ne.
+		</div>
+	</div>
 
 	<ng-template #template>
 		<div class="modal-header">
@@ -82,6 +83,12 @@
 	</ng-template> 
 
 
+</div>
+
+<div *ngIf="!copiedAssignatura.assignatura_avaluacions?.length>0" class="text-center">
+	<div class="alert alert-warning" role="alert" style="padding: 20px 20px;">
+		No hi ha cap avaluació. Feu click <a class="alert-link clickable" [routerLink]="['/proves','add']">aquí</a> per afegir-ne.
+	</div>
 </div>
 
 <!-- [routerLink]="['assignatures','assignatura.id', 'edit', 'proves']"
