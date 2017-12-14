@@ -62,17 +62,29 @@ export class AssignaturesDetailComponent implements OnDestroy {
 						this.assignatura = data;
 						this.alumnes = data.alumne_assignatures;
 						this.subCurs = this._cursos.get(data.curs)
-										.subscribe(
-											curs => {
-												console.log(curs);
-												curs.curs_classes.sort(compareValues('nom'));
-												for (let classe of curs.curs_classes) {
-													classe.alumne_classe.sort(compareValues('nom'))
-												}
-												this.assignatura.curs = curs.nom;
-												this.classes = curs.curs_classes;
+							.subscribe(
+								curs => {
+									curs.curs_classes.sort(compareValues('nom'));
+									for (let classe of curs.curs_classes) {
+										classe.alumne_classe.sort(compareValues('nom'))
+									}
+									this.assignatura.curs = curs.nom;
+									
+									// discard alumnes not included in assignatura
+									let classes = curs.curs_classes;
+									for (let classe of classes) {
+										for (let alumne of classe.alumne_classe) {
+											let filteredAlumne = this.assignatura.alumne_assignatures.filter((alumne_assignatura) => alumne_assignatura.id == alumne.id)
+											if (filteredAlumne.length==0) {
+												// Exclude alumne
+												let index = classe.alumne_classe.indexOf(alumne);
+												classe.alumne_classe.splice(index, 1);
 											}
-										)
+										}
+									}
+									this.classes = classes;
+								}
+							)
 
 						// initiate proves and alumnes for first avaluacio
 
@@ -114,7 +126,6 @@ export class AssignaturesDetailComponent implements OnDestroy {
 
 		let proves = avaluacio[0].proves_avaluacio;
 		console.log(proves);
-		console.log(this.classes);
 
 		let proves_avaluacio: any[] = [];
 
