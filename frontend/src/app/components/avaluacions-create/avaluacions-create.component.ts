@@ -79,21 +79,31 @@ export class AvaluacionsCreateComponent implements OnDestroy {
 		// use AssignaturesServer to retrieve the alumnes list corresponding to the assignatura
 		// we need to use the get method since points to /assignatures-detail (where the alumnes list is located)
 		this.subAvaluacions = this._assignatures.get(this.assignaturaId).subscribe(data => {
-			// console.log(data);
-			this.avaluacionsSelected = data.assignatura_avaluacions;
+			let avaluacions = data.assignatura_avaluacions.sort(compareValues('nom'))
+			// get rid of prova_avaluacio
+			for (let avaluacio of avaluacions) {
+				for (let prova of avaluacio.proves_avaluacio) {
+					if (prova.nom == "Total avaluacio") {
+						let index = avaluacio.proves_avaluacio.indexOf(prova);
+						avaluacio.proves_avaluacio.splice(index, 1);
+					}
+				}
+			}
+			this.avaluacionsSelected = avaluacions;
 			console.log(this.avaluacionsSelected);
 		});
 	};
 
 	newAvaluacio() {
 		let avaluacio: Avaluacio = this.avaluacio;
+		avaluacio.assignatura = this.assignaturaId;
 		console.log(this.avaluacio);
-		// this._avaluacions.add(avaluacio)
-		// 	.subscribe(
-		// 		response => {
-		// 			console.log(response);
-		// 			this._router.navigate(['/home']);
-		// 		});
+		this._avaluacions.add(avaluacio)
+			.subscribe(
+				response => {
+					console.log(response);
+					this._router.navigate(['/assignatures', this.assignaturaId]);
+				});
 	}
 
 	ngOnDestroy() {

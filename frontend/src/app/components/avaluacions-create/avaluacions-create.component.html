@@ -84,13 +84,53 @@
 								</dt>
 								<accordion>
 									<accordion-group *ngFor="let avaluacio of avaluacionsSelected">
+										
 										<div accordion-heading>
-											<span>{{ avaluacio?.nom }}</span>
+											<span>Avaluació {{ avaluacio?.nom }}</span>
 											<span class="badge badge-secondary float-right pull-right" style="padding: 5px; height: 22px; font-size: 14px; width: 20px;">{{ avaluacio?.proves_avaluacio.length }}</span>
 										</div>
-										<ul>
-											<li *ngFor="let prova of avaluacio.proves_avaluacio">{{ prova.nom }}</li>
-										</ul>
+
+										<div *ngIf="avaluacio.proves_avaluacio?.length>0" class="table-responsive">
+											<table class="table table-sm table-hover">
+												<thead>
+													<tr>
+														<th>Prova</th>
+														<th>Data</th>
+														<th>
+															<span class="float-right">
+																Pes
+															</span>
+														</th>
+														<th>
+															<span class="float-right">
+																Nota mitja
+															</span>
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<!-- Proves rows -->
+													<tr *ngFor="let prova of avaluacio?.proves_avaluacio">
+														<td><a routerLink="/assignatures/{{ assignatura?.id }}/{{ prova?.id }}" routerLinkActive="active">{{ prova?.nom }}</a></td>
+														<td>{{ prova?.data | date }}</td>
+														<td>
+															<span class="float-right">
+																{{ prova?.pes_total | percent: '1.0-0' }}
+															</span>
+														</td>
+														<td *ngIf="prova?.nota_mitja">
+															<span class="float-right">
+																{{ prova?.nota_mitja | number: '1.2-2' }} / {{ prova?.nota_total }}
+															</span>
+														</td>
+														<td *ngIf="!prova?.nota_mitja">
+															<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+
 									</accordion-group>
 								</accordion>
 							</div>
