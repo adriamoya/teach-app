@@ -165,6 +165,7 @@
 														Total <span class="text-muted" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
 													</div>
 													<div *ngIf="prova_avaluacio.pes_total != 1">
+														<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
 														<span [tooltip]="popTemplate">
 															Total <span class="text-danger" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
 														</span>
