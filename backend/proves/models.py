@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.utils.timezone import now
 
 import numpy as np
@@ -71,7 +71,7 @@ class Prova(models.Model):
 
 	# this method is triggered after a nota is assigned to a prova (post_save signal)
 	@classmethod
-	def recalculate_params(cls, sender, instance, created, **kwargs):
+	def recalculate_params(cls, sender, instance, **kwargs):
 		'''
 		This method is triggered after post_save of a Nota instance.
 		It is meant to do the following:
@@ -131,9 +131,15 @@ class Nota(models.Model):
 		super(Nota, self).save(*args, **kwargs)
 
 
-post_save.connect(receiver=Prova.recalculate_params,sender=Nota)
+post_save.connect(receiver=Prova.recalculate_params, sender=Nota)
 
-post_save.connect(receiver=Prova.recalculate_params,sender=Prova)
+post_save.connect(receiver=Prova.recalculate_params, sender=Prova)
+
+post_delete.connect(receiver=Prova.recalculate_params, sender=Nota)
+
+post_delete.connect(receiver=Prova.recalculate_params, sender=Prova)
+
+
 
 post_save.connect(receiver=Prova.create_prova_final_avaluacio,sender=Avaluacio)
 

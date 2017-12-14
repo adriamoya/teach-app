@@ -51,7 +51,6 @@ export class AssignaturesUpdateProvesComponent implements OnDestroy {
 
 	openModal(event, template: TemplateRef<any>) {
 		let id = event.target.parentElement.attributes.id.nodeValue;
-		console.log(id)
 		for (let avaluacio of this.assignatura.assignatura_avaluacions) {
 			for (let prova of avaluacio.proves_avaluacio) {
 				if (prova.id == id) {
@@ -59,7 +58,6 @@ export class AssignaturesUpdateProvesComponent implements OnDestroy {
 				}
 			} 
 		}
-		console.log(this.prova)
 		this.bsModalRef = this._modalService.show(template);
 	};
 
