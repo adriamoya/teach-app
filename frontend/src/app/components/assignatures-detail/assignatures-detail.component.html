@@ -89,7 +89,17 @@
 									<tr>
 										<th>Prova</th>
 										<th>Data</th>
-										<th>Pes prova</th>
+										<th>
+											<div *ngIf="prova_avaluacio.pes_total == 1">
+												Pes prova
+											</div>
+											<div *ngIf="prova_avaluacio.pes_total != 1">
+												<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
+												<span [tooltip]="popTemplate">
+													Pes prova
+												</span>
+											</div>
+										</th>
 										<th>
 											<span class="float-right">
 												Puntació mitja
@@ -101,10 +111,17 @@
 									<tr *ngFor="let prova of proves">
 										<td><a routerLink="/assignatures/{{ assignaturaId }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
 										<td>{{ prova.data | date }}</td>
-										<td>{{ prova.pes_total | percent:'0.0-1' }}</td>
+										<td>
+											<div *ngIf="prova_avaluacio.pes_total == 1">
+												{{ prova.pes_total | percent:'0.0-1' }}
+											</div>
+											<div *ngIf="prova_avaluacio.pes_total != 1">
+												<span class="text-danger">{{ prova.pes_total | percent:'0.0-1' }}</span>
+											</div>
+										</td>
 										<td *ngIf="prova.nota_mitja">
-											<span class="float-right">
-												{{ prova.nota_mitja | number:'1.0-2'}} / {{ prova.nota_total }}
+											<span class="float-right bold">
+												{{ prova.nota_mitja | number:'1.2-2'}}<span class="text-muted"><small> /{{ prova.nota_total}}</small></span>
 											</span>
 										</td>
 										<td *ngIf="!prova.nota_mitja">
@@ -144,9 +161,14 @@
 											</th>
 											<th>
 												<span class="float-right">
-													<!-- <span style="font-weight: 400;" class="float-right text-muted">{{ prova_avaluacio.pes_total | percent:'0.0-1' }}</span>
-													<br> -->
-													Total <span class="text-muted" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
+													<div *ngIf="prova_avaluacio.pes_total == 1">
+														Total <span class="text-muted" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
+													</div>
+													<div *ngIf="prova_avaluacio.pes_total != 1">
+														<span [tooltip]="popTemplate">
+															Total <span class="text-danger" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
+														</span>
+													</div>
 												</span>
 											</th>
 										</tr>
@@ -165,7 +187,7 @@
 													<ng-template #thenBlock>
 														<div *ngIf="puntuacio.nota">
 															<span class="float-right">
-																{{ puntuacio.nota | number:'0.0-2' }}<span class="text-muted"><small> /{{ prova.nota_total}}</small></span>
+																{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ prova.nota_total}}</small></span>
 															</span>
 														</div>
 													</ng-template>
@@ -177,7 +199,7 @@
 													<ng-template #thenBlock>
 														<div *ngIf="puntuacio.nota">
 															<span class="float-right bold">
-																{{ puntuacio.nota | number:'0.0-2' }}<span class="text-muted"><small> /{{ prova_avaluacio.nota_total}}</small></span>
+																{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ prova_avaluacio.nota_total}}</small></span>
 															</span>
 														</div>
 													</ng-template>

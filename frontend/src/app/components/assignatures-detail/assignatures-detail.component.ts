@@ -36,6 +36,8 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	private prova_avaluacio: any = {};
 	private alumnes: any[];
 
+	private html: string = `<span>El conjunt de les proves d'aquesta avaluació <strong>no</strong> suma 100%</span>`;
+
 	constructor(
 		public _route: ActivatedRoute,
 		public _router: Router,

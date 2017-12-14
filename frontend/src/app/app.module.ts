@@ -7,7 +7,8 @@ import { NgModule } from '@angular/core';
 import { AccordionModule,
          BsDatepickerModule,
          CollapseModule,
-         ModalModule } from 'ngx-bootstrap';
+         ModalModule,
+         TooltipModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { LoadingModule } from 'ngx-loading';
 import { ChartsModule } from 'ng2-charts';
@@ -128,6 +129,7 @@ import { AlumnesService } from './services/alumnes.service';
     CollapseModule,
     LoadingModule,
     ModalModule.forRoot(),
+    TooltipModule .forRoot(),
     ],
   exports: [
     Ng2TagsInputItem,
