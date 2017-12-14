@@ -19,6 +19,7 @@ export class AssignaturesUpdateProvesComponent implements OnDestroy {
 
 	private reqDelete: any;
 	private assignatura: any;
+	private copiedAssignatura: any;
 	private prova: any;
 	private title: string = "Proves";
 	private bsModalRef: BsModalRef;
@@ -29,23 +30,42 @@ export class AssignaturesUpdateProvesComponent implements OnDestroy {
 		private _assignatures: AssignaturesService,
 		private _assignaturesData: AssignaturesDataService) {
 		this.assignatura = this._assignaturesData.getAssignatura();
+
+		// We want to filter out the prova_avalucio to prevent deleting
+		this.copiedAssignatura = Object.assign({}, this.copiedAssignatura , this.assignatura );
+
+		for (let avaluacio of this.copiedAssignatura.assignatura_avaluacions) {
+			for (let prova of avaluacio.proves_avaluacio) {
+				if (prova.nom == "Total avaluacio") {
+					let index = avaluacio.proves_avaluacio.indexOf(prova);
+					avaluacio.proves_avaluacio.splice(index, 1);
+				}
+			}
+			// avaluacio = avaluacio.proves_avaluacio.filter((prova)=>prova.nom!="Total avaluacio")
+		}
+
+		console.log(this.copiedAssignatura);
+
 	};
 
 
 	openModal(event, template: TemplateRef<any>) {
 		let id = event.target.parentElement.attributes.id.nodeValue;
-		let proves = this.assignatura.proves_assignatura
-		for (var i in this.assignatura.proves_assignatura) {
-			let prova = this.assignatura.proves_assignatura[i];
-			if (prova.id == id) {
-				this.prova = prova;
-			}
+		console.log(id)
+		for (let avaluacio of this.assignatura.assignatura_avaluacions) {
+			for (let prova of avaluacio.proves_avaluacio) {
+				if (prova.id == id) {
+					this.prova = prova;
+				}
+			} 
 		}
+		console.log(this.prova)
 		this.bsModalRef = this._modalService.show(template);
 	};
 
 
 	deleteProva(provaId) {
+		console.log(provaId)
 		this._proves.delete(provaId)
 			.subscribe(
 				response => {
@@ -66,8 +86,12 @@ export class AssignaturesUpdateProvesComponent implements OnDestroy {
 					*/
 
 					// filter the prova and splice from assignatura image
-					let index = this.assignatura.proves_assignatura.indexOf(this.prova);
-					this.assignatura.proves_assignatura.splice(index, 1);
+					for (let avaluacio of this.assignatura.assignatura_avaluacions) {
+						let index = avaluacio.proves_avaluacio.indexOf(this.prova);
+						if (index) {
+							avaluacio.proves_avaluacio.splice(index, 1);
+						}
+					}
 
 					// pass assignatura image to data service
 					this._assignaturesData.passAssignatura(this.assignatura);

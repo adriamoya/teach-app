@@ -4,62 +4,85 @@
 	<hr>
 </div>
 
-<div class="list-group" *ngIf="assignatura.proves_assignatura">
-	<div *ngFor="let prova of assignatura.proves_assignatura" 
-	class="list-group-item list-group-item-action clearfix">
-		<a routerLink="/assignatures/{{ assignatura.id }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a>
-		<span class="icon-right">
-			<a 
-			routerLink="/assignatures/{{ assignatura.id }}/{{ prova.id }}/edit" 
-			routerLinkActive>
-				<i class="material-icons" style="cursor: pointer;">mode_edit</i>
-			</a>
-			<!-- <a 
-			class="btn btn-sm" 
-			style="height: 0px; padding: 0px;"
-			routerLinkActive
-			(click)="deleteProva(prova.id)">
-				<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
-			</a> -->
-			<a 
-			routerLink="/assignatures/{{ assignatura.id }}/edit/proves"
-			routerLinkActive
-			[id]="prova.id"
-			(click)="openModal($event, template)">
-				<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
-			</a>
-		</span>
+<div *ngFor="let avaluacio of copiedAssignatura.assignatura_avaluacions">
+
+	<h3 style="margin-bottom: 20px;">Avaluació {{ avaluacio.nom }}</h3>
+
+	<div class="list-group" *ngIf="avaluacio.proves_avaluacio?.length>0">
+
+		<div *ngFor="let prova of avaluacio.proves_avaluacio" 
+		class="list-group-item list-group-item-action clearfix">
+
+				<a 
+				routerLink="/assignatures/{{ assignatura.id }}/{{ prova.id }}" 
+				routerLinkActive="active">
+					{{ prova.nom }}
+				</a>
+				<span class="icon-right">
+					<a 
+					routerLink="/assignatures/{{ assignatura.id }}/{{ prova.id }}/edit" 
+					routerLinkActive>
+						<i class="material-icons" style="cursor: pointer;">mode_edit</i>
+					</a>
+					<!-- <a 
+					class="btn btn-sm" 
+					style="height: 0px; padding: 0px;"
+					routerLinkActive
+					(click)="deleteProva(prova.id)">
+						<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
+					</a> -->
+					<a 
+					routerLink="/assignatures/{{ assignatura.id }}/edit/proves"
+					routerLinkActive
+					[id]="prova.id"
+					(click)="openModal($event, template)">
+						<i class="material-icons" style="cursor: pointer; margin-left: 15px;">delete</i>
+					</a>
+				</span>
+
+		</div>
 	</div>
-</div>
-<div *ngIf="assignatura.proves_assignatura.length==0">
-	<div class="alert alert-warning" role="alert">
-		No hi ha cap prova ...
+	<div *ngIf="avaluacio.proves_avaluacio?.length==0">
+		<div class="alert alert-warning" role="alert">
+			No hi ha cap prova ...
+		</div>
 	</div>
-</div>
 
 
- <ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Eliminar {{prova.nom}}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-  	<div class="row">
-  		<div class="col-12">
-  			<span>
-  				<strong>
-				    Aquests canvis no es poden desfer.
-	  			</strong>
-			</span>
-		    <br>
-		    Segur que voleu eliminar aquesta prova?
-			<button type="button" class="btn btn-danger float-right" (click)="deleteProva(prova.id)">Eliminar</button>
-  		</div>
-  	</div>
-  </div>
-</ng-template> 
+	<ng-template #template>
+		<div class="modal-header">
+			<h4 class="modal-title pull-left">Eliminar {{prova.nom}}</h4>
+			<button 
+			type="button" 
+			class="close pull-right" 
+			aria-label="Close" 
+			(click)="bsModalRef.hide()">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-12">
+					<span>
+						<strong>
+							Aquests canvis no es poden desfer.
+						</strong>
+					</span>
+					<br>
+					Segur que voleu eliminar aquesta prova?
+					<button 
+					type="button" 
+					class="btn btn-danger float-right" 
+					(click)="deleteProva(prova.id)">
+						Eliminar
+					</button>
+				</div>
+			</div>
+		</div>
+	</ng-template> 
+
+
+</div>
 
 <!-- [routerLink]="['assignatures','assignatura.id', 'edit', 'proves']"
  -->

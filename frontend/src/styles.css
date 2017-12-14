@@ -43,6 +43,10 @@ h1, h2 {
   font-weight: 600;
 }
 
+h3 {
+  margin-top: 20px;
+}
+
 h4 {
 	margin-bottom:15px;
 }
