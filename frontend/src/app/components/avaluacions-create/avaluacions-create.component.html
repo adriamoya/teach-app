@@ -26,9 +26,9 @@
 				#newAvaluacioForm="ngForm">
 
 					<dl class="form-group row">
-						<div class="col">
+						<div class="col-xs-12 col-sm-6">
 							<dt>
-								<label class="form-label" for="nom-avaluacio">Avaluació</label>
+								<label class="form-label" for="nom-avaluacio">Nom nova avaluació</label>
 							</dt>
 							<dd>
 								<input
@@ -39,8 +39,25 @@
 								id="nom-avaluacio"
 								required>
 							</dd>
-						</div>
-						<div class="col">
+							<br><br>
+							<dt>
+								<label class="form-label" for="curs-avaluacio">Curs</label>
+							</dt>
+							<dd>
+								<select 
+								class="form-control" 
+								id="curs-avaluacio"
+								name="avaluacio.curs"
+								[(ngModel)]="cursId" 
+								(ngModelChange)="toCurs()"
+								required>
+									<option 
+									*ngFor="let curs of cursos" 
+									[ngValue]="curs.id">
+										{{ curs.nom }}
+									</option>
+								</select>
+							</dd>
 							<dt>
 								<label class="form-label" for="assignatura-avaluacio">Assignatura</label>
 							</dt>
@@ -59,6 +76,24 @@
 									</option>
 								</select>
 							</dd>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div *ngIf="avaluacionsSelected?.length>0">
+								<dt>
+									<label class="form-label">Avaluacions existents</label>
+								</dt>
+								<accordion>
+									<accordion-group *ngFor="let avaluacio of avaluacionsSelected">
+										<div accordion-heading>
+											<span>{{ avaluacio?.nom }}</span>
+											<span class="badge badge-secondary float-right pull-right" style="padding: 5px; height: 22px; font-size: 14px; width: 20px;">{{ avaluacio?.proves_avaluacio.length }}</span>
+										</div>
+										<ul>
+											<li *ngFor="let prova of avaluacio.proves_avaluacio">{{ prova.nom }}</li>
+										</ul>
+									</accordion-group>
+								</accordion>
+							</div>
 						</div>
 					</dl>
 

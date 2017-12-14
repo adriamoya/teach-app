@@ -1,5 +1,5 @@
 export interface Assignatura {
-	id?: string;
+	id?: number;
 	__unicode__?: string;
 	nom: string;
 	curs?: any;
