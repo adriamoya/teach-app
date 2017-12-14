@@ -11,6 +11,9 @@ import { Curs } from '../../interfaces/curs.interface';
 import { Alumne } from '../../interfaces/alumne.interface';
 import { Assignatura } from '../../interfaces/assignatura.interface';
 
+// Shared
+import compareValues from '../../shared/compare-values';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -48,23 +51,23 @@ export class AssignaturesDetailComponent implements OnDestroy {
 			this.subAssignatura = this._assignatures.get(this.assignaturaId)
 				.subscribe(
 					data => {
-						// sorting avaluacions
-						data.assignatura_avaluacions.sort(this.compareValues('id'));
+						// sorting avaluacions						
+						data.assignatura_avaluacions.sort(compareValues('id'));
 						// sorting proves
 						for (let avaluacio of data.assignatura_avaluacions) {
-							avaluacio.proves_avaluacio.sort(this.compareValues('id'));
+							avaluacio.proves_avaluacio.sort(compareValues('id'));
 						}
 						// sorting alumnes
-						data.alumne_assignatures.sort(this.compareValues('nom'));
+						data.alumne_assignatures.sort(compareValues('nom'));
 						this.assignatura = data;
 						this.alumnes = data.alumne_assignatures;
 						this.subCurs = this._cursos.get(data.curs)
 										.subscribe(
 											curs => {
 												console.log(curs);
-												curs.curs_classes.sort(this.compareValues('nom'));
+												curs.curs_classes.sort(compareValues('nom'));
 												for (let classe of curs.curs_classes) {
-													classe.alumne_classe.sort(this.compareValues('nom'))
+													classe.alumne_classe.sort(compareValues('nom'))
 												}
 												this.assignatura.curs = curs.nom;
 												this.classes = curs.curs_classes;
@@ -104,32 +107,6 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	
 	};
 
-
-	// function for dynamic sorting
-	compareValues(key, order='asc') {
-		return (a, b) => {
-			if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-				// property doesn't exist on either object
-				return 0; 
-			}
-
-			const varA = (typeof a[key] === 'string') ? 
-			a[key].toUpperCase() : a[key];
-			const varB = (typeof b[key] === 'string') ? 
-			b[key].toUpperCase() : b[key];
-
-			let comparison = 0;
-			if (varA > varB) {
-				comparison = 1;
-			} else if (varA < varB) {
-				comparison = -1;
-			}
-			return (
-				(order == 'desc') ? (comparison * -1) : comparison
-			);
-		};
-	};
-
 	onChangeAvaluacio(event) {
 		let avaluacioId = event.target.id;
 		let avaluacio = this.assignatura.assignatura_avaluacions
@@ -154,25 +131,8 @@ export class AssignaturesDetailComponent implements OnDestroy {
 
 	// important to unsubscribe (destroy) after using subscribe ...
 	ngOnDestroy() {
-		// this.subRoute.unsubscribe();
-		// this.subCurs.unsubscribe();
-		// this.subAssignatura.unsubscribe();
+		this.subRoute.unsubscribe();
+		this.subCurs.unsubscribe();
+		this.subAssignatura.unsubscribe();
 	};
 }
-
-
-
-// // Select distinct de alumnes
-// // ----------------------------------------------
-// var select_distinct = function(array) {
-// var flags = [], output = [];
-// for (var i = 0; i < array.length; i++) {
-// 	if (flags[array[i].id]) continue;
-// 	flags[array[i].id] = true;
-// 	output.push(array[i]);
-// }
-// return output;
-// };
-
-// this.alumnes = select_distinct(alumnes);
-// //console.log(this.alumnes);

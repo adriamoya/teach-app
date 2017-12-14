@@ -5,6 +5,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 // Services
+import { CursosService } from '../../services/cursos.service';
 import { AssignaturesService } from '../../services/assignatures.service';
 import { AssignaturesDataService } from '../../services/assignatures-data.service';
 
@@ -17,20 +18,30 @@ import { AssignaturesDataService } from '../../services/assignatures-data.servic
 export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 
 	private sub: any;
+	private subCurs: any;
 	private assignatura: any;
 	private title: string = "General";
 	private bsModalRef: BsModalRef;
-	private cursos: string[] = ['2016', '2017', '2018', '2019', '2020', '2021'];
+	private cursos: string[];
 	private changesSaved: boolean;
 
 
 	constructor(
 		private _router: Router,
 		private _modalService: BsModalService,
+		private _cursos: CursosService,
 		private _assignatures: AssignaturesService,
 		private _assignaturesData: AssignaturesDataService) {
 			this.changesSaved = this._assignaturesData.getChangesSaved();
 			this.assignatura = this._assignaturesData.getAssignatura();
+			console.log(this.assignatura);
+			this.subCurs = this._cursos.list()
+				.subscribe(
+					cursos => {
+						console.log(cursos);
+						this.cursos = cursos;
+					}
+				)
 	};
 
 
@@ -91,6 +102,7 @@ export class AssignaturesUpdateGeneralComponent implements OnDestroy {
 
 	ngOnDestroy() {
 		// post the new info to the server
+		this.subCurs.unsubscribe()
 		this._assignaturesData.passAssignatura(this.assignatura);
 	};
 

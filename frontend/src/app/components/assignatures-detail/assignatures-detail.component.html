@@ -82,8 +82,15 @@
 				<div style="margin-top: 20px;" class="tab-content" id="myTabContent">
 
 					<!-- Proves - list -->
-					<div class="tab-pane fade show active" id="proves" role="tabpanel" aria-labelledby="proves-tab">
-						<div *ngIf="proves?.length>0" class="table-responsive">
+					<div 
+					class="tab-pane fade show active" 
+					id="proves" 
+					role="tabpanel" 
+					aria-labelledby="proves-tab">
+
+						<div 
+						*ngIf="assignatura.assignatura_avaluacions?.length>0"
+						class="table-responsive">
 							<table class="table table-sm table-hover">
 								<thead>
 									<tr>
@@ -141,96 +148,103 @@
 					</div><!-- Proves - list -->
 
 					<!-- Alumnes - list -->
-					<div class="tab-pane fade" id="alumnes" role="tabpanel" aria-labelledby="alumnes-tab">
+					<div 
+					class="tab-pane fade" 
+					id="alumnes" 
+					role="tabpanel"
+					 aria-labelledby="alumnes-tab">
 
 
-						<div *ngFor="let classe of classes">
-							<h3>Classe {{ classe.nom }}</h3>
+						<div *ngIf="assignatura.assignatura_avaluacions?.length>0">
 
-							<div *ngIf="alumnes" class="table-responsive">
-								<table class="table table-sm table-hover">
-									<thead>
-										<tr>
-											<th>Alumne</th>
-											<th *ngFor="let prova of proves">
-												<span class="float-right">
-													<!-- <span style="font-weight: 400;" class="float-right text-muted">{{ prova.pes_total | percent:'0.0-1' }}</span>
-													<br> -->
-													{{ prova.nom }} <span class="text-muted" style="font-weight: 400;"><small>({{ prova.pes_total | percent:'0.0-1' }})</small></span>
-												</span>
-											</th>
-											<th>
-												<span class="float-right">
-													<div *ngIf="prova_avaluacio.pes_total == 1">
-														Total <span class="text-muted" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
-													</div>
-													<div *ngIf="prova_avaluacio.pes_total != 1">
-														<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
-														<span [tooltip]="popTemplate">
-															Total <span class="text-danger" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
-														</span>
-													</div>
-												</span>
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr *ngFor="let alumne of classe.alumne_classe">
-											<td>
-												<a 
-												routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">
-													{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}
-												</a>
-											</td>
-											<td *ngFor="let prova of proves">
-												<div *ngFor="let puntuacio of prova.notes_prova">
-													<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
-													<ng-template #thenBlock>
-														<div *ngIf="puntuacio.nota">
-															<span class="float-right">
-																{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ prova.nota_total}}</small></span>
+							<div *ngFor="let classe of classes">
+
+								<h3>Classe {{ classe.nom }}</h3>
+
+								<div *ngIf="alumnes" class="table-responsive">
+									<table class="table table-sm table-hover">
+										<thead>
+											<tr>
+												<th>Alumne</th>
+												<th *ngFor="let prova of proves">
+													<span class="float-right">
+														<!-- <span style="font-weight: 400;" class="float-right text-muted">{{ prova.pes_total | percent:'0.0-1' }}</span>
+														<br> -->
+														{{ prova.nom }} <span class="text-muted" style="font-weight: 400;"><small>({{ prova.pes_total | percent:'0.0-1' }})</small></span>
+													</span>
+												</th>
+												<th>
+													<span class="float-right">
+														<div *ngIf="prova_avaluacio.pes_total == 1">
+															Total <span class="text-muted" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
+														</div>
+														<div *ngIf="prova_avaluacio.pes_total != 1">
+															<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
+															<span [tooltip]="popTemplate">
+																Total <span class="text-danger" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
 															</span>
 														</div>
-													</ng-template>
-												</div>
-											</td>
-											<td>
-												<div *ngFor="let puntuacio of prova_avaluacio?.notes_prova">
-													<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
-													<ng-template #thenBlock>
-														<div *ngIf="puntuacio.nota">
-															<span class="float-right bold">
-																{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ prova_avaluacio.nota_total}}</small></span>
-															</span>
-														</div>
-													</ng-template>
-												</div>
-											</td>
-										</tr>
-										<!-- <tr>
-											<td style="border-top: 2px solid #eceeef; color: #636c72">
-												Nota promig
-											</td>
-											<td 
-											style="border-top: 2px solid #eceeef"
-											*ngFor="let prova of proves">
-												<span class="float-right"
-												style="color: #636c72;">
-													{{ prova?.nota_mitja | number: '1.0-2' }}
-												</span>
-											</td>
-										</tr> -->
-									</tbody>
-								</table>
-							</div>
-							<div *ngIf="assignatura.proves_assignatura?.length == 0">
-								<div class="alert alert-warning" role="alert">
-									No hi ha cap alumne ...
+													</span>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let alumne of classe.alumne_classe">
+												<td>
+													<a 
+													routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">
+														{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}
+													</a>
+												</td>
+												<td *ngFor="let prova of proves">
+													<div *ngFor="let puntuacio of prova.notes_prova">
+														<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
+														<ng-template #thenBlock>
+															<div *ngIf="puntuacio.nota">
+																<span class="float-right">
+																	{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ prova.nota_total}}</small></span>
+																</span>
+															</div>
+														</ng-template>
+													</div>
+												</td>
+												<td>
+													<div *ngFor="let puntuacio of prova_avaluacio?.notes_prova">
+														<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
+														<ng-template #thenBlock>
+															<div *ngIf="puntuacio.nota">
+																<span class="float-right bold">
+																	{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ prova_avaluacio.nota_total}}</small></span>
+																</span>
+															</div>
+														</ng-template>
+													</div>
+												</td>
+											</tr>
+											<!-- <tr>
+												<td style="border-top: 2px solid #eceeef; color: #636c72">
+													Nota promig
+												</td>
+												<td 
+												style="border-top: 2px solid #eceeef"
+												*ngFor="let prova of proves">
+													<span class="float-right"
+													style="color: #636c72;">
+														{{ prova?.nota_mitja | number: '1.0-2' }}
+													</span>
+												</td>
+											</tr> -->
+										</tbody>
+									</table>
+								</div>
+								<div *ngIf="assignatura.proves_assignatura?.length == 0">
+									<div class="alert alert-warning" role="alert">
+										No hi ha cap alumne ...
+									</div>
 								</div>
 							</div>
+
 						</div>
-
-
 
 					</div><!-- Alumnes - list -->
 

@@ -37,8 +37,8 @@
 				required>
 					<option 
 					*ngFor="let curs of cursos"
-					[value]="curs">
-						{{ curs }}
+					[value]="curs.id">
+						{{ curs.nom }}
 					</option>
 					<!-- <option>2017/2018</option> -->
 				</select>
