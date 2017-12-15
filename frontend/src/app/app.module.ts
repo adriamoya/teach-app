@@ -8,6 +8,7 @@ import { AccordionModule,
          BsDatepickerModule,
          CollapseModule,
          ModalModule,
+         TabsModule,
          TooltipModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { LoadingModule } from 'ngx-loading';
@@ -132,6 +133,7 @@ import { AvaluacionsCreateComponent } from './components/avaluacions-create/aval
     CollapseModule,
     LoadingModule,
     ModalModule.forRoot(),
+    TabsModule.forRoot(),
     TooltipModule .forRoot(),
     ],
   exports: [

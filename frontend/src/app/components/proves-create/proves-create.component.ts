@@ -15,6 +15,9 @@ import { AssignaturesService } from '../../services/assignatures.service';
 import { Nota } from '../../interfaces/nota.interface';
 import { Prova } from '../../interfaces/prova.interface';
 
+// Shared
+import compareValues from '../../shared/compare-values';
+
 @Component({
   selector: 'app-proves-create',
   templateUrl: './proves-create.component.html',
@@ -32,11 +35,14 @@ export class ProvesCreateComponent implements OnDestroy {
 	};
 	private req: any;
 	private req_alumnes: any;
+	private avaluacioId: number;
 	private assignatures: [any];
 	private assignaturaId: number;
 	private assignaturaSelected: any;
 	private alumnesSelected: [any];
 	private continguts_avaluats: any[]=[];
+
+	private menuPanel: string = "General"
 
 	// Datepicker
 	// minDate = new Date(2017, 5, 10);
@@ -60,6 +66,11 @@ export class ProvesCreateComponent implements OnDestroy {
 	};
 
 
+	test(event) {
+		console.log(event.heading);
+		this.menuPanel = event.heading;
+	}
+
 	// toAssignatura
 	// -----------------------------------------------------
 	/*
@@ -76,6 +87,8 @@ export class ProvesCreateComponent implements OnDestroy {
 				this.assignaturaSelected = item;
 			};
 		});
+
+		console.log(this.assignaturaSelected);
 
 		// use AssignaturesServer to retrieve the alumnes list corresponding to the assignatura
 		// we need to use the get method since points to /assignatures-detail (where the alumnes list is located)
