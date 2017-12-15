@@ -57,6 +57,9 @@ export class AvaluacionsCreateComponent implements OnDestroy {
 	toCurs() {
 		this.assignatures = this.assignaturesList
 			.filter((assignatura) => assignatura.curs == this.cursId)
+			if (this.avaluacionsSelected) {
+				delete this.avaluacionsSelected;
+			}
 	}
 
 	// toAssignatura

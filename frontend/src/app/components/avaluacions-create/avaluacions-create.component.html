@@ -78,6 +78,14 @@
 							</dd>
 						</div>
 						<div class="col-xs-12 col-sm-6">
+							<div *ngIf="avaluacionsSelected?.length==0">
+								<dt>
+									<label class="form-label">Avaluacions existents</label>
+								</dt>
+								<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">
+									No hi ha cap avaluació
+								</div>
+							</div>
 							<div *ngIf="avaluacionsSelected?.length>0">
 								<dt>
 									<label class="form-label">Avaluacions existents</label>
@@ -89,7 +97,11 @@
 											<span>Avaluació {{ avaluacio?.nom }}</span>
 											<span class="badge badge-secondary float-right pull-right" style="padding: 5px; height: 22px; font-size: 14px; width: 20px;">{{ avaluacio?.proves_avaluacio.length }}</span>
 										</div>
-
+										<div *ngIf="avaluacio.proves_avaluacio?.length==0">
+											<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">
+												No hi ha cap prova 
+											</div>
+										</div>
 										<div *ngIf="avaluacio.proves_avaluacio?.length>0" class="table-responsive">
 											<table class="table table-sm table-hover">
 												<thead>
