@@ -41,7 +41,15 @@
 			<!-- <p>Curs <a [routerLink]="['/']">{{ assignatura.curs }}</a></p> -->
 		</div>
 
-		<div class="row">
+		<div class="row text-center" *ngIf="assignatura.assignatura_avaluacions.length==0">
+			<div class="col-12">
+				<div class="alert alert-warning" role="alert" style="padding: 20px 20px;">
+					No hi ha cap avaluació. Feu click <a class="alert-link clickable" [routerLink]="['/avaluacions','add']">aquí</a> per afegir-ne.
+				</div>
+			</div>
+		</div>
+
+		<div class="row" *ngIf="assignatura.assignatura_avaluacions.length>0">
 
 			<div class="col-xs-12 col-sm-3">
 				<div class="list-group">
@@ -87,6 +95,15 @@
 					id="proves" 
 					role="tabpanel" 
 					aria-labelledby="proves-tab">
+
+						<div *ngIf="assignatura?.assignatura_avaluacions?.length>0">
+							<div
+							*ngIf="proves?.length==0">
+								<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">
+									No hi ha cap prova. Feu click <a class="alert-link clickable" [routerLink]="['/proves','add']">aquí</a> per afegir-ne.
+								</div>
+							</div>
+						</div>
 
 						<div 
 						*ngIf="proves?.length>0"
@@ -313,7 +330,6 @@
 						</canvas>
 					</div>
 				</div> -->
-
 
 	</div>
 
