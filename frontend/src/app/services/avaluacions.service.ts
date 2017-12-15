@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { tokenNotExpired} from 'angular2-jwt';
 
 // Interfaces
-import { Avaluacio } from '../interfaces/curs.interface';
+import { Avaluacio } from '../interfaces/avaluacio.interface';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
