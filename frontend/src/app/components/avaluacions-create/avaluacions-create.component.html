@@ -25,7 +25,7 @@
 				(ngSubmit)="newAvaluacio()"
 				#newAvaluacioForm="ngForm">
 
-					<dl class="form-group row">
+					<dl class="form-group row" style="padding-bottom:200px;">
 						<div class="col-xs-12 col-sm-6">
 							<dt>
 								<label class="form-label" for="nom-avaluacio">Nom nova avaluació</label>
@@ -80,7 +80,7 @@
 						<div class="col-xs-12 col-sm-6">
 							<div *ngIf="avaluacionsSelected?.length==0">
 								<dt>
-									<label class="form-label">Avaluacions existents</label>
+									<label class="form-label">Avaluacions existents ({{ assignaturaSelected?.__unicode__ }})</label>
 								</dt>
 								<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">
 									No hi ha cap avaluació
@@ -88,7 +88,7 @@
 							</div>
 							<div *ngIf="avaluacionsSelected?.length>0">
 								<dt>
-									<label class="form-label">Avaluacions existents</label>
+									<label class="form-label">Avaluacions existents ({{ assignaturaSelected?.__unicode__ }})</label>
 								</dt>
 								<accordion>
 									<accordion-group *ngFor="let avaluacio of avaluacionsSelected">

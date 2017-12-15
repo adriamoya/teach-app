@@ -16,21 +16,23 @@
 	</div>
 
 	<div class="row">
-		<div class="col-3">
+		<div class="col-xs-12 col-sm-3">
 			<!-- <dt>
 				<label class="form-label" for="cursos">Cursos</label>
 			</dt> -->
 			<div class="list-group">
-				<a 
+				<div 
 				*ngFor="let curs of cursos"
 				[id]="curs.id"
 				(click)="onChange($event)"
-				class="list-group-item list-group-item-action clickable">
+				class="list-group-item list-group-item-action d-flex justify-content-between align-items-center clickable">
 					{{ curs.__unicode__ }}
-				</a>
+					<span class="badge badge-secondary badge-pill">{{ curs?.curs_assignatures?.length }}</span>
+					<!-- <span class="badge badge-secondary float-right pull-right" style="padding: 5px; height: 22px; font-size: 14px; width: 20px;">{{ curs?.curs_assignatures?.length }}</span> -->
+				</div>
 			</div>
 		</div>
-		<div class="col-9">
+		<div class="col-xs-12 col-sm-9">
 			<!-- Assignatura items -->
 
 			<hr style="margin-top: 0px;">

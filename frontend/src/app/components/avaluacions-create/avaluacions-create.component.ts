@@ -53,7 +53,6 @@ export class AvaluacionsCreateComponent implements OnDestroy {
 		});
 	};
 
-
 	toCurs() {
 		this.assignatures = this.assignaturesList
 			.filter((assignatura) => assignatura.curs == this.cursId)
@@ -73,11 +72,9 @@ export class AvaluacionsCreateComponent implements OnDestroy {
 		this.assignaturaId = +this.assignaturaId;
 
 		// filter down corresponding assignatura
-		this.assignatures.filter(item => {
-			if (item.id == this.assignaturaId) {
-				this.assignaturaSelected = item;
-			};
-		});
+		this.assignaturaSelected = this.assignatures.filter((assignatura) => assignatura.id == this.assignaturaId)[0]
+
+		console.log(this.assignaturaSelected)
 
 		// use AssignaturesServer to retrieve the alumnes list corresponding to the assignatura
 		// we need to use the get method since points to /assignatures-detail (where the alumnes list is located)
