@@ -106,6 +106,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 
 
 						console.log(this.assignatura);
+						console.log(this.proves);
 						// console.log(this.proves);
 						// console.log(this.alumnes);
 					},
