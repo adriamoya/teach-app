@@ -4,6 +4,7 @@
 	<nav aria-label="breadcrumb" role="navigation">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Nova avaluació</li>
 		</ol>
 	</nav>
 
@@ -95,7 +96,7 @@
 										
 										<div accordion-heading>
 											<span>Avaluació {{ avaluacio?.nom }}</span>
-											<span class="badge badge-secondary float-right pull-right" style="padding: 5px; height: 22px; font-size: 14px; width: 20px;">{{ avaluacio?.proves_avaluacio.length }}</span>
+											<span class="badge badge-secondary badge-pill float-right pull-right">{{ avaluacio?.proves_avaluacio.length }}</span>
 										</div>
 										<div *ngIf="avaluacio.proves_avaluacio?.length==0">
 											<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">

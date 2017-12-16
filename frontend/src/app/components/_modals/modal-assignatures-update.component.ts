@@ -14,7 +14,7 @@ import { ModalSavedChangesComponent } from './modal-saved-changes.component';
   selector: 'modal-assignatures-update',
   template: `
 <div class="modal-header">
-	<h4 class="modal-title pull-left">Guardar els canvis</h4>
+	<h4 style="margin-top:0px;" class="modal-title pull-left">Guardar els canvis</h4>
 	<button type="button" class="close pull-right" aria-label="Close" (click)="modalAssignaturesUpdateRef.hide()">
 		<span aria-hidden="true">&times;</span>
 	</button>
