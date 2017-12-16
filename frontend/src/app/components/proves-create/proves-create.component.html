@@ -133,6 +133,8 @@
 									class="form-control" 
 									id="avaluacio-prova"
 									name="prova.avaluacio"
+									[(ngModel)]="avaluacioId"
+									(ngModelChange)="toAvaluacio()"
 									required>
 										<option 
 										*ngFor="let avaluacio of assignaturaSelected?.assignatura_avaluacions"
@@ -141,6 +143,66 @@
 								</dd>
 							</div>
 						</dl>
+						<dl class="form-group row" *ngIf="avaluacioSelected">
+
+							<div class="col" *ngIf="avaluacioSelected.proves_avaluacio?.length==0">
+								<dt>
+									<label class="form-label" for="curs-prova">Altres proves d'aquesta avaluació</label>
+								</dt>
+								<dd>
+									<div class="alert alert-warning text-center" role="alert">
+										No hi ha cap prova
+									</div>
+								</dd>
+							</div>
+
+							<div class="col" *ngIf="avaluacioSelected.proves_avaluacio?.length>0">
+								<dt>
+									<label class="form-label" for="curs-prova">Altres proves d'aquesta avaluació</label>
+								</dt>
+								<dd>
+									<table class="table table-sm table-hover">
+										<thead>
+											<tr>
+												<th>Prova</th>
+												<th>Data</th>
+												<th>
+													<span class="float-right">
+														Pes
+													</span>
+												</th>
+												<th>
+													<span class="float-right">
+														Nota mitja
+													</span>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- Proves rows -->
+											<tr *ngFor="let prova of avaluacioSelected?.proves_avaluacio">
+												<td><a routerLink="/assignatures/{{ assignatura?.id }}/{{ prova?.id }}" routerLinkActive="active">{{ prova?.nom }}</a></td>
+												<td>{{ prova?.data | date }}</td>
+												<td>
+													<span class="float-right">
+														{{ prova?.pes_total | percent: '1.0-0' }}
+													</span>
+												</td>
+												<td *ngIf="prova?.nota_mitja">
+													<span class="float-right">
+														{{ prova?.nota_mitja | number: '1.2-2' }} / {{ prova?.nota_total }}
+													</span>
+												</td>
+												<td *ngIf="!prova?.nota_mitja">
+													<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</dd>
+							</div>
+						</dl>
+						<hr>
 						<dl class="form-group row">
 							<div class="col-xs-12 col-md-6">
 								<dt>
@@ -174,6 +236,7 @@
 								</dd>
 							</div>
 						</dl>
+
 
 						<!-- <div class="mt-3">
 							<h4>Puntuacions</h4>

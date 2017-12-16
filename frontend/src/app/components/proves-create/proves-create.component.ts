@@ -31,11 +31,12 @@ export class ProvesCreateComponent implements OnDestroy {
 		data: '',
 		nota_total: 10,
 		pes_total: null,
-		assignatura: ''
+		avaluacio: ''
 	};
 	private req: any;
 	private req_alumnes: any;
 	private avaluacioId: number;
+	private avaluacioSelected: any;
 	private assignatures: [any];
 	private assignaturaId: number;
 	private assignaturaSelected: any;
@@ -71,12 +72,22 @@ export class ProvesCreateComponent implements OnDestroy {
 		this.menuPanel = event.heading;
 	}
 
-	// toAssignatura
-	// -----------------------------------------------------
-	/*
-		Retrieves the assignaturaId from the ngModel (select option) and uses it to
-		filter the assignatures data.
-	*/
+
+	toAvaluacio() {
+		this.avaluacioId = +this.avaluacioId;
+		this.avaluacioSelected = this.assignaturaSelected.assignatura_avaluacions
+			.filter((avaluacio) => avaluacio.id == this.avaluacioId)[0];
+		// filter out prova_avaluacio
+		for (let prova of this.avaluacioSelected.proves_avaluacio) {
+			if (prova.nom == "Total avaluacio") {
+				let index = this.avaluacioSelected.proves_avaluacio.indexOf(prova);
+				this.avaluacioSelected.proves_avaluacio.splice(index, 1);
+			}
+		}
+		console.log(this.avaluacioSelected);
+		this.prova.avaluacio = this.avaluacioSelected.id;
+	}
+
 	toAssignatura(){
 		// get current assignaturaId selected
 		this.assignaturaId = +this.assignaturaId;
@@ -88,7 +99,7 @@ export class ProvesCreateComponent implements OnDestroy {
 			};
 		});
 
-		console.log(this.assignaturaSelected);
+		this.assignaturaSelected.assignatura_avaluacions.sort(compareValues('nom'))
 
 		// use AssignaturesServer to retrieve the alumnes list corresponding to the assignatura
 		// we need to use the get method since points to /assignatures-detail (where the alumnes list is located)
@@ -101,6 +112,7 @@ export class ProvesCreateComponent implements OnDestroy {
 
 	newProva(){
 		let prova = this.prova;
+		console.log(prova);
 
 		// processing pes_total
 		prova.pes_total = prova.pes_total/100;
@@ -108,27 +120,26 @@ export class ProvesCreateComponent implements OnDestroy {
 		// processing continguts
 		if (this.continguts_avaluats) {
 			let continguts = this.continguts_avaluats.join();
-			prova.assignatura = this.assignaturaId.toString();
 			prova.continguts = continguts;
 		} else {
 			prova.continguts = '';
 		}
 
 		// processing data
-		// let data = this.prova.data;
-		// // let dd = data.getDate();
-		// // let mm = data.getMonth()+1; //January is 0!
-		// // let yyyy = data.getFullYear();
-		// if(dd<10){
-		// 	dd='0'+dd;
-		// } 
-		// if(mm<10){
-		// 	mm='0'+mm;
-		// } 
-		// let data_final = yyyy+'-'+mm+'-'+dd;
-		// prova.data = data_final;
+		let data = this.prova.data;
+		let dd = data.getDate();
+		let mm = data.getMonth()+1; //January is 0!
+		let yyyy = data.getFullYear();
+		if(dd<10){
+			dd='0'+dd;
+		} 
+		if(mm<10){
+			mm='0'+mm;
+		} 
+		let data_final = yyyy+'-'+mm+'-'+dd;
+		prova.data = data_final;
 
-		//console.log(prova);
+		console.log(prova);
 
 		this._proves.add(prova)
 			.subscribe(

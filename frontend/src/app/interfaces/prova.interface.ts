@@ -1,10 +1,10 @@
 export interface Prova {
-	assignatura: string;
+	id?: string;
+	nom: string;
+	avaluacio?: string;
 	// continguts: any[];
 	continguts: string;
 	data: string;
-	id?: string;
-	nom: string;
 	nota_total: number;
 	notes_count?: number;
 	notes_prova?: any[];
