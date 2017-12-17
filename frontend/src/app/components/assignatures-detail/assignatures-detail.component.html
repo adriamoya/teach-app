@@ -171,8 +171,17 @@
 					role="tabpanel"
 					 aria-labelledby="alumnes-tab">
 
+						<div *ngIf="assignatura?.assignatura_avaluacions?.length>0">
+							<div
+							*ngIf="proves?.length==0">
+								<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">
+									No hi ha cap prova. Feu click <a class="alert-link clickable" [routerLink]="['/proves','add']">aquí</a> per afegir-ne.
+								</div>
+							</div>
+						</div>
 
-						<div *ngIf="assignatura.assignatura_avaluacions?.length>0">
+						<div 
+						*ngIf="proves?.length>0">
 
 							<div *ngFor="let classe of classes">
 
