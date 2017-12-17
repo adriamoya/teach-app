@@ -212,6 +212,9 @@ export class ProvesCreateComponent implements OnDestroy {
 			for (let alumne of this.alumnesSelected) {
 
 				if (alumne.nota >= 0) {
+
+					console.log(alumne.nom);
+					
 					let nota: Nota = {
 						alumne: alumne.id,
 						prova: this.prova.id,
