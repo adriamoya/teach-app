@@ -177,17 +177,20 @@ export class ProvesCreateComponent implements OnDestroy {
 			}
 
 			// processing data
-			let data = this.prova.data;
+			let data = new Date(this.prova.data);
 			let dd = data.getDate();
 			let mm = data.getMonth()+1; //January is 0!
 			let yyyy = data.getFullYear();
+
+			let dd_str: string = dd.toString();
 			if(dd<10){
-				dd='0'+dd;
+				dd_str ='0'+dd.toString();
 			} 
+			let mm_str: string = mm.toString();
 			if(mm<10){
-				mm='0'+mm;
+				mm_str='0'+mm.toString();
 			} 
-			let data_final = yyyy+'-'+mm+'-'+dd;
+			let data_final = yyyy+'-'+mm_str+'-'+dd_str;
 			prova.data = data_final;
 
 			console.log(prova);
