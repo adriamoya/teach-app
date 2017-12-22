@@ -24,7 +24,7 @@ admin.site.register(Prova, ProvaModelAdmin)
 class NotaModelAdmin(admin.ModelAdmin):
 	
 	list_display = [
-		'__str__',
+		# '__str__',
 		'prova',
 	]
 

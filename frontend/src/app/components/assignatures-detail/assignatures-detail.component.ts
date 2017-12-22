@@ -4,12 +4,10 @@ import { SlicePipe } from '@angular/common';
 
 // Services
 import { CursosService } from '../../services/cursos.service';
-import { DimensionsService } from '../../services/dimensions.service';
 import { AssignaturesService } from '../../services/assignatures.service';
 
 // Interfaces
 import { Curs } from '../../interfaces/curs.interface';
-import { Dimensio } from '../../interfaces/dimensio.interface';
 import { Alumne } from '../../interfaces/alumne.interface';
 import { Assignatura } from '../../interfaces/assignatura.interface';
 
@@ -37,6 +35,8 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	private assignaturaId: string;
 	private curs: Curs;
 	private classes: any[];
+	private dimensions: any[]=[];
+	private dimensio_avaluacio: any = {};
 	private proves: any[]=[];
 	private prova_avaluacio: any = {};
 	private alumnes: any[];
@@ -92,8 +92,11 @@ export class AssignaturesDetailComponent implements OnDestroy {
 
 						if (this.assignatura.assignatura_avaluacions.length > 0 ) {
 							let avaluacio = this.assignatura.assignatura_avaluacions
+
+							let dimensions = avaluacio[0].dimensions_avaluacio;
 							let proves = avaluacio[0].proves_avaluacio;
 
+							let dimensions_avaluacio: any[] = [];
 							let proves_avaluacio: any[] = [];
 
 							for (let prova of proves) {
@@ -104,11 +107,21 @@ export class AssignaturesDetailComponent implements OnDestroy {
 								}
 							}
 							this.proves = proves_avaluacio;
+
+							for (let dimensio of dimensions) {
+								if (dimensio.nom == "Total avaluacio") {
+									this.dimensio_avaluacio = dimensio;
+								} else {
+									dimensions_avaluacio.push(dimensio);
+								}
+							}
+							this.dimensions = dimensions_avaluacio;
 						}
 
 
 						console.log(this.assignatura);
 						console.log(this.proves);
+						console.log(this.dimensions);
 						// console.log(this.proves);
 						// console.log(this.alumnes);
 					},
@@ -140,6 +153,20 @@ export class AssignaturesDetailComponent implements OnDestroy {
 			}
 		}
 		this.proves = proves_avaluacio;
+
+		let dimensions = avaluacio[0].dimensions_avaluacio;
+		console.log(dimensions);
+
+		let dimensions_avaluacio: any[] = [];
+
+		for (let dimensio of dimensions) {
+			if (dimensio.nom == "Total avaluacio") {
+				this.dimensio_avaluacio = dimensio;
+			} else {
+				dimensions_avaluacio.push(dimensio);
+			}
+		}
+		this.dimensions = dimensions_avaluacio;
 
 	};
 

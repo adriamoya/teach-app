@@ -78,7 +78,7 @@
 						<a class="nav-link active" id="proves-tab" data-toggle="tab" href="#proves" role="tab" aria-controls="proves" aria-selected="true">Proves</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="alumnes-tab" data-toggle="tab" href="#alumnes" role="tab" aria-controls="alumnes" aria-selected="false">Resultats</a>
+						<a class="nav-link" id="dimensions-tab" data-toggle="tab" href="#dimensions" role="tab" aria-controls="dimensions" aria-selected="false">Dimensions</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="professors-tab" data-toggle="tab" href="#professors" role="tab" aria-controls="professors" aria-selected="false">Professors</a>
@@ -154,34 +154,8 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>
-						<!-- <div class="row">
-							<div *ngIf="proves?.length==0" class="col-12 text-center">
-								<div class="alert alert-warning" role="alert">
-									No hi ha cap prova. Feu click <a class="alert-link clickable" [routerLink]="['/proves','add']">aquí</a> per afegir-ne.
-								</div>
-							</div>
-						</div>  -->
-					</div><!-- Proves - list -->
 
-					<!-- Alumnes - list -->
-					<div 
-					class="tab-pane fade" 
-					id="alumnes" 
-					role="tabpanel"
-					 aria-labelledby="alumnes-tab">
-
-						<div *ngIf="assignatura?.assignatura_avaluacions?.length>0">
-							<div
-							*ngIf="proves?.length==0">
-								<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">
-									No hi ha cap prova. Feu click <a class="alert-link clickable" [routerLink]="['/proves','add']">aquí</a> per afegir-ne.
-								</div>
-							</div>
-						</div>
-
-						<div 
-						*ngIf="proves?.length>0">
+							<br><hr><br>
 
 							<div *ngFor="let classe of classes">
 
@@ -266,17 +240,165 @@
 										</table>
 									</div>
 								</div>
+							</div>
+						</div>
+					</div><!-- Proves - list -->
 
-								<div *ngIf="assignatura.proves_assignatura?.length == 0">
-									<div class="alert alert-warning" role="alert">
-										No hi ha cap alumne ...
+
+					<!-- Dimensions - list -->
+					<div 
+					class="tab-pane fade" 
+					id="dimensions" 
+					role="tabpanel" 
+					aria-labelledby="dimensions-tab">
+
+						<div *ngIf="assignatura?.assignatura_avaluacions?.length>0">
+							<div
+							*ngIf="dimensions?.length==0">
+								<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">
+									No hi ha cap dimensio. Feu click <a class="alert-link clickable" [routerLink]="['/dimensions','add']">aquí</a> per afegir-ne.
+								</div>
+							</div>
+						</div>
+
+						<div 
+						*ngIf="dimensions?.length>0"
+						class="table-responsive">
+							<table class="table table-sm table-hover">
+								<thead>
+									<tr>
+										<th>Dimensió</th>
+										<th>Descripció</th>
+										<th>
+											<div *ngIf="prova_avaluacio.pes_total == 1">
+												Pes dimensió
+											</div>
+											<div *ngIf="prova_avaluacio.pes_total != 1">
+												<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
+												<span [tooltip]="popTemplate">
+													Pes dimensió
+												</span>
+											</div>
+										</th>
+										<th>
+											<span class="float-right">
+												Puntació mitja
+											</span>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let dimensio of dimensions">
+										<td><a routerLink="/assignatures/{{ assignaturaId }}/proves/{{ dimensio.id }}" routerLinkActive="active">{{ dimensio.nom }}</a></td>
+										<td>{{ dimensio.descripcio }}</td>
+										<td>
+											<div *ngIf="prova_avaluacio.pes_total == 1">
+												{{ dimensio.pes_total | percent:'0.0-1' }}
+											</div>
+											<div *ngIf="prova_avaluacio.pes_total != 1">
+												<span class="text-danger">{{ dimensio.pes_total | percent:'0.0-1' }}</span>
+											</div>
+										</td>
+										<td *ngIf="dimensio.nota_mitja">
+											<span class="float-right bold">
+												{{ dimensio.nota_mitja | number:'1.2-2'}}<span class="text-muted"><small> /{{ dimensio.nota_total}}</small></span>
+											</span>
+										</td>
+										<td *ngIf="!dimensio.nota_mitja">
+											<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<br><hr><br>
+
+							<div *ngFor="let classe of classes">
+
+								<div *ngIf="classe.alumne_classe.length>0">
+									
+									<h3>Classe {{ classe.nom }}</h3>
+
+									<div *ngIf="alumnes" class="table-responsive">
+										<table class="table table-sm table-hover">
+											<thead>
+												<tr>
+													<th>Alumne</th>
+													<th *ngFor="let dimensio of dimensions">
+														<span class="float-right">
+															<!-- <span style="font-weight: 400;" class="float-right text-muted">{{ dimensio.pes_total | percent:'0.0-1' }}</span>
+															<br> -->
+															{{ dimensio.nom }} <span class="text-muted" style="font-weight: 400;"><small>({{ dimensio.pes_total | percent:'0.0-1' }})</small></span>
+														</span>
+													</th>
+													<th>
+														<span class="float-right">
+															<div *ngIf="dimensio_avaluacio.pes_total == 1">
+																Total <span class="text-muted" style="font-weight: 400;"><small>({{ dimensio_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
+															</div>
+															<div *ngIf="dimensio_avaluacio.pes_total != 1">
+																<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
+																<span [tooltip]="popTemplate">
+																	Total <span class="text-danger" style="font-weight: 400;"><small>({{ dimensio_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
+																</span>
+															</div>
+														</span>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr *ngFor="let alumne of classe.alumne_classe">
+													<td>
+														<a 
+														routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">
+															{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}
+														</a>
+													</td>
+													<td *ngFor="let dimensio of dimensions">
+														<div *ngFor="let puntuacio of dimensio.notes_dimensio">
+															<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
+															<ng-template #thenBlock>
+																<div *ngIf="puntuacio.nota">
+																	<span class="float-right">
+																		{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ dimensio.nota_total}}</small></span>
+																	</span>
+																</div>
+															</ng-template>
+														</div>
+													</td>
+													<td>
+														<div *ngFor="let puntuacio of dimensio_avaluacio?.notes_dimensio">
+															<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
+															<ng-template #thenBlock>
+																<div *ngIf="puntuacio.nota">
+																	<span class="float-right bold">
+																		{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ dimensio_avaluacio.nota_total}}</small></span>
+																	</span>
+																</div>
+															</ng-template>
+														</div>
+													</td>
+												</tr>
+												<!-- <tr>
+													<td style="border-top: 2px solid #eceeef; color: #636c72">
+														Nota promig
+													</td>
+													<td 
+													style="border-top: 2px solid #eceeef"
+													*ngFor="let prova of proves">
+														<span class="float-right"
+														style="color: #636c72;">
+															{{ prova?.nota_mitja | number: '1.0-2' }}
+														</span>
+													</td>
+												</tr> -->
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
-
 						</div>
-
-					</div><!-- Alumnes - list -->
+					</div><!-- Dimensions - list -->
 
 					<div class="tab-pane fade" id="professors" role="tabpanel" aria-labelledby="professors-tab">
 
@@ -295,10 +417,10 @@
 							</div>
 						</section>
 
-				</div>
+					</div>
 
+				</div>
 			</div>
-		</div>
 
 
 

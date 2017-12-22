@@ -107,7 +107,7 @@ class Prova(models.Model):
 		qs_prova = Prova.objects.filter(id = prova_obj.id).update(nota_mitja=nota_mitja)
 
 		# Recalculate the final notes for the corresponding avaluacio
-		pes_total, notes_avaluacio, prova_avaluacio_obj, qs_alumnes_avaluacio = Avaluacio.recalculate_notes_avaluacio(prova_obj.avaluacio)
+		pes_total, notes_avaluacio, prova_avaluacio_obj, qs_alumnes_avaluacio = Avaluacio.recalculate_proves_avaluacio(prova_obj.avaluacio)
 
 		# updating the total weight of the prova_avaluacio (based on the weights of individuals proves)
 		qs_prova = Prova.objects.filter(id = prova_avaluacio_obj.id).update(pes_total=pes_total)
@@ -124,7 +124,7 @@ class Nota(models.Model):
 	alumne 		= models.ForeignKey('alumnes.Alumne', related_name='nota_alumne', blank=True, null=True)
 
 	def __unicode__(self):
-		return "%s - %s %s - %s" % (self.prova, self.alumne.nom, self.alumne.primer_cognom, self.nota)
+		return "%s - %s" % (self.alumne.nom, self.nota)
 
 
 	def save(self, *args, **kwargs):
@@ -135,12 +135,10 @@ post_save.connect(receiver=Prova.recalculate_params, sender=Nota)
 
 post_save.connect(receiver=Prova.recalculate_params, sender=Prova)
 
-post_delete.connect(receiver=Prova.recalculate_params, sender=Nota)
+# post_delete.connect(receiver=Prova.recalculate_params, sender=Nota)
 
-post_delete.connect(receiver=Prova.recalculate_params, sender=Prova)
-
-
+# post_delete.connect(receiver=Prova.recalculate_params, sender=Prova)
 
 post_save.connect(receiver=Prova.create_prova_final_avaluacio,sender=Avaluacio)
 
-# post_save.connect(receiver=Avaluacio.recalculate_notes_avaluacio,sender=Nota)
+# post_save.connect(receiver=Avaluacio.recalculate_proves_avaluacio,sender=Nota)

@@ -77,13 +77,13 @@ class DimensioCreateUpdateSerializer(ModelSerializer):
 class DimensioListSerializer(ModelSerializer):
 
 	notes_count = IntegerField(
-		source='dimensio_notes.count', 
+		source='notes_dimensio.count', 
 		read_only=True
 	)
 
 	# dimensio_notes = HyperlinkedRelatedField(many=True, view_name='dimensions-api:nota-detail', read_only=True) # Hyperlinked Identity Field
 	url_detail =  HyperlinkedIdentityField(view_name='dimensions-api:dimensio-detail', lookup_field='pk')
-	dimensio_notes = Nota_DimensioListSerializer(many=True)
+	notes_dimensio = Nota_DimensioListSerializer(many=True)
 	avaluacio = PrimaryKeyRelatedField(read_only=True)
 
 	class Meta:
@@ -95,7 +95,7 @@ class DimensioListSerializer(ModelSerializer):
 			'nota_total',
 			'nota_mitja',
 			'notes_count',
-			'dimensio_notes',
+			'notes_dimensio',
 			'avaluacio',
 			'pes_total',
 			'url_detail'
@@ -105,13 +105,13 @@ class DimensioListSerializer(ModelSerializer):
 class DimensioDetailSerializer(ModelSerializer):
 
 	notes_count = IntegerField(
-		source='dimensio_notes.count', 
+		source='notes_dimensio.count', 
 		read_only=True
 	)
 
-	# dimensio_notes = HyperlinkedRelatedField(many=True, view_name='proves-api:nota-detail', read_only=True) # Hyperlinked Identity Field
+	# notes_dimensio = HyperlinkedRelatedField(many=True, view_name='proves-api:nota-detail', read_only=True) # Hyperlinked Identity Field
 
-	dimensio_notes = Nota_DimensioDetailSerializer(many=True)
+	notes_dimensio = Nota_DimensioDetailSerializer(many=True)
 	avaluacio = PrimaryKeyRelatedField(read_only=True)
 
 	class Meta:
@@ -123,7 +123,7 @@ class DimensioDetailSerializer(ModelSerializer):
 			'nota_total',
 			'nota_mitja',
 			'notes_count',
-			'dimensio_notes',
+			'notes_dimensio',
 			'pes_total',
 			'avaluacio',
 			'continguts',

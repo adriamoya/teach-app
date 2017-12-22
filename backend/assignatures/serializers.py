@@ -36,7 +36,7 @@ class AvaluacioListSerializer(ModelSerializer):
 	"""
 	url_detail =  HyperlinkedIdentityField(view_name='assignatures-api:avaluacio-detail', lookup_field='pk')
 	proves_avaluacio = ProvaListSerializer(many=True, read_only=True)
-	avaluacio_dimensions = DimensioListSerializer(many=True, read_only=True)
+	dimensions_avaluacio = DimensioListSerializer(many=True, read_only=True)
 	# proves_assignatura = ProvaListSerializer(many=True)
 
 	class Meta:
@@ -45,7 +45,7 @@ class AvaluacioListSerializer(ModelSerializer):
 			'id',					
 			'nom',					
 			'proves_avaluacio',
-			'avaluacio_dimensions',
+			'dimensions_avaluacio',
 			'assignatura',	
 			'url_detail',	
 		]
@@ -53,7 +53,7 @@ class AvaluacioListSerializer(ModelSerializer):
 class AvaluacioDetailSerializer(ModelSerializer):
 
 	proves_avaluacio = ProvaListSerializer(many=True, read_only=True)
-	avaluacio_dimensions = DimensioListSerializer(many=True, read_only=True)
+	dimensions_avaluacio = DimensioListSerializer(many=True, read_only=True)
 	#proves_assignatura = ProvaListSerializer(many=True)
 
 	class Meta:
@@ -62,7 +62,7 @@ class AvaluacioDetailSerializer(ModelSerializer):
 			'id',					
 			'nom',					
 			'proves_avaluacio',	
-			'avaluacio_dimensions',
+			'dimensions_avaluacio',
 			'assignatura',	
 			#'url_detail',	
 		]
