@@ -3,6 +3,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
+// Materialize
+import { MaterializeModule } from "angular2-materialize";
+
 // third-party imports
 import { AccordionModule,
          BsDatepickerModule,
@@ -136,6 +139,9 @@ import { AvaluacionsCreateComponent } from './components/avaluacions-create/aval
     ModalModule.forRoot(),
     TabsModule.forRoot(),
     TooltipModule .forRoot(),
+
+    // Materialize
+    // MaterializeModule,
     ],
   exports: [
     Ng2TagsInputItem,
