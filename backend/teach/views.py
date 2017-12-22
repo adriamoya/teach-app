@@ -9,6 +9,7 @@ def api_root(request, format=None):
 		'assignatures': reverse('assignatures-api:list', request=request, format=format),
 		'classes': reverse('classes-api:list', request=request, format=format),
 		'cursos': reverse('cursos-api:list', request=request, format=format),
+		'dimensions': reverse('dimensions-api:dimensio-list', request=request, format=format),
 		'proves': reverse('proves-api:prova-list', request=request, format=format),
 		'professors': reverse('professors-api:list', request=request, format=format),
 	})
