@@ -65,6 +65,7 @@ import { NotesService } from './services/notes.service';
 import { ProvesService } from './services/proves.service';
 import { ClassesService } from './services/classes.service';
 import { CursosService } from './services/cursos.service';
+import { DimensionsService } from './services/dimensions.service';
 import { AvaluacionsService } from './services/avaluacions.service';
 import { AssignaturesService } from './services/assignatures.service';
 import { AssignaturesDataService } from './services/assignatures-data.service';
@@ -152,6 +153,7 @@ import { AvaluacionsCreateComponent } from './components/avaluacions-create/aval
     AlumnesService,
     ClassesService,
     CursosService,
+    DimensionsService,
     // ModalDataService
   ],
   bootstrap: [AppComponent],

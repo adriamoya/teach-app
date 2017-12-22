@@ -4,10 +4,12 @@ import { SlicePipe } from '@angular/common';
 
 // Services
 import { CursosService } from '../../services/cursos.service';
+import { DimensionsService } from '../../services/dimensions.service';
 import { AssignaturesService } from '../../services/assignatures.service';
 
 // Interfaces
 import { Curs } from '../../interfaces/curs.interface';
+import { Dimensio } from '../../interfaces/dimensio.interface';
 import { Alumne } from '../../interfaces/alumne.interface';
 import { Assignatura } from '../../interfaces/assignatura.interface';
 

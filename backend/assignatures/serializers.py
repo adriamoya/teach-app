@@ -11,6 +11,7 @@ from rest_framework.serializers import (
 from .models import Assignatura, Avaluacio
 
 from alumnes.serializers import AlumneListSerializer
+from dimensions.serializers import DimensioListSerializer
 from professors.serializers import ProfessorListSerializer
 from proves.serializers import ProvaListSerializer
 
@@ -35,6 +36,7 @@ class AvaluacioListSerializer(ModelSerializer):
 	"""
 	url_detail =  HyperlinkedIdentityField(view_name='assignatures-api:avaluacio-detail', lookup_field='pk')
 	proves_avaluacio = ProvaListSerializer(many=True, read_only=True)
+	avaluacio_dimensions = DimensioListSerializer(many=True, read_only=True)
 	# proves_assignatura = ProvaListSerializer(many=True)
 
 	class Meta:
@@ -42,7 +44,8 @@ class AvaluacioListSerializer(ModelSerializer):
 		fields = [
 			'id',					
 			'nom',					
-			'proves_avaluacio',	
+			'proves_avaluacio',
+			'avaluacio_dimensions',
 			'assignatura',	
 			'url_detail',	
 		]
@@ -50,6 +53,7 @@ class AvaluacioListSerializer(ModelSerializer):
 class AvaluacioDetailSerializer(ModelSerializer):
 
 	proves_avaluacio = ProvaListSerializer(many=True, read_only=True)
+	avaluacio_dimensions = DimensioListSerializer(many=True, read_only=True)
 	#proves_assignatura = ProvaListSerializer(many=True)
 
 	class Meta:
@@ -58,6 +62,7 @@ class AvaluacioDetailSerializer(ModelSerializer):
 			'id',					
 			'nom',					
 			'proves_avaluacio',	
+			'avaluacio_dimensions',
 			'assignatura',	
 			#'url_detail',	
 		]
@@ -83,7 +88,7 @@ class AssignaturaListSerializer(ModelSerializer):
 
 	"""
 	url_detail =  HyperlinkedIdentityField(view_name='assignatures-api:detail', lookup_field='pk')
-	assignatura_avaluacions = AvaluacioListSerializer(many=True, read_only=True)
+	# assignatura_avaluacions = AvaluacioListSerializer(many=True, read_only=True)
 	# proves_assignatura = ProvaListSerializer(many=True)
 
 	class Meta:
