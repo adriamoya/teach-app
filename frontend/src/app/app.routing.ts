@@ -105,12 +105,12 @@ const APP_ROUTES: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'assignatures/:id/:id',
+    path: 'assignatures/:id/proves/:id',
     component: ProvesDetailComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'assignatures/:id/:id/edit',
+    path: 'assignatures/:id/proves/:id/edit',
     component: ProvesUpdateComponent,
     canActivate: [AuthGuard]
   },

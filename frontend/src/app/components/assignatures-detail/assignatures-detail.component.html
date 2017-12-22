@@ -133,7 +133,7 @@
 								</thead>
 								<tbody>
 									<tr *ngFor="let prova of proves">
-										<td><a routerLink="/assignatures/{{ assignaturaId }}/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
+										<td><a routerLink="/assignatures/{{ assignaturaId }}/proves/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
 										<td>{{ prova.data | date }}</td>
 										<td>
 											<div *ngIf="prova_avaluacio.pes_total == 1">

@@ -201,7 +201,7 @@ export class ProvesCreateComponent implements OnDestroy {
 						//console.log(response);
 						this.prova.id = response.id;
 						this.newNotes();
-						this._router.navigate(['/assignatures', this.assignaturaId, this.prova.id]);
+						this._router.navigate(['/assignatures', this.assignaturaId, 'proves', this.prova.id]);
 					}
 				);
 			
