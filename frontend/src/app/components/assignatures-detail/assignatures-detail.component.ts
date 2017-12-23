@@ -120,8 +120,8 @@ export class AssignaturesDetailComponent implements OnDestroy {
 
 
 						console.log(this.assignatura);
-						console.log(this.proves);
-						console.log(this.dimensions);
+						// console.log(this.proves);
+						// console.log(this.dimensions);
 						// console.log(this.proves);
 						// console.log(this.alumnes);
 					},
@@ -136,7 +136,8 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	};
 
 	onChangeAvaluacio(event) {
-		let avaluacioId = event.target.id;
+
+		let avaluacioId = event.target.selectedOptions["0"].id;
 		let avaluacio = this.assignatura.assignatura_avaluacions
 						.filter((avaluacio) => avaluacio.id == avaluacioId);
 

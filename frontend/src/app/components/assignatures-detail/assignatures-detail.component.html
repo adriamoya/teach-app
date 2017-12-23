@@ -49,28 +49,36 @@
 			</div>
 		</div>
 
-		<div class="row" *ngIf="assignatura.assignatura_avaluacions.length>0">
 
-			<div class="col-xs-12 col-sm-3">
-				<div class="list-group">
-					<a 
-					*ngFor="let avaluacio of assignatura.assignatura_avaluacions"
-					[id]="avaluacio.id"
-					(click)="onChangeAvaluacio($event)"
-					class="list-group-item list-group-item-action clickable">
-						Avaluació {{ avaluacio.nom }}						
-					</a>
-				</div>
-				<div *ngIf="assignatura.assignatura_avaluacions.length==0" class="text-center">
-					<div class="alert alert-warning" role="alert" style="padding: 20px 20px;">
-						No hi ha cap avaluació. Feu click <a class="alert-link clickable" [routerLink]="['/avaluacions','add']">aquí</a> per afegir-ne.
-					</div>
-				</div>
+		<div class="row" *ngIf="assignatura.assignatura_avaluacions?.length>0">
+			<div class="col float-right">
+
+				<form>
+					<dt>
+						<label class="form-label" for="curs-assignatura">Seleccioneu avaluació</label>
+					</dt>
+					<dd>
+						<select
+						(change)="onChangeAvaluacio($event)"
+						class="form-control" 
+						id="avaluacio-assignatura"
+						name="curs">
+							<option 
+							*ngFor="let avaluacio of assignatura.assignatura_avaluacions"
+							[id]="avaluacio.id">
+								Avaluació {{ avaluacio.nom }}
+							</option>
+						</select>
+					</dd>
+				</form>
+
 			</div>
+		</div>
 
-			<div class="col-xs-12 col-sm-9">
+		<div class="row">
+			<div class="col">
 
-				<hr style="margin-top: 0px;">
+				<hr style="margin-top: 20px;">
 
 				<!-- Pills -->
 				<ul class="nav nav-pills" id="myTab" role="tablist">
@@ -85,7 +93,7 @@
 					</li>
 				</ul>
 
-				<!-- <hr> -->
+
 
 				<div style="margin-top: 20px;" class="tab-content" id="myTabContent">
 
@@ -105,15 +113,31 @@
 							</div>
 						</div>
 
+						<h3 *ngIf="proves?.length>0">Proves</h3>
+
+						<div class="row">
+							<div *ngFor="let prova of proves" class="col-sm-6 col-md-4 col-lg-3">
+								<div class="card">
+									<div class="card-body">
+										<span class="float-right badge badge-pill badge-secondary" style="border-radius: 30px; padding: 14px 8px; font-weight: 400;">{{ prova.pes_total | percent:'0.0-1' }}</span>
+										<h4 class="card-title" style="margin-top: 10px;">{{ prova.nom }}</h4>
+										<p class="card-text"><small class="text-muted">{{ prova.data | date }}</small></p>
+										<!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<div 
 						*ngIf="proves?.length>0"
 						class="table-responsive">
-							<table class="table table-sm table-hover">
+
+							<!-- <table class="table table-sm table-hover">
 								<thead>
 									<tr>
-										<th>Prova</th>
-										<th>Data</th>
-										<th>
+										<th class="border-top-0">Prova</th>
+										<th class="border-top-0">Data</th>
+										<th class="border-top-0">
 											<div *ngIf="prova_avaluacio.pes_total == 1">
 												Pes prova
 											</div>
@@ -124,7 +148,7 @@
 												</span>
 											</div>
 										</th>
-										<th>
+										<th class="border-top-0">
 											<span class="float-right">
 												Puntació mitja
 											</span>
@@ -153,29 +177,27 @@
 										</td>
 									</tr>
 								</tbody>
-							</table>
+							</table> -->
 
-							<br><hr><br>
+							<h3>Resultats</h3>
 
 							<div *ngFor="let classe of classes">
 
 								<div *ngIf="classe.alumne_classe.length>0">
-									
-									<h3>Classe {{ classe.nom }}</h3>
 
 									<div *ngIf="alumnes" class="table-responsive">
 										<table class="table table-sm table-hover">
 											<thead>
 												<tr>
-													<th>Alumne</th>
-													<th *ngFor="let prova of proves">
+													<th class="border-top-0">Classe {{ classe.nom }}</th>
+													<th class="border-top-0" *ngFor="let prova of proves">
 														<span class="float-right">
 															<!-- <span style="font-weight: 400;" class="float-right text-muted">{{ prova.pes_total | percent:'0.0-1' }}</span>
 															<br> -->
 															{{ prova.nom }} <span class="text-muted" style="font-weight: 400;"><small>({{ prova.pes_total | percent:'0.0-1' }})</small></span>
 														</span>
 													</th>
-													<th>
+													<th class="border-top-0">
 														<span class="float-right">
 															<div *ngIf="prova_avaluacio.pes_total == 1">
 																Total <span class="text-muted" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
@@ -251,7 +273,7 @@
 					id="dimensions" 
 					role="tabpanel" 
 					aria-labelledby="dimensions-tab">
-
+						
 						<div *ngIf="assignatura?.assignatura_avaluacions?.length>0">
 							<div
 							*ngIf="dimensions?.length==0">
@@ -261,15 +283,31 @@
 							</div>
 						</div>
 
+						<h3 *ngIf="dimensions?.length>0">Dimensions</h3>
+
+						<div class="row">
+							<div *ngFor="let dimensio of dimensions" class="col-sm-6 col-md-4 col-lg-3">
+								<div class="card">
+									<div class="card-body">
+										<span class="float-right badge badge-pill badge-secondary" style="border-radius: 30px; padding: 14px 8px; font-weight: 400;">{{ dimensio.pes_total | percent:'0.0-1' }}</span>
+										<h4 class="card-title" style="margin-top: 10px;">{{ dimensio.nom | words : 1}}</h4>
+										<p class="card-text"><small class="text-muted">{{ dimensio.descripcio | words : 1 }}</small></p>
+										<!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<div 
 						*ngIf="dimensions?.length>0"
 						class="table-responsive">
-							<table class="table table-sm table-hover">
+
+							<!-- <table class="table table-sm table-hover">
 								<thead>
 									<tr>
-										<th>Dimensió</th>
-										<th>Descripció</th>
-										<th>
+										<th class="border-top-0">Dimensió</th>
+										<th class="border-top-0">Descripció</th>
+										<th class="border-top-0">
 											<div *ngIf="prova_avaluacio.pes_total == 1">
 												Pes dimensió
 											</div>
@@ -280,7 +318,7 @@
 												</span>
 											</div>
 										</th>
-										<th>
+										<th class="border-top-0">
 											<span class="float-right">
 												Puntació mitja
 											</span>
@@ -309,29 +347,27 @@
 										</td>
 									</tr>
 								</tbody>
-							</table>
+							</table> -->
 
-							<br><hr><br>
+							<h3>Resultats</h3>
 
 							<div *ngFor="let classe of classes">
 
 								<div *ngIf="classe.alumne_classe.length>0">
-									
-									<h3>Classe {{ classe.nom }}</h3>
 
 									<div *ngIf="alumnes" class="table-responsive">
 										<table class="table table-sm table-hover">
 											<thead>
 												<tr>
-													<th>Alumne</th>
-													<th *ngFor="let dimensio of dimensions">
+													<th class="border-top-0">Classe {{ classe.nom }}</th>
+													<th class="border-top-0" *ngFor="let dimensio of dimensions">
 														<span class="float-right">
 															<!-- <span style="font-weight: 400;" class="float-right text-muted">{{ dimensio.pes_total | percent:'0.0-1' }}</span>
 															<br> -->
 															{{ dimensio.nom }} <span class="text-muted" style="font-weight: 400;"><small>({{ dimensio.pes_total | percent:'0.0-1' }})</small></span>
 														</span>
 													</th>
-													<th>
+													<th class="border-top-0">
 														<span class="float-right">
 															<div *ngIf="dimensio_avaluacio.pes_total == 1">
 																Total <span class="text-muted" style="font-weight: 400;"><small>({{ dimensio_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
@@ -402,7 +438,20 @@
 
 					<div class="tab-pane fade" id="professors" role="tabpanel" aria-labelledby="professors-tab">
 
-						<section class="row text-center placeholder">
+
+							<div class="row d-inline">
+								<div *ngFor="let professor of assignatura.professor_assignatures" class="col-sm-6 col-md-6 col-lg-4">
+									<div class="card" style="width: 20rem;">
+										<img class="card-img-top" src="/assets/img/AA924.jpg" alt="Card image cap">
+										<div class="card-body">
+											<h4 class="card-title" style="margin-top: 10px;">{{ professor.nom }} {{ professor.primer_cognom }}</h4>
+											<p class="card-text"><small>Some quick example text to build on the card title and make up the bulk of the card's content.</small></p>
+										</div>
+									</div>
+								</div>
+							</div>						
+
+						<!-- <section class="row text-center placeholder">
 							<div *ngFor="let professor of assignatura.professor_assignatures" class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
 
 								<i 
@@ -415,53 +464,18 @@
 								<a routerLink="/assignatures/{{ assignatura.id }}" routerLinkActive="active">{{ professor.nom}} {{ professor.primer_cognom }}</a>
 
 							</div>
-						</section>
+						</section> -->
 
 					</div>
 
 				</div>
+
+
+
 			</div>
-
-
-
-
-			<!-- Professors -->
-
-<!-- 			<div class="tab-pane fade" id="professors" role="tabpanel" aria-labelledby="professors-tab">
-
-				<section class="row text-center placeholder">
-					<div *ngFor="let professor of assignatura.professor_assignatures" class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-
-						<i 
-						class="material-icons"
-						style="font-size: 120px; cursor: pointer; color: #e9ecef;"
-						routerLink="/assignatures/{{ assignatura.id }}" 
-						routerLinkActive="active">
-							lens
-						</i>
-						<a routerLink="/assignatures/{{ assignatura.id }}" routerLinkActive="active">{{ professor.nom}} {{ professor.primer_cognom }}</a>
-
-					</div>
-				</section> -->
-			
-				<!-- <div class="col-sm-12 col-md-6">
-					<div style="display: block;">
-						<canvas *ngIf="ready_chart == true" 
-						baseChart
-						width="200px" 
-						height="150px"
-						[datasets]="lineChartData"
-						[labels]="lineChartLabels"
-						[options]="lineChartOptions"
-						[colors]="lineChartColors"
-						[legend]="lineChartLegend"
-						[chartType]="lineChartType"
-						(chartHover)="chartHovered($event)"
-						(chartClick)="chartClicked($event)">
-						</canvas>
-					</div>
-				</div> -->
+		</div>
 
 	</div>
-
 </div>
+
+

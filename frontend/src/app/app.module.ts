@@ -13,6 +13,7 @@ import { AccordionModule,
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { LoadingModule } from 'ngx-loading';
 import { ChartsModule } from 'ng2-charts';
+import { TruncateModule } from 'ng2-truncate';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 
@@ -136,6 +137,7 @@ import { AvaluacionsCreateComponent } from './components/avaluacions-create/aval
     ModalModule.forRoot(),
     TabsModule.forRoot(),
     TooltipModule .forRoot(),
+    TruncateModule,
     ],
   exports: [
     Ng2TagsInputItem,
