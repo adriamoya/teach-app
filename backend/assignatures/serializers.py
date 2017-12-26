@@ -61,7 +61,7 @@ class AvaluacioDetailSerializer(ModelSerializer):
 		fields = [
 			'id',					
 			'nom',					
-			'proves_avaluacio',	
+			'proves_avaluacio',
 			'dimensions_avaluacio',
 			'assignatura',	
 			#'url_detail',	

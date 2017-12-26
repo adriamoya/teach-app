@@ -9,7 +9,7 @@ class ProvaModelAdmin(admin.ModelAdmin):
 	
 	list_display = [
 		'__str__',
-		'avaluacio',
+		# 'avaluacio',
 		'pes_total',
 		'nota_total'
 	]

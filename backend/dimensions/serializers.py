@@ -67,7 +67,6 @@ class DimensioCreateUpdateSerializer(ModelSerializer):
 			'id',
 			'nom',
 			'data',
-			'continguts',
 			'nota_total',
 			'pes_total',
 			'avaluacio'
@@ -126,5 +125,4 @@ class DimensioDetailSerializer(ModelSerializer):
 			'notes_dimensio',
 			'pes_total',
 			'avaluacio',
-			'continguts',
 		]

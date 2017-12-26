@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_save
 
-#from proves.models import Prova
+from proves.models import Prova
 
 import numpy as np
 
@@ -39,6 +39,14 @@ class Avaluacio(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("assignatures-api:avaluacio-detail", kwargs={"pk": self.id})
+
+
+	@property
+	def proves_avaluacio(self):
+		instance = self
+		qs = Prova.objects.filter_by_instance(instance)
+		return qs
+
 
 	def __unicode__(self):
 		return "%s %s - Avaluacio %s" % (self.assignatura.nom, self.assignatura.curs.nom, self.nom)
