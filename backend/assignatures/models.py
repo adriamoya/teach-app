@@ -26,7 +26,7 @@ class Assignatura(models.Model):
 		return reverse("assignatures-api:detail", kwargs={"pk": self.id})
 
 	def __unicode__(self):
-		return "%s - %s" % (self.nom, self.curs)
+		return str(self.nom) + " - " + str(self.curs)
 
 	# def __unicode__(self):
 	# 	return "%s - %s" % (self.nom, self.curs)

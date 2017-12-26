@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.db.models.signals import post_save, post_delete
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.utils.timezone import now
 
 import numpy as np
@@ -11,19 +13,45 @@ from alumnes.models import Alumne
 # Create your models here.
 
 
-class Dimensio(models.Model):
 
-	nom 		= models.CharField(max_length=120)
-	data 		= models.DateField(default=now)
-	descripcio	= models.TextField(blank=True, null=True)
-	avaluacio 	= models.ForeignKey('assignatures.Avaluacio', related_name='dimensions_avaluacio',blank=True, null=True)
-	pes_total 	= models.FloatField()
-	nota_total 	= models.FloatField()
-	nota_mitja 	= models.FloatField(blank=True, null=True)
+class DimensioManager(models.Manager):
+	
+	def filter_by_instance(self, instance):
+		content_type = ContentType.objects.get_for_model(instance.__class__)
+		obj_id = instance.id
+		qs = super(DimensioManager, self).filter(content_type=content_type, object_id=obj_id)
+		return qs
+
+class Dimensio(models.Model):
+	'''
+	Dimensio can have multiple child subdimensions.
+	In order to do that we added the content_object that will point to parent dimensions.
+	Null = True
+	'''
+	nom 			= models.CharField(max_length=120)
+	data 			= models.DateField(default=now)
+	descripcio		= models.TextField(blank=True, null=True)
+	avaluacio 		= models.ForeignKey('assignatures.Avaluacio', related_name='dimensions_avaluacio',blank=True, null=True)
+	pes_total 		= models.FloatField()
+	nota_total 		= models.FloatField()
+	nota_mitja 		= models.FloatField(blank=True, null=True)
+
+	content_type 	= models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+	object_id 		= models.PositiveIntegerField(null=True, blank=True)
+	content_object 	= GenericForeignKey('content_type', 'object_id')
+
+	objects			= DimensioManager()
+
+	@property
+	def subdimensions(self):
+		instance = self
+		qs = Dimensio.objects.filter_by_instance(instance)
+		return qs
+
 	# assignatura = models.ForeignKey('assignatures.Assignatura', related_name='proves_assignatura',blank=True, null=True)
 
 	def __unicode__(self):
-		return "%s" % (self.nom)
+		return str(self.nom)
 
 	@classmethod
 	def create_dimensio_final_avaluacio(cls, sender, instance, created, **kwargs):
@@ -139,15 +167,15 @@ class Nota_Dimensio(models.Model):
 # post_save.connect(receiver=Dimensio.create_dimensio_final_avaluacio, sender=Dimensio)
 
 
-post_save.connect(receiver=Dimensio.recalculate_params, sender=Nota_Dimensio)
+# post_save.connect(receiver=Dimensio.recalculate_params, sender=Nota_Dimensio)
 
-post_save.connect(receiver=Dimensio.recalculate_params, sender=Dimensio)
+# post_save.connect(receiver=Dimensio.recalculate_params, sender=Dimensio)
 
 # post_delete.connect(receiver=Dimensio.recalculate_params, sender=Nota_Dimensio)
 
 # post_delete.connect(receiver=Dimensio.recalculate_params, sender=Dimensio)
 
-post_save.connect(receiver=Dimensio.create_dimensio_final_avaluacio, sender=Avaluacio)
+# post_save.connect(receiver=Dimensio.create_dimensio_final_avaluacio, sender=Avaluacio)
 
 
 

@@ -1,4 +1,5 @@
 from rest_framework.serializers import (
+	Field,
 	IntegerField,
 	FloatField,
 	HyperlinkedIdentityField,
@@ -84,6 +85,7 @@ class DimensioListSerializer(ModelSerializer):
 	url_detail =  HyperlinkedIdentityField(view_name='dimensions-api:dimensio-detail', lookup_field='pk')
 	notes_dimensio = Nota_DimensioListSerializer(many=True)
 	avaluacio = PrimaryKeyRelatedField(read_only=True)
+	subdimensions = SerializerMethodField()
 
 	class Meta:
 		model = Dimensio
@@ -95,10 +97,15 @@ class DimensioListSerializer(ModelSerializer):
 			'nota_mitja',
 			'notes_count',
 			'notes_dimensio',
+			'subdimensions',
 			'avaluacio',
 			'pes_total',
 			'url_detail'
 		]
+
+	def get_subdimensions(self, obj):
+		return obj.object_id
+
 
 
 class DimensioDetailSerializer(ModelSerializer):
