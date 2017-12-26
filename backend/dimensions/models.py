@@ -51,7 +51,7 @@ class Dimensio(models.Model):
 	# assignatura = models.ForeignKey('assignatures.Assignatura', related_name='proves_assignatura',blank=True, null=True)
 
 	def __unicode__(self):
-		return str(self.nom)
+		return unicode(self.nom)
 
 	@classmethod
 	def create_dimensio_final_avaluacio(cls, sender, instance, created, **kwargs):
@@ -71,7 +71,7 @@ class Dimensio(models.Model):
 		
 		# create the Total dimensio instance
 		dimensio_avaluacio = Dimensio.objects.get_or_create(
-			nom 		= "Total avaluacio",
+			nom 		= 'Total avaluacio',
 			avaluacio 	= avaluacio_obj,
 			pes_total	= 1,
 			nota_total	= 10,
@@ -144,7 +144,7 @@ class Dimensio(models.Model):
 		qs_prova = Dimensio.objects.filter(id = dimensio_avaluacio_obj.id).update(pes_total=pes_total)
 
 		for alumne_obj in qs_alumnes_avaluacio:
-			nota = [nota["nota"] for nota in notes_avaluacio if nota["alumne"] == alumne_obj.id][0]
+			nota = [nota['nota'] for nota in notes_avaluacio if nota['alumne'] == alumne_obj.id][0]
 			qs_nota = Nota_Dimensio.objects.filter(alumne = alumne_obj).filter(dimensio = dimensio_avaluacio_obj).update(nota=nota)
 
 
@@ -156,7 +156,7 @@ class Nota_Dimensio(models.Model):
 	alumne 		= models.ForeignKey('alumnes.Alumne', related_name='alumne_notes_dimensio', blank=True, null=True)
 
 	def __unicode__(self):
-		return "%s - %s" % (self.alumne.nom, self.nota)
+		return '%s - %s' % (unicode(self.alumne.nom), unicode(self.nota))
 
 
 	def save(self, *args, **kwargs):

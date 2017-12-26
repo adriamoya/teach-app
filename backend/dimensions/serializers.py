@@ -80,12 +80,11 @@ class DimensioListSerializer(ModelSerializer):
 		source='notes_dimensio.count', 
 		read_only=True
 	)
-
-	# dimensio_notes = HyperlinkedRelatedField(many=True, view_name='dimensions-api:nota-detail', read_only=True) # Hyperlinked Identity Field
-	url_detail =  HyperlinkedIdentityField(view_name='dimensions-api:dimensio-detail', lookup_field='pk')
-	notes_dimensio = Nota_DimensioListSerializer(many=True)
-	avaluacio = PrimaryKeyRelatedField(read_only=True)
-	subdimensions = SerializerMethodField()
+	url_detail 		= HyperlinkedIdentityField(view_name='dimensions-api:dimensio-detail', lookup_field='pk')
+	notes_dimensio 	= Nota_DimensioListSerializer(many=True)
+	# avaluacio 		= PrimaryKeyRelatedField(read_only=True)
+	# avaluacio 		= SerializerMethodField()
+	subdimensions 	= SerializerMethodField()
 
 	class Meta:
 		model = Dimensio
@@ -98,13 +97,17 @@ class DimensioListSerializer(ModelSerializer):
 			'notes_count',
 			'notes_dimensio',
 			'subdimensions',
+			# 'subdim',
 			'avaluacio',
 			'pes_total',
 			'url_detail'
 		]
 
 	def get_subdimensions(self, obj):
-		return obj.object_id
+		qs = Dimensio.objects.filter(id=obj.object_id)
+		return DimensioCreateUpdateSerializer(qs, many=True).data
+		# print(obj.content_object)
+		# return obj.object_id
 
 
 

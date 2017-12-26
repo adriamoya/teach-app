@@ -31,13 +31,13 @@ class Alumne(models.Model):
 		return self.assignatures.all()
 
 	def get_assignatura_detail_url(self):
-		return reverse("assignatures-api:detail", kwargs={"pk": self.id})
+		return reverse('assignatures-api:detail', kwargs={'pk': self.id})
 
 	def __unicode__(self):
-		return "%s %s %s" % (self.nom, self.primer_cognom, self.segon_cognom)
+		return '%s %s %s' % (unicode(self.nom), unicode(self.primer_cognom), unicode(self.segon_cognom))
 
 	# def __unicode__(self):
-	# 	return "%s %s %s" % (self.nom, self.primer_cognom, self.segon_cognom)
+	# 	return '%s %s %s' % (self.nom, self.primer_cognom, self.segon_cognom)
 
 
 

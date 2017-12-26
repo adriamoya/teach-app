@@ -22,16 +22,16 @@ class Classe(models.Model):
 	objects			= ClasseManager()
 
 	def get_absolute_url(self):
-		return reverse("classes-api:detail", kwargs={"pk": self.id})
+		return reverse('classes-api:detail', kwargs={'pk': self.id})
 
 	def get_assignatures(self):
 		return self.assignatures.all()
 
 	def get_assignatura_detail_url(self):
-		return reverse("assignatures-api:detail", kwargs={"pk": self.id})
+		return reverse('assignatures-api:detail', kwargs={'pk': self.id})
 
 	def __unicode__(self):
-		return "Classe %s - %s" % (self.nom, self.curs)
+		return 'Classe %s - %s' % (unicode(self.nom), unicode(self.curs))
 
 	# def __str__(self):
-	# 	return "Classe %s - %s" % (self.nom, self.curs)
+	# 	return 'Classe %s - %s' % (self.nom, self.curs)
