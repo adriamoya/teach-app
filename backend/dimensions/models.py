@@ -9,6 +9,7 @@ import numpy as np
 
 from assignatures.models import Avaluacio
 from alumnes.models import Alumne
+from proves.models import Prova
 
 # Create your models here.
 
@@ -32,6 +33,7 @@ class Dimensio(models.Model):
 	data 			= models.DateField(default=now)
 	descripcio		= models.TextField(blank=True, null=True)
 	avaluacio 		= models.ForeignKey('assignatures.Avaluacio', related_name='dimensions_avaluacio',blank=True, null=True)
+	dimensio 		= models.ForeignKey('dimensions.Dimensio', related_name='subdimensions', blank=True, null=True)
 	pes_total 		= models.FloatField()
 	nota_total 		= models.FloatField()
 	nota_mitja 		= models.FloatField(blank=True, null=True)
@@ -43,10 +45,16 @@ class Dimensio(models.Model):
 	objects			= DimensioManager()
 
 	@property
-	def subdimensions(self):
+	def proves(self):
 		instance = self
-		qs = Dimensio.objects.filter_by_instance(instance)
+		qs = Prova.objects.filter_by_instance(instance)
 		return qs
+
+	# @property
+	# def subdimensions(self):
+	# 	instance = self
+	# 	qs = Dimensio.objects.filter_by_instance(instance)
+	# 	return qs
 
 	# assignatura = models.ForeignKey('assignatures.Assignatura', related_name='proves_assignatura',blank=True, null=True)
 

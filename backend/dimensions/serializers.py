@@ -11,6 +11,7 @@ from rest_framework.serializers import (
 	)
 
 from alumnes.serializers import AlumneListSerializer
+from proves.serializers import ProvaListSerializer
 
 from .models import Nota_Dimensio, Dimensio
 
@@ -80,11 +81,10 @@ class DimensioListSerializer(ModelSerializer):
 		source='notes_dimensio.count', 
 		read_only=True
 	)
-	url_detail 		= HyperlinkedIdentityField(view_name='dimensions-api:dimensio-detail', lookup_field='pk')
+	# url_detail 		= HyperlinkedIdentityField(view_name='dimensions-api:dimensio-detail', lookup_field='pk')
 	notes_dimensio 	= Nota_DimensioListSerializer(many=True)
-	# avaluacio 		= PrimaryKeyRelatedField(read_only=True)
-	# avaluacio 		= SerializerMethodField()
 	subdimensions 	= SerializerMethodField()
+	proves 			= SerializerMethodField()
 
 	class Meta:
 		model = Dimensio
@@ -92,22 +92,29 @@ class DimensioListSerializer(ModelSerializer):
 			'id',
 			'nom',
 			'data',
-			'nota_total',
-			'nota_mitja',
-			'notes_count',
-			'notes_dimensio',
-			'subdimensions',
-			# 'subdim',
 			'avaluacio',
 			'pes_total',
-			'url_detail'
+			'nota_mitja',
+			'notes_count',
+			'nota_total',
+			'notes_dimensio',
+			'proves',
+			'subdimensions',
+			# 'url_detail'
 		]
 
+	# Serialize subdimensions data
 	def get_subdimensions(self, obj):
-		qs = Dimensio.objects.filter(id=obj.object_id)
-		return DimensioCreateUpdateSerializer(qs, many=True).data
-		# print(obj.content_object)
-		# return obj.object_id
+		qs = obj.subdimensions.all()
+		if qs.exists():
+			return DimensioListSerializer(qs, many=True).data
+		return None
+
+	def get_proves(self, obj):
+		qs = obj.proves.all()
+		if qs.exists():
+			return ProvaListSerializer(qs, many=True).data
+		return None
 
 
 

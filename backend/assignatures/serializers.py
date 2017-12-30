@@ -8,6 +8,9 @@ from rest_framework.serializers import (
 	SerializerMethodField
 	)
 
+# from rest_framework.request import Request
+# from rest_framework.test import APIRequestFactory
+
 from .models import Assignatura, Avaluacio
 
 from alumnes.serializers import AlumneListSerializer
@@ -29,26 +32,47 @@ class AvaluacioCreateSerializer(ModelSerializer):
 			'assignatura'
 		]
 
+
 class AvaluacioListSerializer(ModelSerializer):
 	"""
 	List of all avaluacions available.
 
 	"""
-	url_detail =  HyperlinkedIdentityField(view_name='assignatures-api:avaluacio-detail', lookup_field='pk')
-	proves_avaluacio = ProvaListSerializer(many=True, read_only=True)
-	dimensions_avaluacio = DimensioListSerializer(many=True, read_only=True)
-	# proves_assignatura = ProvaListSerializer(many=True)
+
+	url_detail 				= HyperlinkedIdentityField(view_name='assignatures-api:avaluacio-detail', lookup_field='pk')
+	# proves_avaluacio 		= ProvaListSerializer(many=True, read_only=True)
+	dimensions_avaluacio 	= SerializerMethodField()
 
 	class Meta:
 		model = Avaluacio
 		fields = [
 			'id',					
 			'nom',					
-			'proves_avaluacio',
+			# 'proves_avaluacio',
 			'dimensions_avaluacio',
 			'assignatura',	
 			'url_detail',	
 		]
+
+	def get_dimensions_avaluacio(self, obj):
+		qs = obj.dimensions_avaluacio.all().filter(dimensio=None)
+		if qs.exists():
+			return DimensioListSerializer(qs, many=True).data
+		return None
+
+
+
+	# dimensions_avaluacio 	= DimensioListSerializer(many=True, read_only=True)
+	# dimensions_avaluacio = SerializerMethodField()
+	# def get_dimensions_avaluacio(self, obj):
+	# 	factory = APIRequestFactory()
+	# 	request = factory.get('/')
+
+	# 	serializer_context = {
+	# 		'request': Request(request),
+	# 	}
+	# 	qs_dimensions = obj.dimensions_avaluacio.all().exclude(object_id=None)
+	# 	return DimensioListSerializer(qs_dimensions, many=True, context=serializer_context).data
 
 class AvaluacioDetailSerializer(ModelSerializer):
 
