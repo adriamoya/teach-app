@@ -6,37 +6,13 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Nota_Dimensio, Dimensio
+from .models import Dimensio
 from .serializers import (
-	Nota_DimensioCreateUpdateSerializer,
-	Nota_DimensioDetailSerializer, 
-	Nota_DimensioListSerializer,
 	DimensioCreateUpdateSerializer,
 	DimensioDetailSerializer,
 	DimensioListSerializer
 	)
 from rest_framework.mixins import CreateModelMixin
-
-
-class Nota_DimensioCreateView(CreateAPIView):
-	permission_classes = [IsAuthenticated]
-	queryset = Nota_Dimensio.objects.all()
-	serializer_class = Nota_DimensioCreateUpdateSerializer
-
-	def perform_create(self, serializer):
-		serializer.save()
-
-
-class Nota_DimensioListView(ListAPIView):
-	permission_classes = [IsAuthenticated]
-	queryset = Nota_Dimensio.objects.all()
-	serializer_class = Nota_DimensioListSerializer
-
-
-class Nota_DimensioDetailView(RetrieveUpdateDestroyAPIView):
-	permission_classes = [IsAuthenticated]
-	queryset = Nota_Dimensio.objects.all()
-	serializer_class = Nota_DimensioDetailSerializer
 
 
 # We are here using a model mixin because we want to return

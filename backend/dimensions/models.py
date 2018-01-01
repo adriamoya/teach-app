@@ -8,12 +8,11 @@ from django.utils.timezone import now
 import numpy as np
 
 from assignatures.models import Avaluacio
-from alumnes.models import Alumne
-from proves.models import Prova
+from proves.models import Prova, Nota
+
+
 
 # Create your models here.
-
-
 
 class DimensioManager(models.Manager):
 	
@@ -50,13 +49,17 @@ class Dimensio(models.Model):
 		qs = Prova.objects.filter_by_instance(instance)
 		return qs
 
+	def notes(self):
+		instance = self
+		qs = Nota.objects.filter_by_instance(instance)
+		return qs
+
 	# @property
 	# def subdimensions(self):
 	# 	instance = self
 	# 	qs = Dimensio.objects.filter_by_instance(instance)
 	# 	return qs
 
-	# assignatura = models.ForeignKey('assignatures.Assignatura', related_name='proves_assignatura',blank=True, null=True)
 
 	def __unicode__(self):
 		return unicode(self.nom)
@@ -70,45 +73,32 @@ class Dimensio(models.Model):
 		In addition, inizialization of the notes that populate the Total dimensio
 		is required to reserve some id in the db.
 		'''
-
-		# retrieve Avaluacio instance passed by post_save method (sender)
-		print('Create dimensio final avaluacio')
-		print('----------------------------------------')
-		avaluacio_id = instance.id
-		avaluacio_obj = Avaluacio.objects.filter(id = avaluacio_id).first() # retrieve newly created avaluacio instance 
-		
+		dimensio_id 			= instance.id
+		dimensio_content_type 	= ContentType.objects.get_for_model(instance.__class__)
+		# dimensio_parent_obj		= instance.dimensio
+		avaluacio_obj 			= instance.avaluacio
 		# create the Total dimensio instance
-		dimensio_avaluacio = Dimensio.objects.get_or_create(
-			nom 		= 'Total avaluacio',
-			avaluacio 	= avaluacio_obj,
-			pes_total	= 1,
-			nota_total	= 10,
-			)
-
-		# retrieve id of Total dimensio
-		dimensio_avaluacio_obj = Dimensio.objects.filter(avaluacio = avaluacio_id).first()
-		# print(dimensio_avaluacio_obj.id)
+		# dimensio_avaluacio = Dimensio.objects.get_or_create(
+		# 	nom 		= '_Total',
+		# 	avaluacio 	= avaluacio_obj,
+		# 	dimensio 	= dimensio_parent_obj,
+		# 	pes_total	= 1,
+		# 	nota_total	= 10,
+		# 	)
 
 		# retrieve alumnes from avaluacio (assignatura)
 		qs_alumnes = Avaluacio.get_alumnes(avaluacio_obj)
-		# print(qs_alumnes)
 
 		for alumne_obj in qs_alumnes:
-			Nota_Dimensio.objects.create(
-				nota 	= 0,
-				alumne 	= alumne_obj,
-				dimensio 	= dimensio_avaluacio_obj
+			# Create notes for current dimensio
+			Nota.objects.get_or_create(
+				nota 			= 0,
+				content_type	= dimensio_content_type,
+				object_id 		= dimensio_id,
+				alumne 			= alumne_obj,
 			)
 
-		# the create method is assigning NaN to all the notes
-		# the api call will return a json with NaN in floatfield and will
-		# produce errors in the frontend.
-		# in order to ammend this, we update all the notes from this newly created prova
-		# with 0.
-		Nota_Dimensio.objects.filter(dimensio=dimensio_avaluacio_obj).update(nota=0)
 
-
-	# this method is triggered after a nota is assigned to a prova (post_save signal)
 	@classmethod
 	def recalculate_params(cls, sender, instance, **kwargs):
 		'''
@@ -117,10 +107,9 @@ class Dimensio(models.Model):
 			-	Recalculate the mean (nota_mitja) of the prova linked to the nota created/changed.
 			-	Update the prova_avaluacio with the new notes
 		'''
-
-		if sender == Nota_Dimensio:
+		if sender == Nota:
 			# grab the current instance of Dimensio
-			dimensio_id = instance.dimensio.id # get the id
+			dimensio_id = instance.object_id # get the id
 			qs = Dimensio.objects.filter(id = dimensio_id) # filter Dimensio objects by this id
 
 			dimensio_obj = qs.first()
@@ -128,7 +117,7 @@ class Dimensio(models.Model):
 		elif sender == Dimensio:
 			dimensio_obj = instance
 
-		qs_notes = dimensio_obj.notes_dimensio.all() # calculate the mean of all the notes of this prova
+		qs_notes = dimensio_obj.notes() # calculate the mean of all the notes of this prova
 
 		# wraps all the notes in an array in order to use numpy
 		notes_array = []
@@ -143,43 +132,73 @@ class Dimensio(models.Model):
 		# It is important to note that we are using update() method instead of .save() to avoid
 		# recursion with post_save method. To use .update() it is necessary to pass in a queryset (qs_prova),
 		# not the object (dimensio_obj)
-		qs_prova = Dimensio.objects.filter(id = dimensio_obj.id).update(nota_mitja=nota_mitja)
+		qs_prova = Dimensio.objects.filter(id=dimensio_obj.id).update(nota_mitja=nota_mitja)
 
-		# Recalculate the final notes for the corresponding avaluacio
-		pes_total, notes_avaluacio, dimensio_avaluacio_obj, qs_alumnes_avaluacio = Avaluacio.recalculate_dimensions_avaluacio(dimensio_obj.avaluacio)
+		# Retrieve list of alumnes in corresponding assignatura
+		avaluacio_obj = dimensio_obj.avaluacio
+		qs_alumnes = Avaluacio.get_alumnes(avaluacio_obj)
 
-		# updating the total weight of the prova_avaluacio (based on the weights of individuals proves)
-		qs_prova = Dimensio.objects.filter(id = dimensio_avaluacio_obj.id).update(pes_total=pes_total)
+		# Recalculate the final notes for the corresponding dimensio
+		if dimensio_obj.dimensio:
+			# Parent dimensio
+			parent_dimensio_obj = dimensio_obj.dimensio
 
-		for alumne_obj in qs_alumnes_avaluacio:
-			nota = [nota['nota'] for nota in notes_avaluacio if nota['alumne'] == alumne_obj.id][0]
-			qs_nota = Nota_Dimensio.objects.filter(alumne = alumne_obj).filter(dimensio = dimensio_avaluacio_obj).update(nota=nota)
+			# Subdimensions
+			qs_subdimensions = parent_dimensio_obj.subdimensions.all() # includes _Total
+			dimensio_avaluacio_obj = qs_subdimensions.all().filter(nom__iexact='_Total').first()
+			print dimensio_avaluacio_obj
+			qs_subdimensions_adj = qs_subdimensions.all().exclude(nom__iexact='_Total')
+
+			pes_total = 0
+			for subdimensio in qs_subdimensions_adj:
+				pes_total += subdimensio.pes_total
+
+			# create a list of objects that represents notes_dimensio
+			notes_dimensio = []
+			notes_dimensio_array = []
+			for alumne in qs_alumnes:
+				nota_dimensio_alumne = []
+				for subdimensio in qs_subdimensions_adj:
+					# print(prova.notes.all())
+					for nota in subdimensio.notes():
+						if nota.alumne.id == alumne.id:
+							nota_dimensio_alumne.append(nota.nota*subdimensio.pes_total/subdimensio.nota_total)
+				notes_dimensio.append(
+					{ 
+						'nota': np.sum(nota_dimensio_alumne)*10/pes_total,
+						'dimensio': parent_dimensio_obj.id,
+						'alumne': alumne.id
+					}
+				)
+				notes_dimensio_array.append(np.sum(nota_dimensio_alumne)*10/pes_total)
+
+			nota_mitja = np.mean(notes_dimensio_array) # calculating the mean of all the notes
+			nota_mitja = np.nan_to_num(nota_mitja) # translating nan to 0
+
+
+			# Updating parent dimensio
+			# Dimensio.objects.filter(id=parent_dimensio_obj.id).update(pes_total=pes_total)
+			Dimensio.objects.filter(id=parent_dimensio_obj.id).update(nota_mitja=nota_mitja)
+
+			for alumne_obj in qs_alumnes:
+				nota = [nota['nota'] for nota in notes_dimensio if nota['alumne'] == alumne_obj.id][0]
+				nota_obj = Nota.objects.filter(alumne=alumne_obj, object_id=parent_dimensio_obj.id).first()
+				if nota_obj:
+					nota_obj.nota = nota
+					nota_obj.save()
+
+				# qs_nota = Nota.objects.filter(alumne=alumne_obj).filter(object_id=parent_dimensio_obj.id).update(nota=nota)
 
 
 
-class Nota_Dimensio(models.Model):
+post_save.connect(receiver=Dimensio.create_dimensio_final_avaluacio, sender=Dimensio)
 
-	nota 		= models.FloatField(null=False)
-	dimensio	= models.ForeignKey('Dimensio', related_name='notes_dimensio', blank=True)
-	alumne 		= models.ForeignKey('alumnes.Alumne', related_name='alumne_notes_dimensio', blank=True, null=True)
+post_save.connect(receiver=Dimensio.recalculate_params, sender=Nota)
 
-	def __unicode__(self):
-		return '%s - %s' % (unicode(self.alumne.nom), unicode(self.nota))
-
-
-	def save(self, *args, **kwargs):
-		super(Nota_Dimensio, self).save(*args, **kwargs)
-
-
-
-# post_save.connect(receiver=Dimensio.create_dimensio_final_avaluacio, sender=Dimensio)
-
-
-# post_save.connect(receiver=Dimensio.recalculate_params, sender=Nota_Dimensio)
+# post_delete.connect(receiver=Dimensio.recalculate_params, sender=Nota)
 
 # post_save.connect(receiver=Dimensio.recalculate_params, sender=Dimensio)
 
-# post_delete.connect(receiver=Dimensio.recalculate_params, sender=Nota_Dimensio)
 
 # post_delete.connect(receiver=Dimensio.recalculate_params, sender=Dimensio)
 

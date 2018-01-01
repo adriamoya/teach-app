@@ -11,53 +11,9 @@ from rest_framework.serializers import (
 	)
 
 from alumnes.serializers import AlumneListSerializer
-from proves.serializers import ProvaListSerializer
+from proves.serializers import ProvaListSerializer, NotaListSerializer, NotaDetailSerializer
 
-from .models import Nota_Dimensio, Dimensio
-
-
-# Nota
-# ------------------------------------------------------------------------
-
-class Nota_DimensioCreateUpdateSerializer(ModelSerializer):
-	class Meta:
-		model = Nota_Dimensio
-		fields = [
-			'nota',
-			'alumne',
-			'dimensio'
-		]
-
-
-class Nota_DimensioListSerializer(ModelSerializer):
-
-	url_detail =  HyperlinkedIdentityField(view_name='dimensions-api:nota-detail', lookup_field='pk')
-	# alumne = AlumneListSerializer(many=False)
-
-	class Meta:
-		model = Nota_Dimensio
-		fields = [
-			'nota',
-			'alumne',
-			'url_detail',
-			'dimensio'
-		]
-
-
-class Nota_DimensioDetailSerializer(ModelSerializer):
-
-	url_detail =  HyperlinkedIdentityField(view_name='dimensions-api:nota-detail', lookup_field='pk')
-	alumne = AlumneListSerializer(many=False)
-
-	class Meta:
-		model = Nota_Dimensio
-		fields = [
-			'nota',
-			'alumne',
-			'url_detail',
-			'dimensio'
-		]
-
+from .models import Dimensio
 
 # Dimensio
 # ------------------------------------------------------------------------
@@ -78,13 +34,13 @@ class DimensioCreateUpdateSerializer(ModelSerializer):
 class DimensioListSerializer(ModelSerializer):
 
 	notes_count = IntegerField(
-		source='notes_dimensio.count', 
+		source='notes.count', 
 		read_only=True
 	)
 	# url_detail 		= HyperlinkedIdentityField(view_name='dimensions-api:dimensio-detail', lookup_field='pk')
-	notes_dimensio 	= Nota_DimensioListSerializer(many=True)
+	notes 			= NotaListSerializer(many=True)
 	subdimensions 	= SerializerMethodField()
-	proves 			= SerializerMethodField()
+	# proves 			= SerializerMethodField()
 
 	class Meta:
 		model = Dimensio
@@ -92,15 +48,14 @@ class DimensioListSerializer(ModelSerializer):
 			'id',
 			'nom',
 			'data',
-			'avaluacio',
+			# 'avaluacio',
 			'pes_total',
 			'nota_mitja',
 			'notes_count',
 			'nota_total',
-			'notes_dimensio',
-			'proves',
+			'notes',
+			# 'proves',
 			'subdimensions',
-			# 'url_detail'
 		]
 
 	# Serialize subdimensions data
@@ -110,24 +65,24 @@ class DimensioListSerializer(ModelSerializer):
 			return DimensioListSerializer(qs, many=True).data
 		return None
 
-	def get_proves(self, obj):
-		qs = obj.proves.all()
-		if qs.exists():
-			return ProvaListSerializer(qs, many=True).data
-		return None
+	# def get_proves(self, obj):
+	# 	qs = obj.proves.all()
+	# 	if qs.exists():
+	# 		return ProvaListSerializer(qs, many=True).data
+	# 	return None
 
 
 
 class DimensioDetailSerializer(ModelSerializer):
 
 	notes_count = IntegerField(
-		source='notes_dimensio.count', 
+		source='notes.count', 
 		read_only=True
 	)
 
 	# notes_dimensio = HyperlinkedRelatedField(many=True, view_name='proves-api:nota-detail', read_only=True) # Hyperlinked Identity Field
 
-	notes_dimensio = Nota_DimensioDetailSerializer(many=True)
+	notes = NotaDetailSerializer(many=True)
 	avaluacio = PrimaryKeyRelatedField(read_only=True)
 
 	class Meta:
@@ -139,7 +94,7 @@ class DimensioDetailSerializer(ModelSerializer):
 			'nota_total',
 			'nota_mitja',
 			'notes_count',
-			'notes_dimensio',
+			'notes',
 			'pes_total',
 			'avaluacio',
 		]

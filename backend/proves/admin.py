@@ -25,7 +25,11 @@ class NotaModelAdmin(admin.ModelAdmin):
 	
 	list_display = [
 		# '__str__',
-		'prova',
+		# 'prova',
+		'nota',
+		'alumne',
+		'content_type',
+		'object_id'
 	]
 
 	class Meta:

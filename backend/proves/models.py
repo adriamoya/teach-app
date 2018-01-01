@@ -7,8 +7,8 @@ from django.utils.timezone import now
 import numpy as np
 
 # from assignatures.models import Avaluacio
-# from alumnes.models import Alumne
-
+from alumnes.models import Alumne
+# from dimensions.models import Dimensio
 # Create your models here.
 
 
@@ -153,14 +153,18 @@ class NotaManager(models.Manager):
 class Nota(models.Model):
 
 	nota 			= models.FloatField(null=False)
-	prova 			= models.ForeignKey('Prova', related_name='notes_prova', blank=True)
+	# prova 			= models.ForeignKey('Prova', related_name='notes_prova', blank=True)
+	alumne 			= models.ForeignKey('alumnes.Alumne', related_name='alumne', blank=True, null=True)
 	content_type 	= models.ForeignKey(ContentType, on_delete=models.CASCADE)
 	object_id 		= models.PositiveIntegerField()
 	content_object 	= GenericForeignKey('content_type', 'object_id')
 	objects			= NotaManager()
 
-
-	# alumne 		= models.ForeignKey('alumnes.Alumne', related_name='nota_alumne', blank=True, null=True)
+	# @property
+	# def dimensio(self, obj):
+	# 	instance = self
+	# 	qs = Dimensio.filter_by_instance(instance)
+	# 	return qs
 
 	def __unicode__(self):
 		return str(self.nota)

@@ -29,27 +29,27 @@ class NotaCreateUpdateSerializer(ModelSerializer):
 
 class NotaListSerializer(ModelSerializer):
 
-	url_detail =  HyperlinkedIdentityField(view_name='proves-api:nota-detail', lookup_field='pk')
+	# url_detail =  HyperlinkedIdentityField(view_name='proves-api:nota-detail', lookup_field='pk')
 	# alumne = AlumneListSerializer(many=False)
-	alumne = SerializerMethodField()
+	# alumne = SerializerMethodField()
 
 	class Meta:
 		model = Nota
 		fields = [
 			'nota',
 			'alumne',
-			'url_detail',
-			'prova'
+			# 'url_detail',
+			# 'prova'
 		]
 
-	def get_alumne(self, obj):
-		return obj.object_id
+	# def get_alumne(self, obj):
+	# 	return obj.object_id
 
 
 class NotaDetailSerializer(ModelSerializer):
 
-	url_detail =  HyperlinkedIdentityField(view_name='proves-api:nota-detail', lookup_field='pk')
-	alumne = SerializerMethodField()
+	# url_detail =  HyperlinkedIdentityField(view_name='proves-api:nota-detail', lookup_field='pk')
+	# alumne = SerializerMethodField()
 	# alumne = AlumneListSerializer(many=False)
 
 	class Meta:
@@ -57,12 +57,12 @@ class NotaDetailSerializer(ModelSerializer):
 		fields = [
 			'nota',
 			'alumne',
-			'url_detail',
-			'prova'
+			# 'url_detail',
+			# 'prova'
 		]
 
-	def get_alumne(self, obj):
-		return obj.object_id
+	# def get_alumne(self, obj):
+	# 	return obj.object_id
 
 
 # Prova
