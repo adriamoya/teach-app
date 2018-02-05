@@ -26,7 +26,7 @@ import 'rxjs/add/operator/catch';
 export class AssignaturesDetailComponent implements OnDestroy {
 
 	// CREATE A NEW COMPONENT FOR THE LINECHART
-
+	private i: number;
 	private subRoute: any;
 	private subAssignatura: any;
 	private subCurs: any;
@@ -103,6 +103,34 @@ export class AssignaturesDetailComponent implements OnDestroy {
 							this.dimensions = dimensions_avaluacio;
 						}
 
+						// create ordering among sub and subsubdimensions
+						this.dimensions.sort(compareValues('id'));
+						this.i = 0;
+						for (let dimensio of this.dimensions){
+							if (dimensio.subdimensions) {
+								dimensio.subdimensions.sort(compareValues('id'))
+								for (let subdimensio of dimensio.subdimensions) {
+									if (subdimensio.subdimensions) {
+										subdimensio.subdimensions.sort(compareValues('id'))
+										for (let subsubdimensio of subdimensio.subdimensions) {
+											this.i = this.i + 1;
+											subsubdimensio.order = this.i;
+											subsubdimensio.toggle = true;
+											subsubdimensio.collapsed = true;
+										}
+									}
+									this.i = this.i + 1;
+									subdimensio.order = this.i;
+									subdimensio.toggle = true;
+									subdimensio.collapsed = true;
+								}
+							}
+							this.i = this.i + 1;
+							dimensio.order = this.i;
+							dimensio.toggle = true;
+							dimensio.collapsed = true;
+						}
+
 
 						console.log(this.assignatura);
 						// console.log(this.proves);
@@ -120,6 +148,50 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	
 	};
 
+	clickDimensio(event) {
+		// console.log(event);
+		// console.log(event.target.id);
+		// console.log(this.dimensioSelected);
+		let subdimensioSelected = this.dimensioSelected.subdimensions.filter((subdimensio) => subdimensio.id == event.target.id)[0];
+
+		if (subdimensioSelected.collapsed == true) {
+			subdimensioSelected.collapsed = false
+			// Show
+			if (subdimensioSelected.subdimensions) {
+				for (let subsubdimensio of subdimensioSelected.subdimensions) {
+					subsubdimensio.toggle = false;
+					this.dimensioSelected.subdimensions.push(subsubdimensio)
+				}
+			}
+
+		} else {
+			subdimensioSelected.collapsed = true
+			// Hide
+			if (subdimensioSelected.subdimensions) {
+				for (let subsubdimensio of subdimensioSelected.subdimensions) {
+					let index = this.dimensioSelected.subdimensions.indexOf(subsubdimensio);
+					this.dimensioSelected.subdimensions.splice(index, 1)
+				}
+			}
+
+		}
+
+		this.dimensioSelected.subdimensions.sort(compareValues('order'))
+		// console.log(this.dimensioSelected.subdimensions);
+
+	}
+
+
+	isCollapsed: boolean = false;
+
+	collapsed(event: any): void {
+		console.log(event);
+	}
+
+	expanded(event: any): void {
+		console.log(event);
+	}
+
 	toggle(event) {
 		console.log(event);
 		// $('#col_total').toggleClass('col-0 col-6');
@@ -127,7 +199,10 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	}
 
 	onChangeDimensio(event) {
-		this.dimensioSelected = this.dimensions.filter((dimensio) => dimensio.id == event.id)[0];
+		let assignatura = this.dimensions.filter((dimensio) => dimensio.id == event.id)[0];
+		this.dimensioSelected = Object.assign({}, this.dimensioSelected , assignatura );
+		// this.dimensioSelected.subdimensions.sort(compareValues('id'));
+		// this.dimensioSelected = this.dimensions.filter((dimensio) => dimensio.id == event.id)[0];
 		console.log(this.dimensioSelected);
 		console.log(this.classes);
 	}
