@@ -145,8 +145,6 @@ class Dimensio(models.Model):
 
 			# Subdimensions
 			qs_subdimensions = parent_dimensio_obj.subdimensions.all() # includes _Total
-			dimensio_avaluacio_obj = qs_subdimensions.all().filter(nom__iexact='_Total').first()
-			print dimensio_avaluacio_obj
 			qs_subdimensions_adj = qs_subdimensions.all().exclude(nom__iexact='_Total')
 
 			pes_total = 0
@@ -159,7 +157,6 @@ class Dimensio(models.Model):
 			for alumne in qs_alumnes:
 				nota_dimensio_alumne = []
 				for subdimensio in qs_subdimensions_adj:
-					# print(prova.notes.all())
 					for nota in subdimensio.notes():
 						if nota.alumne.id == alumne.id:
 							nota_dimensio_alumne.append(nota.nota*subdimensio.pes_total/subdimensio.nota_total)
@@ -177,7 +174,6 @@ class Dimensio(models.Model):
 
 
 			# Updating parent dimensio
-			# Dimensio.objects.filter(id=parent_dimensio_obj.id).update(pes_total=pes_total)
 			Dimensio.objects.filter(id=parent_dimensio_obj.id).update(nota_mitja=nota_mitja)
 
 			for alumne_obj in qs_alumnes:
@@ -195,7 +191,7 @@ post_save.connect(receiver=Dimensio.create_dimensio_final_avaluacio, sender=Dime
 
 post_save.connect(receiver=Dimensio.recalculate_params, sender=Nota)
 
-# post_delete.connect(receiver=Dimensio.recalculate_params, sender=Nota)
+post_delete.connect(receiver=Dimensio.recalculate_params, sender=Nota)
 
 # post_save.connect(receiver=Dimensio.recalculate_params, sender=Dimensio)
 

@@ -42,5 +42,6 @@ class ClasseDetailSerializer(ModelSerializer):
 			'nom',
 			'curs',
 			'alumne_classe',
+			'__unicode__'
 			# 'assignatures'
 		]

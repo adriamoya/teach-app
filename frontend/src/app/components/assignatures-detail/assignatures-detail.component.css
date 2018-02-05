@@ -7,3 +7,79 @@ h5 {
 	margin-top: 15px;
 	margin-bottom: 5px;
 }
+
+.row-fluid div {
+    height: 200px;
+    -webkit-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+    -moz-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+    -o-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+    transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+}
+
+.row-fluid .col-0 {
+    width: 0%;
+    float:left;
+}
+
+.row-fluid .col-0 + [class*="col"]{
+    margin-left: 0;
+}
+
+#col_total {
+    background-color: #A6BFBA;
+}
+
+#col_content {
+    background-color: #DE4124;
+}
+
+
+.table-header-rotated th.rotate-45{
+  height: 200px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  position: relative;
+  vertical-align: bottom;
+  padding: 0;
+  font-size: 16px;
+  line-height: 0.8;
+}
+
+.table-header-rotated th.rotate-45 > div{
+  position: relative;
+  top: 0px;
+  left: -100px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
+  height: 100%;
+  -ms-transform:skew(45deg,0deg);
+  -moz-transform:skew(45deg,0deg);
+  -webkit-transform:skew(45deg,0deg);
+  -o-transform:skew(45deg,0deg);
+  transform:skew(45deg,0deg);
+  overflow: hidden;
+
+}
+
+.table-header-rotated th.rotate-45 span {
+  -ms-transform:skew(-45deg,0deg) rotate(45deg);
+  -moz-transform:skew(-45deg,0deg) rotate(45deg);
+  -webkit-transform:skew(-45deg,0deg) rotate(45deg);
+  -o-transform:skew(-45deg,0deg) rotate(45deg);
+  transform:skew(-45deg,0deg) rotate(45deg);
+  position: absolute;
+  bottom: 150px; /* 40 cos(45) = 28 with an additional 2px margin*/
+  left: -20px; /*Because it looked good, but there is probably a mathematical link here as well*/
+  display: inline-block;
+  width: 100%;
+  width: 85px; /* 80 / cos(45) - 40 cos (45) = 85 where 80 is the height of the cell, 40 the width of the cell and 45 the transform angle*/
+  text-align: left;
+  white-space: nowrap; /*whether to display in one line or not*/
+}
+  
+.table-striped-column > thead > tr th:nth-of-type(even) div {
+    background-color: #eee;
+}
+
+.table-striped-column > tbody > tr td:nth-of-type(even) {
+    background-color: #eee;
+}

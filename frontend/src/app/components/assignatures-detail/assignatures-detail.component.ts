@@ -37,8 +37,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	private classes: any[];
 	private dimensions: any[]=[];
 	private dimensio_avaluacio: any = {};
-	private proves: any[]=[];
-	private prova_avaluacio: any = {};
+	private dimensioSelected: any = {};
 	private alumnes: any[];
 
 	private html: string = `<span>El conjunt de les proves d'aquesta avaluació <strong>no</strong> suma 100%</span>`;
@@ -55,10 +54,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 					data => {
 						// sorting avaluacions						
 						data.assignatura_avaluacions.sort(compareValues('id'));
-						// sorting proves
-						for (let avaluacio of data.assignatura_avaluacions) {
-							avaluacio.proves_avaluacio.sort(compareValues('id'));
-						}
+
 						// sorting alumnes
 						data.alumne_assignatures.sort(compareValues('nom'));
 						this.assignatura = data;
@@ -94,19 +90,8 @@ export class AssignaturesDetailComponent implements OnDestroy {
 							let avaluacio = this.assignatura.assignatura_avaluacions
 
 							let dimensions = avaluacio[0].dimensions_avaluacio;
-							let proves = avaluacio[0].proves_avaluacio;
 
 							let dimensions_avaluacio: any[] = [];
-							let proves_avaluacio: any[] = [];
-
-							for (let prova of proves) {
-								if (prova.nom == "Total avaluacio") {
-									this.prova_avaluacio = prova;
-								} else {
-									proves_avaluacio.push(prova);
-								}
-							}
-							this.proves = proves_avaluacio;
 
 							for (let dimensio of dimensions) {
 								if (dimensio.nom == "Total avaluacio") {
@@ -121,7 +106,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 
 						console.log(this.assignatura);
 						// console.log(this.proves);
-						// console.log(this.dimensions);
+						console.log(this.dimensions);
 						// console.log(this.proves);
 						// console.log(this.alumnes);
 					},
@@ -135,25 +120,24 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	
 	};
 
+	toggle(event) {
+		console.log(event);
+		// $('#col_total').toggleClass('col-0 col-6');
+		// $('#col_content').toggleClass('col-10 col-6');
+	}
+
+	onChangeDimensio(event) {
+		this.dimensioSelected = this.dimensions.filter((dimensio) => dimensio.id == event.id)[0];
+		console.log(this.dimensioSelected);
+		console.log(this.classes);
+	}
+
 	onChangeAvaluacio(event) {
 
 		let avaluacioId = event.target.selectedOptions["0"].id;
 		let avaluacio = this.assignatura.assignatura_avaluacions
 						.filter((avaluacio) => avaluacio.id == avaluacioId);
 
-		let proves = avaluacio[0].proves_avaluacio;
-		console.log(proves);
-
-		let proves_avaluacio: any[] = [];
-
-		for (let prova of proves) {
-			if (prova.nom == "Total avaluacio") {
-				this.prova_avaluacio = prova;
-			} else {
-				proves_avaluacio.push(prova);
-			}
-		}
-		this.proves = proves_avaluacio;
 
 		let dimensions = avaluacio[0].dimensions_avaluacio;
 		console.log(dimensions);
@@ -168,6 +152,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 			}
 		}
 		this.dimensions = dimensions_avaluacio;
+		console.log(this.dimensions);
 
 	};
 

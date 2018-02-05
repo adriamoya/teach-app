@@ -83,9 +83,6 @@
 				<!-- Pills -->
 				<ul class="nav nav-pills" id="myTab" role="tablist">
 					<li class="nav-item">
-						<a class="nav-link active" id="proves-tab" data-toggle="tab" href="#proves" role="tab" aria-controls="proves" aria-selected="true">Proves</a>
-					</li>
-					<li class="nav-item">
 						<a class="nav-link" id="dimensions-tab" data-toggle="tab" href="#dimensions" role="tab" aria-controls="dimensions" aria-selected="false">Dimensions</a>
 					</li>
 					<li class="nav-item">
@@ -97,175 +94,6 @@
 
 				<div style="margin-top: 20px;" class="tab-content" id="myTabContent">
 
-					<!-- Proves - list -->
-					<div 
-					class="tab-pane fade show active" 
-					id="proves" 
-					role="tabpanel" 
-					aria-labelledby="proves-tab">
-
-						<div *ngIf="assignatura?.assignatura_avaluacions?.length>0">
-							<div
-							*ngIf="proves?.length==0">
-								<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">
-									No hi ha cap prova. Feu click <a class="alert-link clickable" [routerLink]="['/proves','add']">aquí</a> per afegir-ne.
-								</div>
-							</div>
-						</div>
-
-						<h3 *ngIf="proves?.length>0">Proves</h3>
-
-						<div class="row">
-							<div *ngFor="let prova of proves" class="col-sm-6 col-md-4 col-lg-3">
-								<div class="card">
-									<div class="card-body">
-										<span class="float-right badge badge-pill badge-secondary" style="border-radius: 30px; padding: 14px 8px; font-weight: 400;">{{ prova.pes_total | percent:'0.0-1' }}</span>
-										<h4 class="card-title" style="margin-top: 10px;">{{ prova.nom }}</h4>
-										<p class="card-text"><small class="text-muted">{{ prova.data | date }}</small></p>
-										<!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div 
-						*ngIf="proves?.length>0"
-						class="table-responsive">
-
-							<!-- <table class="table table-sm table-hover">
-								<thead>
-									<tr>
-										<th class="border-top-0">Prova</th>
-										<th class="border-top-0">Data</th>
-										<th class="border-top-0">
-											<div *ngIf="prova_avaluacio.pes_total == 1">
-												Pes prova
-											</div>
-											<div *ngIf="prova_avaluacio.pes_total != 1">
-												<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
-												<span [tooltip]="popTemplate">
-													Pes prova
-												</span>
-											</div>
-										</th>
-										<th class="border-top-0">
-											<span class="float-right">
-												Puntació mitja
-											</span>
-										</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr *ngFor="let prova of proves">
-										<td><a routerLink="/assignatures/{{ assignaturaId }}/proves/{{ prova.id }}" routerLinkActive="active">{{ prova.nom }}</a></td>
-										<td>{{ prova.data | date }}</td>
-										<td>
-											<div *ngIf="prova_avaluacio.pes_total == 1">
-												{{ prova.pes_total | percent:'0.0-1' }}
-											</div>
-											<div *ngIf="prova_avaluacio.pes_total != 1">
-												<span class="text-danger">{{ prova.pes_total | percent:'0.0-1' }}</span>
-											</div>
-										</td>
-										<td *ngIf="prova.nota_mitja">
-											<span class="float-right bold">
-												{{ prova.nota_mitja | number:'1.2-2'}}<span class="text-muted"><small> /{{ prova.nota_total}}</small></span>
-											</span>
-										</td>
-										<td *ngIf="!prova.nota_mitja">
-											<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
-										</td>
-									</tr>
-								</tbody>
-							</table> -->
-
-							<h3>Resultats</h3>
-
-							<div *ngFor="let classe of classes">
-
-								<div *ngIf="classe.alumne_classe.length>0">
-
-									<div *ngIf="alumnes" class="table-responsive">
-										<table class="table table-sm table-hover">
-											<thead>
-												<tr>
-													<th class="border-top-0">Classe {{ classe.nom }}</th>
-													<th class="border-top-0" *ngFor="let prova of proves">
-														<span class="float-right">
-															<!-- <span style="font-weight: 400;" class="float-right text-muted">{{ prova.pes_total | percent:'0.0-1' }}</span>
-															<br> -->
-															{{ prova.nom }} <span class="text-muted" style="font-weight: 400;"><small>({{ prova.pes_total | percent:'0.0-1' }})</small></span>
-														</span>
-													</th>
-													<th class="border-top-0">
-														<span class="float-right">
-															<div *ngIf="prova_avaluacio.pes_total == 1">
-																Total <span class="text-muted" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
-															</div>
-															<div *ngIf="prova_avaluacio.pes_total != 1">
-																<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
-																<span [tooltip]="popTemplate">
-																	Total <span class="text-danger" style="font-weight: 400;"><small>({{ prova_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
-																</span>
-															</div>
-														</span>
-													</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr *ngFor="let alumne of classe.alumne_classe">
-													<td>
-														<a 
-														routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">
-															{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}
-														</a>
-													</td>
-													<td *ngFor="let prova of proves">
-														<div *ngFor="let puntuacio of prova.notes_prova">
-															<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
-															<ng-template #thenBlock>
-																<div *ngIf="puntuacio.nota">
-																	<span class="float-right">
-																		{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ prova.nota_total}}</small></span>
-																	</span>
-																</div>
-															</ng-template>
-														</div>
-													</td>
-													<td>
-														<div *ngFor="let puntuacio of prova_avaluacio?.notes_prova">
-															<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
-															<ng-template #thenBlock>
-																<div *ngIf="puntuacio.nota">
-																	<span class="float-right bold">
-																		{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ prova_avaluacio.nota_total}}</small></span>
-																	</span>
-																</div>
-															</ng-template>
-														</div>
-													</td>
-												</tr>
-												<!-- <tr>
-													<td style="border-top: 2px solid #eceeef; color: #636c72">
-														Nota promig
-													</td>
-													<td 
-													style="border-top: 2px solid #eceeef"
-													*ngFor="let prova of proves">
-														<span class="float-right"
-														style="color: #636c72;">
-															{{ prova?.nota_mitja | number: '1.0-2' }}
-														</span>
-													</td>
-												</tr> -->
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div><!-- Proves - list -->
-
 
 					<!-- Dimensions - list -->
 					<div 
@@ -274,7 +102,7 @@
 					role="tabpanel" 
 					aria-labelledby="dimensions-tab">
 						
-						<div *ngIf="assignatura?.assignatura_avaluacions?.length>0">
+						<!-- <div *ngIf="assignatura?.assignatura_avaluacions?.length>0">
 							<div
 							*ngIf="dimensions?.length==0">
 								<div class="alert alert-warning text-center" role="alert" style="padding: 20px 20px;">
@@ -292,64 +120,122 @@
 										<span class="float-right badge badge-pill badge-secondary" style="border-radius: 30px; padding: 14px 8px; font-weight: 400;">{{ dimensio.pes_total | percent:'0.0-1' }}</span>
 										<h4 class="card-title" style="margin-top: 10px;">{{ dimensio.nom | words : 1}}</h4>
 										<p class="card-text"><small class="text-muted">{{ dimensio.descripcio | words : 1 }}</small></p>
-										<!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
-						<div 
-						*ngIf="dimensions?.length>0"
-						class="table-responsive">
+						<div *ngIf="dimensions?.length>0">
 
-							<!-- <table class="table table-sm table-hover">
-								<thead>
-									<tr>
-										<th class="border-top-0">Dimensió</th>
-										<th class="border-top-0">Descripció</th>
-										<th class="border-top-0">
-											<div *ngIf="prova_avaluacio.pes_total == 1">
-												Pes dimensió
+							<accordion>
+								<accordion-group *ngFor="let classe of classes" [heading]="classe.__unicode__">
+									<div class="row" style="padding: 0px 15px;">
+										<div class="col-3">
+											<!-- <dt>
+												<label class="form-label">Dimensions</label>
+											</dt> -->
+											<tabset [vertical]="true" type="pills">
+												<tab heading="Total"></tab>
+												<tab 
+												*ngFor="let dimensio of dimensions" 
+												[heading]="dimensio.nom"
+												[id]="dimensio.id"
+												(select)="onChangeDimensio($event)">
+												</tab>
+											</tabset>
+										</div>
+										<div class="col-9" style="padding-left:15px;">
+											<div *ngIf="dimensioSelected">
+												<h4 style="margin-top:0px;">{{dimensioSelected.nom}}</h4>
+													<!-- <div class="row row-fluid">
+														<div class="col-2" id="col_label">
+															Alumne
+														</div>
+														<div class="col-5" id="col_content">
+															<a (click)="toggle($event)">Hello</a>
+														</div>
+														<div *ngFor="let subdimensio of dimensioSelected?.subdimensions" class="col-2" id="col_content">
+															{{subdimensio.nom | words:2}}
+														</div>
+														<div class="col-5" id="col_total">
+															Total
+														</div>
+													</div> -->
+												<table *ngIf="dimensioSelected?.subdimensions?.length>0" class="table table-sm table-header-rotated table-hover table-striped-column">
+													<!-- class="table table-sm table-hover" -->
+													<thead>
+														<tr>
+															<th></th>
+															<th *ngFor="let subdimensio of dimensioSelected?.subdimensions" class="rotate-45">
+																<div>
+																	<span class="float-right">
+																		{{subdimensio.nom | words:3}}<!--  ({{subdimensio.pes_total | percent:'0.0-1'}}) -->
+																	</span>
+																</div>
+															</th>
+															<th></th>
+														</tr>
+														<tr>
+															<th>Alumne</th>
+															<th *ngFor="let subdimensio of dimensioSelected?.subdimensions">
+																<div>
+																	<span class="float-right">
+																		{{subdimensio.pes_total | percent:'0.0-1'}}
+																	</span>
+																</div>
+															</th>
+															<th>
+																<div>
+																	<span class="float-right">
+																		Total
+																	</span>
+																</div>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr *ngFor="let alumne of classe.alumne_classe">
+															<td style="width: 90%;">
+																<a routerLink="/alumnes/{{alumne.id}}" routerLinkActive="active">{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}</a>
+															</td>
+															<td style="width: 5%;" *ngFor="let subdimensio of dimensioSelected?.subdimensions">
+																<span *ngFor="let nota of subdimensio.notes">
+																	<span *ngIf="nota.alumne==alumne.id" class="float-right">
+																		{{ nota.nota | number:'0.1-1' }} <!-- <small class="text-muted">/{{subdimensio.nota_total}}</small> -->
+																	</span>
+																</span>
+															</td>
+															<td style="width: 5%;">
+																<span *ngFor="let nota of dimensioSelected?.notes">
+																	<span *ngIf="nota.alumne==alumne.id" class="float-right">
+																		<strong>{{ nota.nota | number:'0.1-1' }}</strong> <!-- <small class="text-muted">/{{dimensioSelected?.nota_total}}</small> -->
+																	</span>
+																</span>
+															</td>
+														</tr>
+														<tr>
+															<td style="width: 90%;"></td>
+															<td style="width: 5%;" *ngFor="let subdimensio of dimensioSelected?.subdimensions">
+																<span>
+																	<div class="text-muted float-right">/{{subdimensio.nota_total}}</div>
+																</span>
+															</td>
+															<td style="width: 5%;">
+																<span>
+																	<div class="text-muted float-right">/{{dimensioSelected?.nota_total}}</div>
+																</span>
+															</td>
+														</tr>
+													</tbody>
+												</table>
 											</div>
-											<div *ngIf="prova_avaluacio.pes_total != 1">
-												<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
-												<span [tooltip]="popTemplate">
-													Pes dimensió
-												</span>
-											</div>
-										</th>
-										<th class="border-top-0">
-											<span class="float-right">
-												Puntació mitja
-											</span>
-										</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr *ngFor="let dimensio of dimensions">
-										<td><a routerLink="/assignatures/{{ assignaturaId }}/proves/{{ dimensio.id }}" routerLinkActive="active">{{ dimensio.nom }}</a></td>
-										<td>{{ dimensio.descripcio }}</td>
-										<td>
-											<div *ngIf="prova_avaluacio.pes_total == 1">
-												{{ dimensio.pes_total | percent:'0.0-1' }}
-											</div>
-											<div *ngIf="prova_avaluacio.pes_total != 1">
-												<span class="text-danger">{{ dimensio.pes_total | percent:'0.0-1' }}</span>
-											</div>
-										</td>
-										<td *ngIf="dimensio.nota_mitja">
-											<span class="float-right bold">
-												{{ dimensio.nota_mitja | number:'1.2-2'}}<span class="text-muted"><small> /{{ dimensio.nota_total}}</small></span>
-											</span>
-										</td>
-										<td *ngIf="!dimensio.nota_mitja">
-											<span class="badge badge-warning float-right" style="padding-top: 6px; padding-bottom: 6px;">Pendent</span>
-										</td>
-									</tr>
-								</tbody>
-							</table> -->
+										</div>
+									</div>
+								</accordion-group>
+							</accordion>
 
-							<h3>Resultats</h3>
+
+							<!-- <h3>Resultats</h3>
 
 							<div *ngFor="let classe of classes">
 
@@ -362,8 +248,6 @@
 													<th class="border-top-0">Classe {{ classe.nom }}</th>
 													<th class="border-top-0" *ngFor="let dimensio of dimensions">
 														<span class="float-right">
-															<!-- <span style="font-weight: 400;" class="float-right text-muted">{{ dimensio.pes_total | percent:'0.0-1' }}</span>
-															<br> -->
 															{{ dimensio.nom }} <span class="text-muted" style="font-weight: 400;"><small>({{ dimensio.pes_total | percent:'0.0-1' }})</small></span>
 														</span>
 													</th>
@@ -415,24 +299,11 @@
 														</div>
 													</td>
 												</tr>
-												<!-- <tr>
-													<td style="border-top: 2px solid #eceeef; color: #636c72">
-														Nota promig
-													</td>
-													<td 
-													style="border-top: 2px solid #eceeef"
-													*ngFor="let prova of proves">
-														<span class="float-right"
-														style="color: #636c72;">
-															{{ prova?.nota_mitja | number: '1.0-2' }}
-														</span>
-													</td>
-												</tr> -->
 											</tbody>
 										</table>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div><!-- Dimensions - list -->
 
