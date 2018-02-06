@@ -79,9 +79,42 @@ class Nota(models.Model):
 		return str(self.nota)
 		# return "%s - %s" % (self.alumne.nom, self.nota)
 
-
 	def save(self, *args, **kwargs):
 		super(Nota, self).save(*args, **kwargs)
+
+	@classmethod
+	def create_notes_new_alumne(cls, sender, instance, created, **kwargs):
+
+		assignatures_qs = instance.assignatures.all()
+
+		# for each assignatura
+		for assignatura_obj in assignatures_qs:
+			avaluacio_qs = assignatura_obj.assignatura_avaluacions.all()
+			# for each avaluacui
+			for avaluacio_obj in avaluacio_qs:
+				dimensio_qs = avaluacio_obj.dimensions_avaluacio.all()
+				# for each dimensio
+				for dimensio_obj in dimensio_qs:
+
+					# check whether there is an actual Nota for this student
+					notes_qs = dimensio_obj.notes()
+					is_nota_alumne = False
+					for nota_obj in notes_qs:
+						if nota_obj.alumne == instance:
+							is_nota_alumne = True
+					# if there is none, create a new one
+					if is_nota_alumne == False:
+						print(dimensio_obj)
+						dimensio_content_type = ContentType.objects.get_for_model(dimensio_obj.__class__)
+						Nota.objects.create(
+							nota 			= 0,
+							content_type	= dimensio_content_type,
+							object_id 		= dimensio_obj.id,
+							alumne 			= instance,
+							)
+
+
+post_save.connect(receiver=Nota.create_notes_new_alumne, sender=Alumne)
 
 
 # post_save.connect(receiver=Prova.recalculate_params, sender=Nota)

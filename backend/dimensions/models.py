@@ -11,7 +11,6 @@ from assignatures.models import Avaluacio
 from proves.models import Prova, Nota
 
 
-
 # Create your models here.
 
 class DimensioManager(models.Manager):
@@ -75,28 +74,36 @@ class Dimensio(models.Model):
 		'''
 		dimensio_id 			= instance.id
 		dimensio_content_type 	= ContentType.objects.get_for_model(instance.__class__)
-		# dimensio_parent_obj		= instance.dimensio
 		avaluacio_obj 			= instance.avaluacio
-		# create the Total dimensio instance
-		# dimensio_avaluacio = Dimensio.objects.get_or_create(
-		# 	nom 		= '_Total',
-		# 	avaluacio 	= avaluacio_obj,
-		# 	dimensio 	= dimensio_parent_obj,
-		# 	pes_total	= 1,
-		# 	nota_total	= 10,
-		# 	)
 
 		# retrieve alumnes from avaluacio (assignatura)
 		qs_alumnes = Avaluacio.get_alumnes(avaluacio_obj)
 
 		for alumne_obj in qs_alumnes:
-			# Create notes for current dimensio
-			Nota.objects.get_or_create(
-				nota 			= 0,
-				content_type	= dimensio_content_type,
-				object_id 		= dimensio_id,
-				alumne 			= alumne_obj,
-			)
+			# # Create notes for current dimensio
+			# Nota.objects.get_or_create(
+			# 	nota 			= 0,
+			# 	content_type	= dimensio_content_type,
+			# 	object_id 		= dimensio_id,
+			# 	alumne 			= alumne_obj,
+			# )
+
+			# check whether there is an actual Nota for this student
+			notes_qs = instance.notes()
+			is_nota_alumne = False
+			for nota_obj in notes_qs:
+				if nota_obj.alumne == alumne_obj:
+					is_nota_alumne = True
+			# if there is none, create a new one
+			if is_nota_alumne == False:
+				dimensio_content_type = ContentType.objects.get_for_model(dimensio_obj.__class__)
+				Nota.objects.create(
+					nota 			= 0,
+					content_type	= dimensio_content_type,
+					object_id 		= dimensio_id,
+					alumne 			= alumne_obj,
+					)
+
 
 
 	@classmethod

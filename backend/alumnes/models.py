@@ -1,9 +1,9 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-
+from django.db.models.signals import post_save, post_delete
+from django.contrib.contenttypes.models import ContentType
 
 from assignatures.models import Assignatura
-# from classes.models import Classe
 
 # Create your models here.
 
@@ -38,15 +38,3 @@ class Alumne(models.Model):
 
 	# def __unicode__(self):
 	# 	return '%s %s %s' % (self.nom, self.primer_cognom, self.segon_cognom)
-
-
-
-# class Store(models.Model):
-#     name = CharField(max_length=30)
-#     product = models.ManyToManyField(Product)
-
-# class Product(models.Model):
-#     name = CharField(max_length=30)
-
-# stores_qs = Store.objects.filter(product__name='product_name')
-# products = Product.objects.filter(store_set__in=stores_qs)
