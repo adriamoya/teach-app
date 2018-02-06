@@ -17,6 +17,8 @@ import compareValues from '../../shared/compare-values';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import * as _ from "lodash";
+
 @Component({
   selector: 'app-assignatures-detail',
   templateUrl: './assignatures-detail.component.html',
@@ -47,6 +49,8 @@ export class AssignaturesDetailComponent implements OnDestroy {
 		public _router: Router,
 		public _cursos: CursosService,
 		public _assignatures: AssignaturesService) {
+
+
 		this.subRoute = this._route.params.subscribe(params => {
 			this.assignaturaId = params['id'];
 			this.subAssignatura = this._assignatures.get(this.assignaturaId)
@@ -90,14 +94,47 @@ export class AssignaturesDetailComponent implements OnDestroy {
 							let avaluacio = this.assignatura.assignatura_avaluacions
 
 							let dimensions = avaluacio[0].dimensions_avaluacio;
-
 							let dimensions_avaluacio: any[] = [];
 
+
+							// Dimensio Total Avaluacio
 							for (let dimensio of dimensions) {
-								if (dimensio.nom == "Total avaluacio") {
+								if (dimensio.nom == "Total") {
+
+									// deep copy of dimensio total to assign subdimensions to dimensions_avaluacio obj
+									// we want to have independence in terms of collapsing dimensions between the Total and other dimensions
+									let newDimensio= _.cloneDeep(dimensio);
+									if (newDimensio.subdimensions) {
+										for (let subdimensio of newDimensio.subdimensions) {
+											dimensions_avaluacio.push(subdimensio);
+										}
+									}
+
+									// create ordering in subdimensions of Total Avaluacio
 									this.dimensio_avaluacio = dimensio;
-								} else {
-									dimensions_avaluacio.push(dimensio);
+									this.dimensio_avaluacio.order = 1;
+									this.dimensio_avaluacio.toggle = true;
+									this.dimensio_avaluacio.collapsed = true;
+									this.i = 1;
+									if (this.dimensio_avaluacio.subdimensions) {
+										this.dimensio_avaluacio.subdimensions.sort(compareValues('id'))
+										for (let subdimensio of this.dimensio_avaluacio.subdimensions) {
+											if (subdimensio.subdimensions) {
+												subdimensio.subdimensions.sort(compareValues('id'))
+												for (let subsubdimensio of subdimensio.subdimensions) {
+													this.i = this.i + 1;
+													subsubdimensio.subdimensions = [];	// delete third level subdimensions in Total Avaluacio detail
+													subsubdimensio.order = this.i;
+													subsubdimensio.toggle = true;
+													subsubdimensio.collapsed = true;
+												}
+											}
+											this.i = this.i + 1;
+											subdimensio.order = this.i;
+											subdimensio.toggle = true;
+											subdimensio.collapsed = true;
+										} 
+									}
 								}
 							}
 							this.dimensions = dimensions_avaluacio;
@@ -105,7 +142,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 
 						// create ordering among sub and subsubdimensions
 						this.dimensions.sort(compareValues('id'));
-						this.i = 0;
+						this.i = 1;
 						for (let dimensio of this.dimensions){
 							if (dimensio.subdimensions) {
 								dimensio.subdimensions.sort(compareValues('id'))
@@ -131,12 +168,9 @@ export class AssignaturesDetailComponent implements OnDestroy {
 							dimensio.collapsed = true;
 						}
 
-
-						console.log(this.assignatura);
-						// console.log(this.proves);
-						console.log(this.dimensions);
-						// console.log(this.proves);
-						// console.log(this.alumnes);
+						// initiate chart with total avaluacio
+						this.dimensioSelected = this.dimensio_avaluacio;
+	
 					},
 					error => {
 						console.error('error')
@@ -145,13 +179,11 @@ export class AssignaturesDetailComponent implements OnDestroy {
 						this._router.navigate(['login'])
 					});
 		});
-	
 	};
 
 	clickDimensio(event) {
-		// console.log(event);
-		// console.log(event.target.id);
-		// console.log(this.dimensioSelected);
+		// When a dimensio is clicked, if it has subdimensions, they are added to or removed from the table
+
 		let subdimensioSelected = this.dimensioSelected.subdimensions.filter((subdimensio) => subdimensio.id == event.target.id)[0];
 
 		if (subdimensioSelected.collapsed == true) {
@@ -181,30 +213,19 @@ export class AssignaturesDetailComponent implements OnDestroy {
 
 	}
 
-
-	isCollapsed: boolean = false;
-
-	collapsed(event: any): void {
-		console.log(event);
-	}
-
-	expanded(event: any): void {
-		console.log(event);
-	}
-
-	toggle(event) {
-		console.log(event);
-		// $('#col_total').toggleClass('col-0 col-6');
-		// $('#col_content').toggleClass('col-10 col-6');
-	}
-
 	onChangeDimensio(event) {
-		let assignatura = this.dimensions.filter((dimensio) => dimensio.id == event.id)[0];
-		this.dimensioSelected = Object.assign({}, this.dimensioSelected , assignatura );
-		// this.dimensioSelected.subdimensions.sort(compareValues('id'));
-		// this.dimensioSelected = this.dimensions.filter((dimensio) => dimensio.id == event.id)[0];
-		console.log(this.dimensioSelected);
-		console.log(this.classes);
+		// When clicking in dimensions tabs
+		this.dimensioSelected = {};
+		if (event.heading == 'Total') {
+
+			this.dimensioSelected = this.dimensio_avaluacio;
+
+		} else {
+			let assignatura = this.dimensions.filter((dimensio) => dimensio.id == event.id)[0];
+			this.dimensioSelected = Object.assign({}, assignatura);
+			
+		}
+		// console.log(this.dimensioSelected);
 	}
 
 	onChangeAvaluacio(event) {
@@ -227,7 +248,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 			}
 		}
 		this.dimensions = dimensions_avaluacio;
-		console.log(this.dimensions);
+		// console.log(this.dimensions);
 
 	};
 

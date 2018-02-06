@@ -113,11 +113,14 @@
 												<label class="form-label">Dimensions</label>
 											</dt> -->
 											<tabset [vertical]="true" type="pills">
-												<tab heading="Total"></tab>
 												<tab 
 												*ngFor="let dimensio of dimensions" 
 												[heading]="dimensio.nom"
 												[id]="dimensio.id"
+												(select)="onChangeDimensio($event)">
+												</tab>
+												<tab 
+												heading="Total"
 												(select)="onChangeDimensio($event)">
 												</tab>
 											</tabset>
@@ -146,8 +149,8 @@
 																		<i style="font-size:14px;" class="material-icons" *ngIf="!subdimensio?.collapsed && subdimensio?.toggle" [id]="subdimensio?.id">
 																			remove_circle_outline
 																		</i>
-																		<strong *ngIf="subdimensio?.toggle" [id]="subdimensio?.id">{{subdimensio?.nom | words:3}}</strong>
-																		<strong *ngIf="!subdimensio?.toggle" [id]="subdimensio?.id" style="font-weight:400">{{subdimensio?.nom | words:3}}</strong>
+																		<strong *ngIf="subdimensio?.toggle" [id]="subdimensio?.id">{{subdimensio?.nom | words:4}}</strong>
+																		<strong *ngIf="!subdimensio?.toggle" [id]="subdimensio?.id" style="font-weight:400">{{subdimensio?.nom | words:4}}</strong>
 																		
 																	</span>
 																</div>
@@ -221,76 +224,6 @@
 								</accordion-group>
 							</accordion>
 
-
-							<!-- <h3>Resultats</h3>
-
-							<div *ngFor="let classe of classes">
-
-								<div *ngIf="classe.alumne_classe.length>0">
-
-									<div *ngIf="alumnes" class="table-responsive">
-										<table class="table table-sm table-hover">
-											<thead>
-												<tr>
-													<th class="border-top-0">Classe {{ classe.nom }}</th>
-													<th class="border-top-0" *ngFor="let dimensio of dimensions">
-														<span class="float-right">
-															{{ dimensio.nom }} <span class="text-muted" style="font-weight: 400;"><small>({{ dimensio.pes_total | percent:'0.0-1' }})</small></span>
-														</span>
-													</th>
-													<th class="border-top-0">
-														<span class="float-right">
-															<div *ngIf="dimensio_avaluacio.pes_total == 1">
-																Total <span class="text-muted" style="font-weight: 400;"><small>({{ dimensio_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
-															</div>
-															<div *ngIf="dimensio_avaluacio.pes_total != 1">
-																<ng-template #popTemplate><div [innerHtml]="html"> </div></ng-template>
-																<span [tooltip]="popTemplate">
-																	Total <span class="text-danger" style="font-weight: 400;"><small>({{ dimensio_avaluacio.pes_total | percent:'0.0-1' }})</small></span>
-																</span>
-															</div>
-														</span>
-													</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr *ngFor="let alumne of classe.alumne_classe">
-													<td>
-														<a 
-														routerLink="/alumnes/{{ alumne.id }}" routerLinkActive="active">
-															{{ alumne.nom }} {{ alumne.primer_cognom }} {{ alumne.segon_cognom }}
-														</a>
-													</td>
-													<td *ngFor="let dimensio of dimensions">
-														<div *ngFor="let puntuacio of dimensio.notes_dimensio">
-															<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
-															<ng-template #thenBlock>
-																<div *ngIf="puntuacio.nota">
-																	<span class="float-right">
-																		{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ dimensio.nota_total}}</small></span>
-																	</span>
-																</div>
-															</ng-template>
-														</div>
-													</td>
-													<td>
-														<div *ngFor="let puntuacio of dimensio_avaluacio?.notes_dimensio">
-															<div *ngIf="puntuacio.alumne == alumne.id; then thenBlock else elseBlock">...</div>
-															<ng-template #thenBlock>
-																<div *ngIf="puntuacio.nota">
-																	<span class="float-right bold">
-																		{{ puntuacio.nota | number:'0.2-2' }}<span class="text-muted"><small> /{{ dimensio_avaluacio.nota_total}}</small></span>
-																	</span>
-																</div>
-															</ng-template>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div> -->
 						</div>
 					</div><!-- Dimensions - list -->
 
