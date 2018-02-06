@@ -42,6 +42,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	private dimensioSelected: any = {};
 	private alumnes: any[];
 
+	private oneAtATime: boolean = true;
 	private html: string = `<span>El conjunt de les proves d'aquesta avaluació <strong>no</strong> suma 100%</span>`;
 
 	constructor(
@@ -84,6 +85,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 											}
 										}
 									}
+									classes[0].open=true;
 									this.classes = classes;
 								}
 							)

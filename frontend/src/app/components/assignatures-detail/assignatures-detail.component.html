@@ -83,7 +83,7 @@
 				<!-- Pills -->
 				<ul class="nav nav-pills" id="myTab" role="tablist">
 					<li class="nav-item">
-						<a class="nav-link" id="dimensions-tab" data-toggle="tab" href="#dimensions" role="tab" aria-controls="dimensions" aria-selected="false">Dimensions</a>
+						<a class="nav-link active" id="dimensions-tab" data-toggle="tab" href="#dimensions" role="tab" aria-controls="dimensions" aria-selected="false">Dimensions</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="professors-tab" data-toggle="tab" href="#professors" role="tab" aria-controls="professors" aria-selected="false">Professors</a>
@@ -97,7 +97,7 @@
 
 					<!-- Dimensions - list -->
 					<div 
-					class="tab-pane fade" 
+					class="tab-pane fade show active" 
 					id="dimensions" 
 					role="tabpanel" 
 					aria-labelledby="dimensions-tab">
@@ -105,8 +105,8 @@
 
 						<div *ngIf="dimensions?.length>0">
 
-							<accordion>
-								<accordion-group *ngFor="let classe of classes" [heading]="classe.__unicode__">
+							<accordion [closeOthers]="oneAtATime">
+								<accordion-group *ngFor="let classe of classes" [heading]="classe.__unicode__" [isOpen]="classe?.open">
 									<div class="row"> <!-- style="padding: 0px 15px;" -->
 										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
 											<!-- <dt>
@@ -127,7 +127,7 @@
 										</div>
 										<br>
 										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
-											<div *ngIf="dimensioSelected">
+											<div *ngIf="dimensioSelected" style="margin-top: 15px;">
 												<h4 style="margin-top:0px;">{{dimensioSelected.nom}}</h4>
 
 												<table style="font-size: 14px;" *ngIf="dimensioSelected?.subdimensions?.length>0" class="table table-sm table-header-rotated table-hover">
@@ -186,10 +186,14 @@
 															<td style="width: 5%;" *ngFor="let subdimensio of dimensioSelected?.subdimensions" [ngStyle]="{'background-color':subdimensio?.toggle ? '#eceeef' : 'white'}">
 																<span *ngFor="let nota of subdimensio.notes">
 																	<span *ngIf="nota.alumne==alumne.id" class="float-right">
-																		<span *ngIf="subdimensio?.toggle">
+																		<span 
+																		[ngStyle]="{'color':nota?.nota < subdimensio?.nota_total/2 ? 'red' : 'black'}"
+																		*ngIf="subdimensio?.toggle">
 																			<strong>{{ nota.nota | number:'0.1-1' }}</strong>
 																		</span>
-																		<span *ngIf="!subdimensio?.toggle">
+																		<span 
+																		[ngStyle]="{'color':nota?.nota < subdimensio?.nota_total/2 ? 'red' : 'black'}"
+																		*ngIf="!subdimensio?.toggle">
 																			{{ nota.nota | number:'0.1-1' }}
 																		</span>
 																	</span>
@@ -197,7 +201,8 @@
 															</td>
 															<td style="width: 5%;">
 																<span *ngFor="let nota of dimensioSelected?.notes">
-																	<span *ngIf="nota.alumne==alumne.id" class="float-right">
+																	<span *ngIf="nota.alumne==alumne.id" class="float-right"
+																	[ngStyle]="{'color':nota?.nota < dimensioSelected?.nota_total/2 ? 'red' : 'black'}">
 																		<strong>{{ nota.nota | number:'0.1-1' }}</strong> <!-- <small class="text-muted">/{{dimensioSelected?.nota_total}}</small> -->
 																	</span>
 																</span>
