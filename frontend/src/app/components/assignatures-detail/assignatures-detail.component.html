@@ -83,6 +83,9 @@
 				<!-- Pills -->
 				<ul class="nav nav-pills" id="myTab" role="tablist">
 					<li class="nav-item">
+						<a class="nav-link" id="dimensions-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Informació</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link active" id="dimensions-tab" data-toggle="tab" href="#dimensions" role="tab" aria-controls="dimensions" aria-selected="false">Dimensions</a>
 					</li>
 					<li class="nav-item">
@@ -94,12 +97,49 @@
 
 				<div style="margin-top: 20px;" class="tab-content" id="myTabContent">
 
+					<!-- Dimensions - list -->
+					<div 
+					class="tab-pane fade" 
+					id="info" 
+					role="tabpanel" 
+					aria-labelledby="info-tab">
+
+						<table class="table table-sm table-hover">
+							<thead>
+								<tr>
+									<th>Dimensió</th>
+									<th><span class="float-right">Nota</span></th>
+									<th><span class="float-right">Pes</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let dimensio of dimensions_list">
+									<td [ngStyle]="{'font-weight':dimensio?.level === 1 ? '600' : '400'}">
+										<span [ngStyle]="{'color':dimensio?.level === 3 ? '#636c72' : 'black', 'margin-left':dimensio?.level === 3 ? '10px' : '0px'}">
+											{{dimensio.nom}}
+										</span>
+									</td>
+									<td [ngStyle]="{'font-weight':dimensio?.level === 1 ? '600' : '400'}">
+										<span class="float-right" [ngStyle]="{'color':dimensio?.level === 3 ? '#636c72' : 'black'}">
+											/{{dimensio.nota_total | number:'0.0-0'}}
+										</span>
+									</td>
+									<td [ngStyle]="{'font-weight':dimensio?.level === 1 ? '600' : '400'}">
+										<span class="float-right" [ngStyle]="{'color':dimensio?.level === 3 ? '#636c72' : 'black'}">
+											{{dimensio.pes_total | percent:'0.1-1'}}
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
 
 					<!-- Dimensions - list -->
 					<div 
 					class="tab-pane fade show active" 
 					id="dimensions" 
-					role="tabpanel" 
+					role="tabpanel"
 					aria-labelledby="dimensions-tab">
 						
 

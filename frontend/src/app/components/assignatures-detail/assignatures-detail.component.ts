@@ -38,6 +38,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 	private curs: Curs;
 	private classes: any[];
 	private dimensions: any[]=[];
+	private dimensions_list: any[]=[];
 	private dimensio_avaluacio: any = {};
 	private dimensioSelected: any = {};
 	private alumnes: any[];
@@ -140,7 +141,7 @@ export class AssignaturesDetailComponent implements OnDestroy {
 								}
 							}
 							this.dimensions = dimensions_avaluacio;
-						}
+						};
 
 						// create ordering among sub and subsubdimensions
 						this.dimensions.sort(compareValues('id'));
@@ -168,7 +169,30 @@ export class AssignaturesDetailComponent implements OnDestroy {
 							dimensio.order = this.i;
 							dimensio.toggle = true;
 							dimensio.collapsed = true;
+						};
+
+						// create a list with all dimensions and subdimensions (info table)
+						for (let dimensio of this.dimensions) {
+							dimensio.level = 1;
+							this.dimensions_list.push(dimensio);
+							if (dimensio.subdimensions) {
+								for (let subdimensio of dimensio.subdimensions) {
+									subdimensio.level = 2;
+									this.dimensions_list.push(subdimensio);
+									if (subdimensio.subdimensions) {
+										for (let subsubdimensio of subdimensio.subdimensions) {
+											subsubdimensio.level = 3;
+											this.dimensions_list.push(subsubdimensio);
+										}
+									}
+								}
+							}
 						}
+
+						this.dimensio_avaluacio.level = 1;
+						this.dimensions_list.push(this.dimensio_avaluacio);
+
+						console.log(this.dimensions_list);
 
 						// initiate chart with total avaluacio
 						this.dimensioSelected = this.dimensio_avaluacio;
