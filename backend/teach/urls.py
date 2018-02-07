@@ -2,6 +2,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic.base import TemplateView
 
+
+import settings
 from .views import api_root
 
 urlpatterns = [
@@ -18,3 +20,10 @@ urlpatterns = [
     url(r'^api/auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^.*', TemplateView.as_view(template_name='ang_home.html'), name='home'), #catch-all url
 ]
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
